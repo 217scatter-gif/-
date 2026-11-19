@@ -226,5 +226,138 @@ padding:18px;
 إدارة عصام - جميع الحقوق محفوظة
 </footer>
 
-</body>
+<style>
+.cart-box{
+position:fixed;
+bottom:15px;
+left:15px;
+right:15px;
+background:white;
+padding:18px;
+border-radius:15px;
+box-shadow:0 0 15px #777;
+z-index:9999;
+display:none;
+}
+.cart-btn{
+background:#198754;
+color:white;
+border:0;
+padding:12px;
+border-radius:10px;
+width:100%;
+margin-top:10px;
+font-size:17px;
+}
+.cart-float{
+position:fixed;
+bottom:20px;
+right:20px;
+background:#102b46;
+color:white;
+padding:15px 20px;
+border-radius:30px;
+z-index:9998;
+border:0;
+font-size:16px;
+}
+</style>
+
+<button class="cart-float" onclick="showCart()">
+🛒 سلة المشتريات (<span id="cartCount">0</span>)
+</button>
+
+<div class="cart-box" id="cartBox">
+<h3>🛒 سلة مشترياتك</h3>
+<div id="cartItems"></div>
+<h4>راجع المنتجات قبل إرسال الطلب</h4>
+<button class="cart-btn" onclick="sendOrder()">
+إرسال الطلب عبر واتساب
+</button>
+<button class="cart-btn" style="background:#dc3545"
+onclick="closeCart()">إغلاق السلة</button>
+</div>
+
+<script>
+let cart=[];
+
+document.querySelectorAll('#products .card').forEach(card=>{
+let name=card.querySelector('h3').innerText;
+
+let old=card.querySelector('a.btn');
+if(old) old.style.display='none';
+
+let btn=document.createElement('button');
+btn.className='cart-btn';
+btn.innerText='🛒 أضف إلى السلة';
+
+btn.onclick=function(){
+let item=cart.find(x=>x.name===name);
+
+if(item){
+item.qty++;
+}else{
+cart.push({name:name,qty:1});
+}
+
+updateCart();
+alert('تمت إضافة المنتج إلى السلة');
+};
+
+card.appendChild(btn);
+});
+
+function updateCart(){
+let count=cart.reduce((s,x)=>s+x.qty,0);
+document.getElementById('cartCount').innerText=count;
+
+let html='';
+
+cart.forEach((item,i)=>{
+html+=`
+<p>
+${item.name} 
+× ${item.qty}
+<button onclick="removeItem(${i})">❌</button>
+</p>`;
+});
+
+document.getElementById('cartItems').innerHTML=
+html || 'السلة فارغة';
+}
+
+function removeItem(i){
+cart.splice(i,1);
+updateCart();
+}
+
+function showCart(){
+document.getElementById('cartBox').style.display='block';
+}
+
+function closeCart(){
+document.getElementById('cartBox').style.display='none';
+}
+
+function sendOrder(){
+if(cart.length===0){
+alert('السلة فارغة');
+return;
+}
+
+let message='السلام عليكم، أريد طلب المنتجات التالية:\n\n';
+
+cart.forEach(item=>{
+message+=item.name+' - العدد: '+item.qty+'\n';
+});
+
+message+='\nالرجاء تأكيد الطلب والتوصيل.';
+
+window.open(
+'https://wa.me/249114823421?text='+
+encodeURIComponent(message),
+'_blank'
+);
+}
+  </script> </body>
 </html>
