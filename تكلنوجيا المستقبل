@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>تكنولوجيا المستقبل | المتجر الرسمي</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+margin:0;
+font-family:Arial,Tahoma,sans-serif;
+background:#f3f6fa;
+color:#172b40;
+line-height:1.8;
+}
+header{
+background:#102b46;
+color:white;
+padding:22px;
+text-align:center;
+}
+header h1{
+color:#e6b54a;
+margin:0;
+font-size:30px;
+}
+nav{
+background:#183e5c;
+padding:13px;
+text-align:center;
+}
+nav a{
+color:white;
+text-decoration:none;
+margin:10px;
+font-weight:bold;
+}
+.hero{
+background:linear-gradient(135deg,#102b46,#245b80);
+color:white;
+text-align:center;
+padding:65px 20px;
+}
+.hero h2{
+font-size:32px;
+color:#f2c15b;
+}
+.btn{
+display:inline-block;
+background:#e6b54a;
+color:#102b46;
+padding:12px 25px;
+border-radius:8px;
+text-decoration:none;
+font-weight:bold;
+margin:10px;
+}
+section{
+padding:35px 18px;
+text-align:center;
+}
+.title{
+color:#173d5c;
+font-size:27px;
+}
+.cards{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:18px;
+max-width:1000px;
+margin:auto;
+}
+.card{
+background:white;
+padding:25px;
+border-radius:13px;
+box-shadow:0 4px 15px #00000012;
+}
+.card h3{
+color:#17486d;
+}
+.manager{
+background:#e5edf5;
+padding:25px;
+text-align:center;
+}
+.contact{
+background:#102b46;
+color:white;
+padding:40px 15px;
+text-align:center;
+}
+.contact h2{color:#f2c15b}
+.contact .btn{
+background:#25d366;
+color:white;
+}
+footer{
+background:#081c2e;
+color:white;
+text-align:center;
+padding:18px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>تكنولوجيا المستقبل</h1>
+<p>متجرك الموثوق للبيع والشراء والوساطة</p>
+</header>
+
+<nav>
+<a href="#about">من نحن</a>
+<a href="#services">خدماتنا</a>
+<a href="#location">موقعنا</a>
+<a href="#contact">اتصل بنا</a>
+</nav>
+
+<div class="hero">
+<h2>مرحباً بكم في تكنولوجيا المستقبل</h2>
+<p>نحو مستقبل أفضل في عالم التجارة والتسوق</p>
+<p>خدمات البيع والشراء والوساطة والتوصيل</p>
+<a class="btn" href="https://wa.me/249114823421">
+تواصل معنا الآن
+</a>
+</div>
+
+<section id="about">
+<h2 class="title">من نحن</h2>
+<div class="card">
+<p>
+تكنولوجيا المستقبل متجر تجاري يقدم خدمات البيع
+والشراء والوساطة، ويسعى إلى تقديم تجربة تعامل
+مميزة وخدمة موثوقة للعملاء في السودان.
+</p>
+</div>
+</section>
+
+<section id="services">
+<h2 class="title">خدماتنا</h2>
+
+<div class="cards">
+
+<div class="card">
+<h3>🛒 البيع والشراء</h3>
+<p>خدمات البيع والشراء والاستفسار عن المنتجات.</p>
+</div>
+
+<div class="card">
+<h3>🤝 الوساطة</h3>
+<p>تسهيل عمليات البيع والشراء بين العملاء.</p>
+</div>
+
+<div class="card">
+<h3>🚚 التوصيل</h3>
+<p>التوصيل إلى جميع ولايات السودان.</p>
+</div>
+
+</div>
+</section>
+
+<section id="location">
+<h2 class="title">موقعنا</h2>
+<div class="card">
+<p>📍 الفرع: كسلا - السودان</p>
+<p>التوصيل متاح لجميع ولايات السودان.</p>
+</div>
+</section>
+
+<div class="manager">
+<h2>إدارة المتجر</h2>
+<h3>المدير المسؤول: عصام</h3>
+<p>نرحب بجميع عملائنا ونسعد بخدمتكم.</p>
+</div>
+
+<div class="contact" id="contact">
+<h2>تواصل معنا</h2>
+<p>للطلبات والاستفسارات راسلنا مباشرة.</p>
+<p>+249114823421</p>
+
+<a class="btn" href="https://wa.me/249114823421">
+واتساب المتجر
+</a>
+</div>
+
+<footer>
+© 2026 تكنولوجيا المستقبل
+<br>
+إدارة عصام - جميع الحقوق محفوظة
+</footer>
+
+</body>
+</html>
