@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#ffffff">
+<title>شيأن السودان | SHEIN SUDAN</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,Tahoma,sans-serif;color:#222;background:#fff;padding-bottom:65px}
+button,input,select,textarea{font-family:inherit}
+button{cursor:pointer}
+:root{--pink:#ff3159;--black:#171717;--gray:#777;--border:#eee}
+
+header{position:sticky;top:0;background:white;z-index:50;border-bottom:1px solid var(--border)}
+.top{height:65px;display:flex;align-items:center;justify-content:space-between;padding:0 15px}
+.logo{font-size:25px;font-weight:900}
+.logo span{color:var(--pink)}
+.icons{display:flex;gap:20px;font-size:23px}
+.icons button{background:none;border:0;font-size:23px;position:relative}
+.badge{position:absolute;top:-7px;right:-8px;background:var(--pink);color:white;border-radius:50%;font-size:10px;padding:3px 6px}
+.search{padding:0 15px 12px}
+.search input{width:100%;padding:13px;border:0;background:#f3f3f3;outline:none}
+nav{display:flex;overflow-x:auto;gap:22px;padding:13px 15px;white-space:nowrap}
+nav button{border:0;background:none}
+nav button.active{color:var(--pink);font-weight:bold}
+
+.hero{min-height:280px;background:linear-gradient(#0005,#0009),url('https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1200') center/cover;display:flex;align-items:center;padding:30px;color:white}
+.hero h1{font-size:36px;margin:15px 0}
+.hero p{line-height:1.8;margin-bottom:20px}
+.hero button{padding:13px 30px;border:0;background:white;font-weight:bold}
+
+.section{padding:25px 15px}
+.heading{display:flex;justify-content:space-between;margin-bottom:18px}
+.categories{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.category{height:130px;position:relative;cursor:pointer}
+.category img{width:100%;height:100%;object-fit:cover}
+.category p{position:absolute;bottom:0;right:0;left:0;text-align:center;background:#0009;color:white;padding:10px}
+
+.promo{margin:10px 15px;padding:25px;background:#f7e9ec;text-align:center}
+.promo h2{margin-bottom:10px}
+
+.products{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.product{position:relative;border:1px solid #eee;min-width:0}
+.product img{width:100%;height:220px;object-fit:cover;cursor:pointer}
+.product-info{padding:9px}
+.product h3{font-size:13px;height:35px;overflow:hidden}
+.price{color:var(--pink);font-weight:bold;margin:8px 0}
+.old{color:#999;text-decoration:line-through;font-size:11px;margin-right:5px}
+.product-actions{display:flex;align-items:center;gap:8px}
+.add{flex:1;background:#171717;color:white;border:0;padding:10px;font-size:12px}
+.heart{border:0;background:white;font-size:22px}
+.discount{position:absolute;top:8px;right:8px;background:var(--pink);color:white;padding:5px;font-size:11px}
+
+footer{background:#171717;color:white;text-align:center;padding:35px 15px;margin-top:30px}
+footer p{color:#bbb;font-size:12px;margin-top:12px;line-height:1.8}
+.admin-link{background:none;border:0;color:#999;font-size:11px;margin-top:20px}
+
+.bottom{position:fixed;bottom:0;right:0;left:0;height:62px;background:white;border-top:1px solid #eee;display:flex;justify-content:space-around;align-items:center;z-index:60}
+.bottom button{border:0;background:none;font-size:11px;display:flex;flex-direction:column;align-items:center;gap:4px}
+.bottom b{font-size:21px}
+
+.overlay{display:none;position:fixed;inset:0;background:#0008;z-index:100}
+.drawer{position:fixed;top:0;right:0;width:90%;max-width:430px;height:100%;background:white;z-index:101;padding:18px;transform:translateX(110%);transition:.3s;overflow-y:auto}
+.drawer.open{transform:translateX(0)}
+.drawer-head{display:flex;justify-content:space-between;border-bottom:1px solid #eee;padding-bottom:15px}
+.close{border:0;background:none;font-size:26px}
+.cart-item{display:flex;gap:12px;padding:15px 0;border-bottom:1px solid #eee}
+.cart-item img{width:80px;height:90px;object-fit:cover}
+.cart-item button{padding:5px 10px}
+.cart-total{padding:20px 0;font-weight:bold;font-size:18px}
+.primary{width:100%;padding:14px;background:var(--pink);color:white;border:0;font-weight:bold}
+.modal{display:none;position:fixed;inset:0;background:white;z-index:150;overflow-y:auto}
+.modal-head{display:flex;justify-content:space-between;padding:15px;border-bottom:1px solid #eee}
+.detail{max-width:600px;margin:auto;padding:15px}
+.detail img{width:100%;height:350px;object-fit:contain}
+.detail h2{margin:15px 0}
+.options{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.option{padding:10px 15px;background:white;border:1px solid #ddd}
+.option.selected{border:2px solid black}
+.form{padding:20px;max-width:600px;margin:auto}
+.form input,.form select,.form textarea{width:100%;padding:13px;border:1px solid #ddd;margin:7px 0 15px;outline:none}
+.form label{font-size:13px;font-weight:bold}
+.empty{text-align:center;padding:40px;color:#777;grid-column:1/-1}
+
+/* ADMIN */
+
+#adminPanel{display:none;position:fixed;inset:0;background:#f5f5f5;z-index:300;overflow-y:auto}
+.admin-header{background:#171717;color:white;padding:18px;display:flex;justify-content:space-between;align-items:center}
+.admin-container{max-width:950px;margin:auto;padding:18px}
+.admin-card{background:white;padding:18px;margin-bottom:15px;border-radius:7px;box-shadow:0 2px 8px #00008}
+.admin-card h3{margin-bottom:15px}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.stat{background:#fff;padding:20px;border-radius:7px;text-align:center}
+.stat strong{display:block;font-size:25px;color:var(--pink);margin-top:8px}
+.admin-form input,.admin-form select,.admin-form textarea{width:100%;padding:12px;border:1px solid #ddd;margin:7px 0 12px}
+.admin-form label{font-size:13px;font-weight:bold}
+.admin-btn{padding:12px 17px;border:0;background:#171717;color:white;margin:4px}
+.delete{background:#d92342}
+.edit{background:#2467c9}
+.admin-product{display:flex;gap:12px;align-items:center;border-bottom:1px solid #eee;padding:12px 0}
+.admin-product img{width:65px;height:75px;object-fit:cover}
+.admin-product-info{flex:1;font-size:13px;line-height:1.8}
+.login-box{max-width:400px;margin:100px auto;background:white;padding:25px;border-radius:8px}
+.login-box input{width:100%;padding:14px;margin:15px 0;border:1px solid #ddd}
+
+@media(min-width:700px){
+.products{grid-template-columns:repeat(4,1fr);gap:20px}
+.product img{height:300px}
+.categories{grid-template-columns:repeat(6,1fr)}
+.category{height:180px}
+.hero{min-height:390px;padding:60px}
+.hero h1{font-size:55px}
+.section{padding:35px 5%}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<div class="top">
+<div class="logo">SHEIN <span>SUDAN</span></div>
+<div class="icons">
+<button onclick="showFavorites()">♡</button>
+<button onclick="openCart()">🛍️<span class="badge" id="cartCount">0</span></button>
+</div>
+</div>
+
+<div class="search">
+<input id="search" placeholder="ابحث عن المنتجات..." oninput="renderProducts()">
+</div>
+<nav id="nav"></nav>
+</header>
+
+<section class="hero">
+<div>
+<small>SHEIN SUDAN COLLECTION</small>
+<h1>أناقتك تبدأ من هنا</h1>
+<p>اكتشف أحدث صيحات الموضة والتصاميم العصرية.</p>
+<button onclick="document.getElementById('shop').scrollIntoView()">تسوق الآن ←</button>
+</div>
+</section>
+
+<section class="section">
+<div class="heading"><h2>تسوق حسب القسم</h2></div>
+<div class="categories" id="categories"></div>
+</section>
+
+<div class="promo">
+<h2>✨ عروض شيأن السودان</h2>
+<p>اكتشف أحدث المنتجات والعروض المميزة</p>
+</div>
+
+<section class="section" id="shop">
+<div class="heading">
+<h2 id="title">أحدث المنتجات</h2>
+<span id="count"></span>
+</div>
+
+<select id="sort" onchange="renderProducts()" style="padding:10px;margin-bottom:15px">
+<option value="new">الأحدث</option>
+<option value="low">السعر الأقل</option>
+<option value="high">السعر الأعلى</option>
+</select>
+
+<div class="products" id="products"></div>
+</section>
+
+<footer>
+<h2>SHEIN SUDAN</h2>
+<p>وجهتك للأناقة والموضة في السودان</p>
+<p>إدارة وتصميم عصام «الباشاوي»</p>
+<p>جميع الحقوق محفوظة © 2026</p>
+<button class="admin-link" onclick="openAdminLogin()">إدارة المتجر</button>
+</footer>
+
+<div class="bottom">
+<button onclick="resetShop()"><b>⌂</b>الرئيسية</button>
+<button onclick="showFavorites()"><b>♡</b>المفضلة</button>
+<button onclick="openCart()"><b>🛍</b>السلة</button>
+<button onclick="window.scrollTo({top:0,behavior:'smooth'})"><b>↑</b>الأعلى</button>
+</div>
+
+<div class="overlay" id="overlay" onclick="closeCart()"></div>
+
+<div class="drawer" id="drawer">
+<div class="drawer-head">
+<h2>سلة التسوق</h2>
+<button class="close" onclick="closeCart()">×</button>
+</div>
+<div id="cartItems"></div>
+<div class="cart-total">الإجمالي: <span id="total">0</span> ج.س</div>
+<button class="primary" onclick="openCheckout()">إتمام الطلب عبر واتساب</button>
+</div>
+
+<div class="modal" id="details">
+<div class="modal-head">
+<h3>تفاصيل المنتج</h3>
+<button class="close" onclick="closeDetails()">×</button>
+</div>
+<div class="detail" id="detailContent"></div>
+</div>
+
+<div class="modal" id="checkout">
+<div class="modal-head">
+<h3>بيانات الطلب</h3>
+<button class="close" onclick="closeCheckout()">×</button>
+</div>
+<div class="form">
+<label>الاسم الكامل</label>
+<input id="customerName" placeholder="اسمك">
+<label>رقم الهاتف</label>
+<input id="customerPhone" placeholder="رقم الهاتف">
+<label>المدينة والولاية</label>
+<input id="city" placeholder="المدينة">
+<label>العنوان</label>
+<textarea id="address" placeholder="عنوان التوصيل"></textarea>
+<button class="primary" onclick="sendOrder()">تأكيد الطلب عبر واتساب</button>
+</div>
+</div>
+
+<!-- ADMIN PANEL -->
+
+<div id="adminPanel">
+
+<div class="admin-header">
+<h2>لوحة إدارة SHEIN SUDAN</h2>
+<button class="close" style="color:white" onclick="closeAdmin()">×</button>
+</div>
+
+<div class="admin-container">
+
+<div class="stats">
+<div class="stat">إجمالي المنتجات<strong id="adminCount">0</strong></div>
+<div class="stat">المنتجات المعروضة<strong id="visibleCount">0</strong></div>
+</div>
+
+<div class="admin-card">
+<h3 id="formTitle">➕ إضافة منتج جديد</h3>
+
+<form class="admin-form" id="productForm" onsubmit="saveProduct(event)">
+
+<input type="hidden" id="editId">
+
+<label>اسم المنتج</label>
+<input id="pName" required placeholder="اسم المنتج">
+
+<label>القسم</label>
+<select id="pCategory">
+<option>نساء</option>
+<option>رجال</option>
+<option>أطفال</option>
+<option>أحذية</option>
+<option>حقائب</option>
+<option>إكسسوارات</option>
+</select>
+
+<label>السعر الحالي بالجنيه السوداني</label>
+<input type="number" id="pPrice" min="0" required>
+
+<label>السعر القديم</label>
+<input type="number" id="pOld" min="0" required>
+
+<label>رابط صورة المنتج</label>
+<input id="pImage" placeholder="https://example.com/image.jpg">
+
+<label>أو اختر صورة من جهازك</label>
+<input type="file" id="pFile" accept="image/*">
+
+<label>المقاسات (افصل بينها بفاصلة)</label>
+<input id="pSizes" placeholder="S,M,L,XL">
+
+<label>الألوان (افصل بينها بفاصلة)</label>
+<input id="pColors" placeholder="أسود,أبيض,أحمر">
+
+<button class="admin-btn" type="submit">حفظ المنتج</button>
+<button class="admin-btn" type="button" onclick="resetForm()">إلغاء التعديل</button>
+
+</form>
+</div>
+
+<div class="admin-card">
+<h3>📦 إدارة المنتجات</h3>
+<div id="adminProducts"></div>
+</div>
+
+<div class="admin-card">
+<h3>⚙️ إعدادات المتجر</h3>
+
+<label>رقم واتساب الطلبات</label>
+<input id="adminPhone" placeholder="249114823421">
+
+<button class="admin-btn" onclick="saveSettings()">حفظ رقم واتساب</button>
+
+<p style="font-size:12px;color:#777;margin-top:12px">
+إدارة وتصميم عصام «الباشاوي»
+</p>
+
+</div>
+
+</div>
+</div>
+
+<div class="modal" id="loginModal">
+<div class="modal-head">
+<h3>دخول الإدارة</h3>
+<button class="close" onclick="closeLogin()">×</button>
+</div>
+<div class="login-box">
+<h2>🔐 لوحة الإدارة</h2>
+<p>أدخل كلمة مرور الإدارة</p>
+<input type="password" id="adminPassword" placeholder="كلمة المرور">
+<button class="primary" onclick="loginAdmin()">دخول</button>
+</div>
+</div>
+
+<script>
+
+/* إعدادات أساسية */
+
+const ADMIN_PASSWORD="Bashawi@2026";
+const DEFAULT_PHONE="249114823421";
+
+let phone=localStorage.getItem("shein_phone")||DEFAULT_PHONE;
+
+const CATEGORIES=["نساء","رجال","أطفال","أحذية","حقائب","إكسسوارات"];
+
+const demoProducts=[
+{id:1,name:"فستان نسائي أنيق",category:"نساء",price:35000,old:45000,image:"https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=700",sizes:["S","M","L","XL"],colors:["أسود","أبيض","وردي"],visible:true},
+{id:2,name:"قميص رجالي عصري",category:"رجال",price:28000,old:35000,image:"https://images.unsplash.com/photo-1598033129183-c4f50c736f10?w=700",sizes:["M","L","XL"],colors:["أسود","أبيض"],visible:true},
+{id:3,name:"حذاء رياضي",category:"أحذية",price:42000,old:55000,image:"https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=700",sizes:["39","40","41","42"],colors:["أحمر","أسود"],visible:true},
+{id:4,name:"حقيبة نسائية",category:"حقائب",price:30000,old:40000,image:"https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=700",sizes:["مقاس واحد"],colors:["أسود","بني"],visible:true},
+{id:5,name:"ملابس أطفال",category:"أطفال",price:18000,old:25000,image:"https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?w=700",sizes:["2Y","4Y","6Y"],colors:["أبيض","أزرق"],visible:true},
+{id:6,name:"ساعة أنيقة",category:"إكسسوارات",price:25000,old:32000,image:"https://images.unsplash.com/photo-1524592094714-0f0654e20314?w=700",sizes:["مقاس واحد"],colors:["أسود","فضي"],visible:true}
+];
+
+function read(key,fallback){
+try{
+let x=localStorage.getItem(key);
+return x===null?fallback:JSON.parse(x);
+}catch(e){return fallback}
+}
+
+let products=read("shein_products",demoProducts);
+let cart=read("shein_cart",[]);
+let favorites=read("shein_favorites",[]);
+let category="الكل";
+let selectedProduct=null;
+let chosenSize="";
+let chosenColor="";
+let quantity=1;
+let favoriteMode=false;
+
+function persist(){
+localStorage.setItem("shein_products",JSON.stringify(products));
+localStorage.setItem("shein_cart",JSON.stringify(cart));
+localStorage.setItem("shein_favorites",JSON.stringify(favorites));
+}
+
+/* الأقسام */
+
+function renderCategories(){
+
+document.getElementById("nav").innerHTML=
+`<button onclick="filterCategory('الكل')" class="${category==='الكل'?'active':''}">الرئيسية</button>`+
+CATEGORIES.map(c=>`<button class="${category===c?'active':''}" onclick="filterCategory('${c}')">${c}</button>`).join("");
+
+let images=[
+"https://images.unsplash.com/photo-1483985988355-763728e1935b?w=400",
+"https://images.unsplash.com/photo-1516257984-b1b4d707412e?w=400",
+"https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?w=400",
+"https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400",
+"https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=400",
+"https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=400"
+];
+
+document.getElementById("categories").innerHTML=
+CATEGORIES.map((c,i)=>`
+<div class="category" onclick="filterCategory('${c}')">
+<img src="${images[i]}" alt="${c}">
+<p>${c}</p>
+</div>`).join("");
+}
+
+/* المنتجات */
+
+function renderProducts(){
+
+let search=document.getElementById("search").value.toLowerCase();
+
+let list=products.filter(p=>
+p.visible!==false &&
+(category==="الكل"||p.category===category) &&
+p.name.toLowerCase().includes(search) &&
+(!favoriteMode||favorites.includes(p.id))
+);
+
+let sort=document.getElementById("sort")?.value;
+
+if(sort==="low")list.sort((a,b)=>a.price-b.price);
+if(sort==="high")list.sort((a,b)=>b.price-a.price);
+
+document.getElementById("count").innerText=list.length+" منتج";
+
+document.getElementById("products").innerHTML=list.length?list.map(p=>`
+<div class="product">
+${p.old>p.price?`<span class="discount">خصم ${Math.round((1-p.price/p.old)*100)}%</span>`:""}
+<img src="${p.image}" alt="${p.name}" onclick="showDetails(${p.id})" loading="lazy">
+<div class="product-info">
+<h3 onclick="showDetails(${p.id})">${p.name}</h3>
+<div class="price">${p.price.toLocaleString()} ج.س
+${p.old>p.price?`<span class="old">${p.old.toLocaleString()}</span>`:""}
+</div>
+<div class="product-actions">
+<button class="add" onclick="quickAdd(${p.id})">أضف للسلة</button>
+<button class="heart" onclick="toggleFavorite(${p.id})">${favorites.includes(p.id)?"❤️":"♡"}</button>
+</div>
+</div>
+</div>`).join(""):`<div class="empty">لا توجد منتجات حالياً</div>`;
+}
+
+function filterCategory(c){
+category=c;
+favoriteMode=false;
+document.getElementById("title").innerText=c==="الكل"?"أحدث المنتجات":c;
+renderCategories();
+renderProducts();
+document.getElementById("shop").scrollIntoView({behavior:"smooth"});
+}
+
+function resetShop(){
+category="الكل";
+favoriteMode=false;
+document.getElementById("search").value="";
+document.getElementById("title").innerText="أحدث المنتجات";
+renderCategories();
+renderProducts();
+window.scrollTo({top:0,behavior:"smooth"});
+}
+
+/* المفضلة */
+
+function toggleFavorite(id){
+favorites=favorites.includes(id)?favorites.filter(x=>x!==id):[...favorites,id];
+persist();
+renderProducts();
+}
+
+function showFavorites(){
+favoriteMode=true;
+category="الكل";
+document.getElementById("title").innerText="المفضلة";
+renderCategories();
+renderProducts();
+document.getElementById("shop").scrollIntoView({behavior:"smooth"});
+}
+
+/* السلة */
+
+function quickAdd(id){
+let p=products.find(x=>x.id===id);
+addCart({id,quantity:1,size:p.sizes[0],color:p.colors[0]});
+alert("تمت إضافة المنتج للسلة");
+}
+
+function addCart(item){
+let old=cart.find(x=>x.id===item.id&&x.size===item.size&&x.color===item.color);
+if(old)old.quantity+=item.quantity;
+else cart.push(item);
+persist();
+updateCount();
+renderCart();
+}
+
+function updateCount(){
+document.getElementById("cartCount").innerText=cart.reduce((s,x)=>s+x.quantity,0);
+}
+
+function openCart(){
+renderCart();
+document.getElementById("overlay").style.display="block";
+document.getElementById("drawer").classList.add("open");
+}
+
+function closeCart(){
+document.getElementById("overlay").style.display="none";
+document.getElementById("drawer").classList.remove("open");
+}
+
+function renderCart(){
+let total=0;
+document.getElementById("cartItems").innerHTML=cart.map((x,i)=>{
+let p=products.find(y=>y.id===x.id);
+if(!p)return "";
+total+=p.price*x.quantity;
+return `
+<div class="cart-item">
+<img src="${p.image}">
+<div>
+<h4>${p.name}</h4>
+<p>${p.price.toLocaleString()} ج.س</p>
+<small>${x.size} - ${x.color}</small>
+<div style="margin-top:10px">
+<button onclick="changeQty(${i},-1)">-</button>
+${x.quantity}
+<button onclick="changeQty(${i},1)">+</button>
+</div>
+<button onclick="removeCart(${i})" style="color:red;border:0;background:none;margin-top:8px">حذف</button>
+</div>
+</div>`;
+}).join("")||'<div class="empty">السلة فارغة</div>';
+document.getElementById("total").innerText=total.toLocaleString();
+}
+
+function changeQty(i,n){
+if(!cart[i])return;
+cart[i].quantity+=n;
+if(cart[i].quantity<=0)cart.splice(i,1);
+persist();updateCount();renderCart();
+}
+
+function removeCart(i){
+cart.splice(i,1);
+persist();updateCount();renderCart();
+}
+
+/* تفاصيل المنتج */
+
+function showDetails(id){
+selectedProduct=products.find(x=>x.id===id);
+if(!selectedProduct)return;
+chosenSize="";
+chosenColor="";
+quantity=1;
+let p=selectedProduct;
+document.getElementById("details").style.display="block";
+document.getElementById("detailContent").innerHTML=`
+<img src="${p.image}">
+<h2>${p.name}</h2>
+<h2 style="color:var(--pink)">${p.price.toLocaleString()} ج.س</h2>
+<p>السعر السابق: ${p.old.toLocaleString()} ج.س</p>
+<h4 style="margin-top:20px">اختر المقاس</h4>
+<div class="options" id="sizes">${p.sizes.map(s=>`<button class="option" onclick="choose('size','${s}',this)">${s}</button>`).join("")}</div>
+<h4>اختر اللون</h4>
+<div class="options" id="colors">${p.colors.map(c=>`<button class="option" onclick="choose('color','${c}',this)">${c}</button>`).join("")}</div>
+<h4>الكمية</h4>
+<div class="options">
+<button class="option" onclick="changeDetail(-1)">-</button>
+<strong id="qty">1</strong>
+<button class="option" onclick="changeDetail(1)">+</button>
+</div>
+<button class="primary" onclick="addDetail()">أضف إلى السلة</button>`;
+}
+
+function choose(type,value,btn){
+btn.parentElement.querySelectorAll("button").forEach(x=>x.classList.remove("selected"));
+btn.classList.add("selected");
+if(type==="size")chosenSize=value;
+else chosenColor=value;
+}
+
+function changeDetail(n){
+quantity=Math.max(1,quantity+n);
+document.getElementById("qty").innerText=quantity;
+}
+
+function addDetail(){
+if(!chosenSize||!chosenColor){alert("اختر المقاس واللون أولاً");return}
+addCart({id:selectedProduct.id,quantity,size:chosenSize,color:chosenColor});
+closeDetails();
+openCart();
+}
+
+function closeDetails(){document.getElementById("details").style.display="none"}
+
+/* الطلبات */
+
+function openCheckout(){
+if(!cart.length){alert("السلة فارغة");return}
+closeCart();
+document.getElementById("checkout").style.display="block";
+}
+
+function closeCheckout(){document.getElementById("checkout").style.display="none"}
+
+function sendOrder(){
+let name=document.getElementById("customerName").value.trim();
+let mobile=document.getElementById("customerPhone").value.trim();
+let city=document.getElementById("city").value.trim();
+let address=document.getElementById("address").value.trim();
+
+if(!name||!mobile||!city||!address){
+alert("يرجى إكمال بيانات الطلب");
+return;
+}
+
+let message="طلب جديد من شيأن السودان\n";
+message+="الاسم: "+name+"\nالهاتف: "+mobile+"\nالمدينة: "+city+"\nالعنوان: "+address+"\n\n";
+
+let total=0;
+cart.forEach(x=>{
+let p=products.find(y=>y.id===x.id);
+if(!p)return;
+total+=p.price*x.quantity;
+message+=p.name+" | "+x.size+" | "+x.color+" | الكمية: "+x.quantity+" | "+(p.price*x.quantity)+" ج.س\n";
+});
+
+message+="\nالإجمالي: "+total+" جنيه سوداني";
+
+window.open("https://wa.me/"+phone+"?text="+encodeURIComponent(message),"_blank");
+}
+
+/* لوحة الإدارة */
+
+function openAdminLogin(){
+document.getElementById("loginModal").style.display="block";
+}
+
+function closeLogin(){
+document.getElementById("loginModal").style.display="none";
+}
+
+function loginAdmin(){
+if(document.getElementById("adminPassword").value!==ADMIN_PASSWORD){
+alert("كلمة المرور غير صحيحة");
+return;
+}
+closeLogin();
+document.getElementById("adminPanel").style.display="block";
+renderAdmin();
+document.getElementById("adminPhone").value=phone;
+}
+
+function closeAdmin(){
+document.getElementById("adminPanel").style.display="none";
+resetForm();
+}
+
+function renderAdmin(){
+document.getElementById("adminCount").innerText=products.length;
+document.getElementById("visibleCount").innerText=products.filter(x=>x.visible!==false).length;
+
+document.getElementById("adminProducts").innerHTML=products.map(p=>`
+<div class="admin-product">
+<img src="${p.image}">
+<div class="admin-product-info">
+<strong>${p.name}</strong><br>
+${p.price.toLocaleString()} ج.س<br>
+${p.category}<br>
+${p.visible===false?"مخفي":"ظاهر في المتجر"}
+</div>
+<button class="admin-btn edit" onclick="editProduct(${p.id})">تعديل</button>
+<button class="admin-btn" onclick="toggleVisible(${p.id})">${p.visible===false?"إظهار":"إخفاء"}</button>
+<button class="admin-btn delete" onclick="deleteProduct(${p.id})">حذف</button>
+</div>
+`).join("")||"لا توجد منتجات";
+}
+
+async function saveProduct(e){
+e.preventDefault();
+
+let id=document.getElementById("editId").value;
+let file=document.getElementById("pFile").files[0];
+let oldProduct=products.find(x=>x.id===Number(id));
+
+let image=document.getElementById("pImage").value.trim()||(oldProduct?oldProduct.image:"");
+
+if(file){
+if(file.size>1500000){
+alert("حجم الصورة كبير. اختر صورة أقل من 1.5 ميجابايت");
+return;
+}
+image=await compressImage(file);
+}
+
+if(!image){
+alert("أضف رابط صورة أو اختر صورة من جهازك");
+return;
+}
+
+let p={
+id:id?Number(id):Date.now(),
+name:document.getElementById("pName").value.trim(),
+category:document.getElementById("pCategory").value,
+price:Number(document.getElementById("pPrice").value),
+old:Number(document.getElementById("pOld").value),
+image,
+sizes:document.getElementById("pSizes").value.split(",").map(x=>x.trim()).filter(Boolean),
+colors:document.getElementById("pColors").value.split(",").map(x=>x.trim()).filter(Boolean),
+visible:oldProduct?oldProduct.visible!==false:true
+};
+
+if(!p.sizes.length)p.sizes=["مقاس واحد"];
+if(!p.colors.length)p.colors=["افتراضي"];
+
+if(p.price<0||p.old<0){
+alert("السعر غير صحيح");
+return;
+}
+
+if(id){
+products=products.map(x=>x.id===p.id?p:x);
+}else{
+products.unshift(p);
+}
+
+persist();
+renderAdmin();
+renderProducts();
+resetForm();
+alert("تم حفظ المنتج بنجاح");
+}
+
+function compressImage(file){
+return new Promise((resolve,reject)=>{
+let reader=new FileReader();
+reader.onload=()=>{
+let img=new Image();
+img.onload=()=>{
+let canvas=document.createElement("canvas");
+let scale=Math.min(1,900/Math.max(img.width,img.height));
+canvas.width=img.width*scale;
+canvas.height=img.height*scale;
+canvas.getContext("2d").drawImage(img,0,0,canvas.width,canvas.height);
+resolve(canvas.toDataURL("image/jpeg",0.75));
+};
+img.onerror=reject;
+img.src=reader.result;
+};
+reader.onerror=reject;
+reader.readAsDataURL(file);
+});
+}
+
+function editProduct(id){
+let p=products.find(x=>x.id===id);
+if(!p)return;
+
+document.getElementById("editId").value=p.id;
+document.getElementById("pName").value=p.name;
+document.getElementById("pCategory").value=p.category;
+document.getElementById("pPrice").value=p.price;
+document.getElementById("pOld").value=p.old;
+document.getElementById("pImage").value=p.image.startsWith("data:")?"":p.image;
+document.getElementById("pSizes").value=p.sizes.join(",");
+document.getElementById("pColors").value=p.colors.join(",");
+document.getElementById("formTitle").innerText="تعديل المنتج";
+document.getElementById("productForm").scrollIntoView({behavior:"smooth"});
+}
+
+function deleteProduct(id){
+if(!confirm("هل تريد حذف هذا المنتج نهائياً؟"))return;
+products=products.filter(x=>x.id!==id);
+persist();renderAdmin();renderProducts();
+}
+
+function toggleVisible(id){
+let p=products.find(x=>x.id===id);
+if(!p)return;
+p.visible=p.visible===false?true:false;
+persist();renderAdmin();renderProducts();
+}
+
+function resetForm(){
+document.getElementById("productForm").reset();
+document.getElementById("editId").value="";
+document.getElementById("formTitle").innerText="إضافة منتج جديد";
+}
+
+function saveSettings(){
+let number=document.getElementById("adminPhone").value.replace(/[^0-9]/g,"");
+if(!/^249\d{9}$/.test(number)){
+alert("أدخل رقم واتساب سوداني صحيحاً بصيغة 249XXXXXXXXX");
+return;
+}
+phone=number;
+localStorage.setItem("shein_phone",phone);
+alert("تم حفظ رقم واتساب المتجر");
+}
+
+/* التشغيل */
+
+renderCategories();
+renderProducts();
+updateCount();
+
+</script>
+</body>
+</html>
