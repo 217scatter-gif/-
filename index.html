@@ -3,465 +3,264 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#080d1b">
-<title>علم استور | ALAM STORE</title>
+<title>متجر الألعاب الرقمية</title>
 
 <style>
 *{
-margin:0;
-padding:0;
-box-sizing:border-box;
-}
-
-:root{
---bg:#080d1b;
---card:#111a2e;
---primary:#3978ff;
---secondary:#8b5cf6;
---text:#ffffff;
---muted:#a5b1c8;
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Tahoma,Arial,sans-serif;
 }
 
 body{
-font-family:Arial,Tahoma,sans-serif;
-background:var(--bg);
-color:var(--text);
-transition:.3s;
+    background:#f4f6fb;
+    color:#222;
 }
 
 header{
-background:#0d1528;
-padding:18px 6%;
-display:flex;
-justify-content:space-between;
-align-items:center;
-border-bottom:1px solid #26334d;
-position:sticky;
-top:0;
-z-index:100;
+    background:#101b35;
+    color:white;
+    padding:20px;
+    text-align:center;
 }
 
-.logo{
-font-size:25px;
-font-weight:bold;
-color:#fff;
+header h1{
+    font-size:27px;
 }
 
-.logo span{
-color:#4385ff;
+header p{
+    color:#bdc8df;
+    margin-top:8px;
 }
 
 nav{
-display:flex;
-gap:22px;
-align-items:center;
-}
-
-nav a{
-color:#cbd5e1;
-text-decoration:none;
-font-size:14px;
-}
-
-nav a:hover{
-color:#4385ff;
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    flex-wrap:wrap;
+    padding:15px;
+    background:white;
+    box-shadow:0 2px 8px #ddd;
 }
 
 button{
-cursor:pointer;
-border:none;
+    border:none;
+    cursor:pointer;
+    border-radius:8px;
+    padding:11px 17px;
+    font-size:14px;
 }
 
-.theme{
-background:#202d47;
-color:white;
-padding:10px 14px;
-border-radius:10px;
+.navbtn{
+    background:#edf1fa;
+    color:#14264c;
+    font-weight:bold;
+}
+
+.navbtn:hover{
+    background:#162b55;
+    color:white;
+}
+
+.container{
+    max-width:1100px;
+    margin:auto;
+    padding:20px;
 }
 
 .hero{
-padding:75px 7%;
-text-align:center;
-background:
-radial-gradient(circle at 50% 0%,#1d3974 0%,transparent 60%),
-#080d1b;
+    background:linear-gradient(120deg,#14264c,#3159a5);
+    padding:40px 20px;
+    color:white;
+    border-radius:15px;
+    text-align:center;
+    margin-bottom:25px;
 }
 
-.hero h1{
-font-size:43px;
-margin-bottom:18px;
-}
-
-.hero h1 span{
-color:#4385ff;
+.hero h2{
+    font-size:27px;
+    margin-bottom:12px;
 }
 
 .hero p{
-color:#aab8d1;
-font-size:17px;
-line-height:2;
-}
-
-.hero-buttons{
-margin-top:28px;
-display:flex;
-justify-content:center;
-gap:12px;
-flex-wrap:wrap;
-}
-
-.btn{
-padding:14px 25px;
-border-radius:10px;
-background:linear-gradient(120deg,#3978ff,#8055ff);
-color:white;
-font-weight:bold;
-text-decoration:none;
-display:inline-block;
-}
-
-.btn-outline{
-background:transparent;
-border:1px solid #4385ff;
-}
-
-.stats{
-display:flex;
-justify-content:center;
-gap:45px;
-margin-top:45px;
-flex-wrap:wrap;
-}
-
-.stat strong{
-font-size:25px;
-color:#4385ff;
-display:block;
-}
-
-.stat small{
-color:#9eabc2;
-}
-
-.section{
-padding:55px 6%;
+    line-height:1.9;
 }
 
 .section-title{
-margin-bottom:25px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-flex-wrap:wrap;
-gap:15px;
-}
-
-.section-title h2{
-font-size:25px;
-}
-
-.section-title span{
-color:#4385ff;
-}
-
-.search{
-width:100%;
-max-width:350px;
-padding:13px;
-background:#111a2e;
-border:1px solid #263653;
-border-radius:10px;
-color:white;
-outline:none;
+    margin:25px 0 15px;
+    font-size:22px;
 }
 
 .categories{
-display:flex;
-gap:10px;
-flex-wrap:wrap;
-margin-bottom:28px;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:15px;
 }
 
 .category{
-padding:10px 20px;
-background:#15213a;
-color:white;
-border-radius:9px;
+    background:white;
+    border-radius:12px;
+    padding:25px;
+    text-align:center;
+    box-shadow:0 3px 12px #ddd;
+    cursor:pointer;
+    transition:.2s;
 }
 
-.category.active{
-background:#3978ff;
+.category:hover{
+    transform:translateY(-5px);
+}
+
+.category h3{
+    margin-bottom:10px;
+    color:#14264c;
+}
+
+.category p{
+    color:#777;
+    font-size:13px;
+}
+
+.subcategories{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin:15px 0;
+}
+
+.subcategories button{
+    background:#e5eaf5;
+    color:#172b52;
+}
+
+.subcategories button.active{
+    background:#172b52;
+    color:white;
 }
 
 .products{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
-gap:22px;
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(210px,1fr));
+    gap:17px;
 }
 
-.card{
-background:var(--card);
-border:1px solid #23314c;
-border-radius:16px;
-overflow:hidden;
-transition:.3s;
+.product{
+    background:white;
+    border-radius:12px;
+    overflow:hidden;
+    box-shadow:0 3px 12px #ddd;
 }
 
-.card:hover{
-transform:translateY(-6px);
-border-color:#4385ff;
+.product img{
+    width:100%;
+    height:160px;
+    object-fit:cover;
+    background:#eee;
 }
 
-.app-image{
-height:145px;
-display:flex;
-justify-content:center;
-align-items:center;
-font-size:65px;
-background:linear-gradient(135deg,#1c3158,#18213c);
+.product-info{
+    padding:15px;
 }
 
-.card-content{
-padding:17px;
-}
-
-.card h3{
-font-size:18px;
-margin-bottom:9px;
-}
-
-.card p{
-font-size:13px;
-color:var(--muted);
-line-height:1.8;
-min-height:45px;
+.product h3{
+    margin-bottom:10px;
+    font-size:17px;
 }
 
 .price{
-color:#58a0ff;
-font-size:17px;
-font-weight:bold;
-margin:13px 0;
+    color:#167b43;
+    font-weight:bold;
+    margin-bottom:12px;
 }
 
-.card-buttons{
-display:flex;
-gap:8px;
+.addbtn{
+    background:#172b52;
+    color:white;
+    width:100%;
 }
 
-.card-buttons a{
-flex:1;
-text-align:center;
-padding:11px 5px;
-border-radius:8px;
-text-decoration:none;
-color:white;
-font-size:13px;
-background:#3978ff;
+.addbtn:hover{
+    background:#254c91;
 }
 
-.card-buttons a.secondary{
-background:#25334f;
+.panel{
+    background:white;
+    padding:20px;
+    border-radius:12px;
+    margin-top:25px;
+    box-shadow:0 3px 12px #ddd;
 }
 
-.badge{
-display:inline-block;
-font-size:11px;
-background:#243e73;
-color:#8bb5ff;
-padding:5px 9px;
-border-radius:20px;
-margin-bottom:10px;
+input,select,textarea{
+    width:100%;
+    padding:12px;
+    margin:8px 0;
+    border:1px solid #ddd;
+    border-radius:8px;
+    font-size:14px;
 }
 
-.subscription{
-background:linear-gradient(135deg,#14264b,#24164c);
-border:1px solid #3c4d80;
-padding:35px;
-border-radius:18px;
-text-align:center;
+.primary{
+    background:#172b52;
+    color:white;
 }
 
-.subscription h2{
-font-size:27px;
-margin-bottom:15px;
+.danger{
+    background:#d93636;
+    color:white;
 }
 
-.subscription p{
-color:#bdc9e0;
-line-height:2;
-margin-bottom:20px;
+.success{
+    background:#16834b;
+    color:white;
 }
 
-.features{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-gap:18px;
-margin-top:30px;
+.cart-item{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+    padding:12px 0;
+    border-bottom:1px solid #eee;
 }
 
-.feature{
-padding:25px;
-background:#111a2e;
-border-radius:14px;
-text-align:center;
-border:1px solid #253653;
+.cart-item button{
+    background:#e43b3b;
+    color:white;
+    padding:7px 10px;
 }
 
-.feature div{
-font-size:35px;
-margin-bottom:12px;
-}
-
-.feature p{
-color:#aab8d1;
-font-size:13px;
-margin-top:10px;
-line-height:1.8;
+.hidden{
+    display:none!important;
 }
 
 footer{
-background:#0d1528;
-padding:35px 6%;
-text-align:center;
-border-top:1px solid #26334d;
+    background:#101b35;
+    color:white;
+    text-align:center;
+    padding:30px 15px;
+    margin-top:40px;
+    line-height:2;
 }
 
-footer p{
-color:#9eabc2;
-line-height:2;
-font-size:13px;
+footer a{
+    color:#69b5ff;
+    text-decoration:none;
 }
 
-footer h2{
-margin-bottom:12px;
+.badge{
+    background:#e9f0ff;
+    color:#172b52;
+    padding:5px 10px;
+    border-radius:20px;
+    font-size:12px;
 }
 
-footer span{
-color:#4385ff;
-}
-
-.whatsapp{
-position:fixed;
-bottom:22px;
-left:20px;
-background:#20c968;
-color:white;
-padding:14px 19px;
-border-radius:40px;
-text-decoration:none;
-font-weight:bold;
-box-shadow:0 5px 25px #0008;
-z-index:200;
-}
-
-.empty{
-text-align:center;
-color:#aab8d1;
-padding:30px;
-display:none;
-}
-
-body.light{
---bg:#f1f5fb;
---card:#ffffff;
---text:#172033;
---muted:#667085;
-}
-
-body.light header,
-body.light footer{
-background:#fff;
-}
-
-body.light nav a{
-color:#344054;
-}
-
-body.light .search{
-background:#fff;
-color:#172033;
-}
-
-body.light .category,
-body.light .feature{
-background:#fff;
-color:#172033;
-border:1px solid #ddd;
-}
-
-body.light .card{
-border-color:#ddd;
-}
-
-body.light .app-image{
-background:#e7edff;
-}
-
-@media(max-width:700px){
-header{
-padding:15px 4%;
-}
-
-nav{
-gap:10px;
-}
-
-nav a{
-font-size:12px;
-}
-
-.logo{
-font-size:20px;
-}
-
-.hero h1{
-font-size:31px;
-}
-
-.hero{
-padding:60px 5%;
-}
-
-.section{
-padding:40px 4%;
-}
-
-.products{
-grid-template-columns:repeat(2,minmax(0,1fr));
-gap:12px;
-}
-
-.card-content{
-padding:12px;
-}
-
-.card h3{
-font-size:15px;
-}
-
-.app-image{
-height:115px;
-font-size:50px;
-}
-
-.card-buttons{
-flex-direction:column;
-}
-
-.stats{
-gap:25px;
-}
-
-.subscription{
-padding:25px 15px;
-}
-}
-
-@media(max-width:380px){
-.products{
-grid-template-columns:1fr;
-}
+@media(max-width:600px){
+    .hero h2{font-size:22px}
+    header h1{font-size:22px}
+    .container{padding:12px}
 }
 </style>
 </head>
@@ -469,263 +268,901 @@ grid-template-columns:1fr;
 <body>
 
 <header>
-<div class="logo">علم <span>STORE</span></div>
-
-<nav>
-<a href="#home">الرئيسية</a>
-<a href="#apps">التطبيقات</a>
-<a href="#subscriptions">الاشتراكات</a>
-<a href="#contact">تواصل معنا</a>
-<button class="theme" onclick="toggleTheme()">☀️</button>
-</nav>
+    <h1 id="storeName">متجر الألعاب الرقمية</h1>
+    <p>وجهتك الأولى للشحن والحسابات الرقمية</p>
 </header>
 
-<section class="hero" id="home">
+<nav>
+    <button class="navbtn" onclick="showHome()">الرئيسية</button>
+    <button class="navbtn" onclick="showCategory('freefire')">فري فاير</button>
+    <button class="navbtn" onclick="showCategory('pubg')">ببجي</button>
+    <button class="navbtn" onclick="showCategory('google')">حسابات جوجل</button>
+    <button class="navbtn" onclick="showCart()">🛒 السلة (<span id="cartCount">0</span>)</button>
+</nav>
 
-<h1>مرحباً بك في <span>علم استور</span></h1>
+<main class="container">
 
-<p>
-وجهتك الأفضل لتحميل التطبيقات والحصول على الاشتراكات الرقمية.
-<br>
-كل ما تحتاجه من تطبيقات وخدمات رقمية في مكان واحد.
-</p>
+<section id="home">
 
-<div class="hero-buttons">
-<a href="#apps" class="btn">استكشف التطبيقات</a>
-<a href="#subscriptions" class="btn btn-outline">الاشتراكات والتفعيل</a>
-</div>
+    <div class="hero">
+        <h2>مرحباً بك في متجر الألعاب الرقمية</h2>
+        <p>أفضل الخدمات الرقمية والحسابات والشحن بأسعار مميزة.</p>
+        <p>اختر القسم المناسب واطلب منتجك بسهولة عبر واتساب.</p>
+    </div>
 
-<div class="stats">
-<div class="stat">
-<strong>24/7</strong>
-<small>خدمة العملاء</small>
-</div>
+    <h2 class="section-title">أقسام المتجر</h2>
 
-<div class="stat">
-<strong>APK</strong>
-<small>تحميل التطبيقات</small>
-</div>
+    <div class="categories">
 
-<div class="stat">
-<strong>100%</strong>
-<small>سهولة الاستخدام</small>
-</div>
-</div>
+        <div class="category" onclick="showCategory('freefire')">
+            <h3>🔥 Free Fire</h3>
+            <p>جواهر - اشتراكات - إنزالات جوية</p>
+        </div>
 
-</section>
+        <div class="category" onclick="showCategory('pubg')">
+            <h3>🎮 PUBG Mobile</h3>
+            <p>شحن شدات - حسابات - وسيط بيع وشراء</p>
+        </div>
 
-<section class="section" id="apps">
+        <div class="category" onclick="showCategory('google')">
+            <h3>📧 حسابات Google</h3>
+            <p>حسابات جوجل الأمريكية</p>
+        </div>
 
-<div class="section-title">
-<h2>📱 التطبيقات <span>المميزة</span></h2>
+    </div>
 
-<input
-type="search"
-class="search"
-id="search"
-placeholder="ابحث عن تطبيق..."
-oninput="filterApps()">
-</div>
-
-<div class="categories">
-<button class="category active" onclick="filterCategory('all',this)">الكل</button>
-<button class="category" onclick="filterCategory('social',this)">تواصل اجتماعي</button>
-<button class="category" onclick="filterCategory('tools',this)">أدوات</button>
-<button class="category" onclick="filterCategory('entertainment',this)">ترفيه</button>
-</div>
-
-<div class="products" id="products">
-
-<div class="card" data-category="social" data-name="واتساب">
-<div class="app-image">💬</div>
-<div class="card-content">
-<span class="badge">تواصل اجتماعي</span>
-<h3>واتساب</h3>
-<p>تطبيق للتواصل والمراسلة الفورية.</p>
-<div class="price">مجاني</div>
-<div class="card-buttons">
-<a href="https://www.whatsapp.com/android" target="_blank">تحميل التطبيق</a>
-</div>
-</div>
-</div>
-
-<div class="card" data-category="entertainment" data-name="تيك توك">
-<div class="app-image">🎵</div>
-<div class="card-content">
-<span class="badge">ترفيه</span>
-<h3>تيك توك</h3>
-<p>اكتشف مقاطع الفيديو والمحتوى الممتع.</p>
-<div class="price">مجاني</div>
-<div class="card-buttons">
-<a href="https://www.tiktok.com/download" target="_blank">تحميل التطبيق</a>
-</div>
-</div>
-</div>
-
-<div class="card" data-category="tools" data-name="تيليجرام">
-<div class="app-image">✈️</div>
-<div class="card-content">
-<span class="badge">أدوات</span>
-<h3>تيليجرام</h3>
-<p>تطبيق للمراسلة والقنوات والمجموعات.</p>
-<div class="price">مجاني</div>
-<div class="card-buttons">
-<a href="https://telegram.org/android" target="_blank">تحميل التطبيق</a>
-</div>
-</div>
-</div>
-
-<div class="card" data-category="entertainment" data-name="يوتيوب">
-<div class="app-image">▶️</div>
-<div class="card-content">
-<span class="badge">ترفيه</span>
-<h3>يوتيوب</h3>
-<p>شاهد الفيديوهات والمحتوى المفضل لديك.</p>
-<div class="price">مجاني</div>
-<div class="card-buttons">
-<a href="https://www.youtube.com" target="_blank">زيارة الموقع</a>
-</div>
-</div>
-</div>
-
-</div>
-
-<div class="empty" id="empty">لا توجد تطبيقات مطابقة لبحثك.</div>
+    <h2 class="section-title">أحدث المنتجات</h2>
+    <div class="products" id="featuredProducts"></div>
 
 </section>
 
-<section class="section" id="subscriptions">
+<section id="categoryPage" class="hidden">
 
-<div class="subscription">
+    <h2 class="section-title" id="categoryTitle"></h2>
 
-<h2>💎 الاشتراكات والتفعيل</h2>
+    <div class="subcategories" id="subcategories"></div>
 
-<p>
-هل تبحث عن اشتراك في تطبيقاتك المفضلة؟
-<br>
-تواصل معنا لمعرفة الاشتراكات المتاحة والأسعار ومدة التفعيل.
-</p>
+    <div class="products" id="categoryProducts"></div>
 
-<a
-class="btn"
-href="https://wa.me/249912861990?text=السلام%20عليكم%20علم%20استور%20عاوز%20استفسر%20عن%20الاشتراكات">
-اطلب اشتراكك الآن
-</a>
-
-</div>
-
-<div class="features">
-
-<div class="feature">
-<div>⚡</div>
-<h3>سرعة الخدمة</h3>
-<p>استقبال طلبات العملاء بسهولة وسرعة.</p>
-</div>
-
-<div class="feature">
-<div>🔐</div>
-<h3>تفعيل آمن</h3>
-<p>تفعيل الاشتراكات بالطرق الرسمية والمصرح بها.</p>
-</div>
-
-<div class="feature">
-<div>🎧</div>
-<h3>دعم العملاء</h3>
-<p>تواصل معنا للاستفسارات والمساعدة.</p>
-</div>
-
-</div>
+    <button class="primary" onclick="showHome()" style="margin-top:20px">
+        العودة للرئيسية
+    </button>
 
 </section>
 
-<footer id="contact">
+<section id="cartPage" class="hidden">
 
-<h2>علم <span>STORE</span></h2>
+    <h2 class="section-title">🛒 سلة مشترياتك</h2>
 
-<p>
-متجرك للتطبيقات والاشتراكات الرقمية.
-<br>
-رقم خدمة العملاء: +249912861990
-</p>
+    <div class="panel">
+        <div id="cartItems"></div>
 
-<a
-href="https://wa.me/249912861990"
-class="btn"
-style="margin:18px 0">
-تواصل عبر واتساب
-</a>
+        <h3 style="margin-top:20px">
+            الإجمالي: <span id="totalPrice">0</span> جنيه
+        </h3>
 
-<p>جميع الحقوق محفوظة © 2026 علم استور</p>
+        <input id="customerName" placeholder="اسمك">
+        <input id="customerPhone" placeholder="رقم هاتفك">
+        <textarea id="customerNote" placeholder="ملاحظات إضافية (اختياري)"></textarea>
 
+        <button class="success" onclick="checkout()" style="width:100%">
+            إتمام الطلب عبر واتساب
+        </button>
+
+        <button class="primary" onclick="showHome()" style="width:100%;margin-top:10px">
+            مواصلة التسوق
+        </button>
+    </div>
+
+</section>
+
+<section id="adminPage" class="hidden">
+
+    <h2 class="section-title">لوحة إدارة المتجر</h2>
+
+    <div class="panel" id="loginPanel">
+        <h3>تسجيل دخول الإدارة</h3>
+        <input type="password" id="adminPassword" placeholder="كلمة المرور">
+        <button class="primary" onclick="loginAdmin()">دخول</button>
+    </div>
+
+    <div id="adminContent" class="hidden">
+
+        <div class="panel">
+            <h3>إضافة منتج جديد</h3>
+
+            <input id="productName" placeholder="اسم المنتج">
+
+            <input id="productPrice" type="number" min="0" placeholder="السعر بالجنيه السوداني">
+
+            <input id="productImage" placeholder="رابط صورة المنتج">
+
+            <select id="productCategory">
+                <option value="freefire">فري فاير</option>
+                <option value="pubg">ببجي</option>
+                <option value="google">حسابات جوجل</option>
+            </select>
+
+            <select id="productType">
+                <option value="جواهر">جواهر فري فاير</option>
+                <option value="إنزالات جوية">إنزالات جوية</option>
+                <option value="اشتراكات">اشتراكات فري فاير</option>
+                <option value="شدات">شدات ببجي</option>
+                <option value="حسابات ببجي">حسابات ببجي</option>
+                <option value="وساطة">وساطة بيع وشراء</option>
+                <option value="حسابات جوجل">حسابات جوجل الأمريكية</option>
+            </select>
+
+            <textarea id="productDescription" placeholder="وصف المنتج"></textarea>
+
+            <button class="success" onclick="addProduct()">حفظ المنتج</button>
+        </div>
+
+        <div class="panel">
+            <h3>إدارة المنتجات</h3>
+            <div id="adminProducts"></div>
+        </div>
+
+        <div class="panel">
+            <h3>إعدادات المتجر</h3>
+
+            <label>رقم واتساب صاحب المتجر (مع مفتاح الدولة)</label>
+            <input id="whatsappNumber" placeholder="249XXXXXXXXX">
+
+            <label>رقم حساب بنكك</label>
+            <input id="bankakNumber" placeholder="رقم الحساب">
+
+            <label>اسم صاحب الحساب</label>
+            <input id="bankakName" placeholder="اسم صاحب الحساب">
+
+            <label>رقم ماي كاشي</label>
+            <input id="mycashiNumber" placeholder="رقم ماي كاشي">
+
+            <label>رابط مجموعة واتساب</label>
+            <input id="groupLink" placeholder="رابط المجموعة">
+
+            <label>اسم المتجر</label>
+            <input id="storeTitle" placeholder="اسم المتجر">
+
+            <button class="success" onclick="saveSettings()">حفظ الإعدادات</button>
+        </div>
+
+        <button class="danger" onclick="logoutAdmin()">تسجيل الخروج</button>
+
+    </div>
+</section>
+
+<section class="panel" id="paymentSection">
+    <h3>💳 وسائل الدفع والتحويل</h3>
+    <p>بنكك: <strong id="bankakDisplay">يرجى التواصل معنا</strong></p>
+    <p>اسم الحساب: <strong id="bankakNameDisplay">-</strong></p>
+    <p>ماي كاشي: <strong id="mycashiDisplay">يرجى التواصل معنا</strong></p>
+    <p style="margin-top:10px;color:#777">
+        يتم تأكيد الطلب والتحويل يدوياً عبر خدمة العملاء.
+    </p>
+</section>
+
+</main>
+
+<footer>
+    <h3 id="footerName">متجر الألعاب الرقمية</h3>
+
+    <p>شكراً لزيارتك متجرنا ❤️</p>
+
+    <p>
+        <a id="groupLinkDisplay" href="#" target="_blank">
+            انضم إلى مجموعة واتساب
+        </a>
+    </p>
+
+    <p>
+        <a id="contactLink" href="#" target="_blank">
+            تواصل معنا
+        </a>
+    </p>
+
+    <p>جميع الحقوق محفوظة © 2026</p>
+
+    <button class="navbtn" onclick="openAdmin()" style="margin-top:15px">
+        إدارة المتجر
+    </button>
 </footer>
-
-<a
-class="whatsapp"
-href="https://wa.me/249912861990"
-target="_blank">
-واتساب 💬
-</a>
 
 <script>
 
-function toggleTheme(){
-document.body.classList.toggle("light");
+// ==================================
+// إعدادات المتجر
+// ==================================
+
+const DEFAULT_SETTINGS = {
+    name:"متجر الألعاب الرقمية",
+    whatsapp:"249000000000",
+    bankak:"لم يحدد بعد",
+    bankakName:"لم يحدد بعد",
+    mycashi:"لم يحدد بعد",
+    group:"https://chat.whatsapp.com/"
+};
+
+let settings = {
+    ...DEFAULT_SETTINGS,
+    ...JSON.parse(localStorage.getItem("storeSettings") || "{}")
+};
+
+// كلمة مرور لوحة الإدارة التجريبية
+// غيّرها قبل تسليم الموقع
+const ADMIN_PASSWORD = "12345678";
+
+// ==================================
+// المنتجات الافتراضية
+// ==================================
+
+const defaultProducts = [
+{
+ id:1,
+ name:"شحن جواهر فري فاير",
+ price:5000,
+ category:"freefire",
+ type:"جواهر",
+ description:"شحن جواهر فري فاير.",
+ image:"https://placehold.co/400x250?text=Free+Fire"
+},
+{
+ id:2,
+ name:"اشتراك أسبوعي فري فاير",
+ price:3000,
+ category:"freefire",
+ type:"اشتراكات",
+ description:"اشتراك أسبوعي.",
+ image:"https://placehold.co/400x250?text=Weekly"
+},
+{
+ id:3,
+ name:"إنزال جوي",
+ price:2500,
+ category:"freefire",
+ type:"إنزالات جوية",
+ description:"خدمة الإنزال الجوي.",
+ image:"https://placehold.co/400x250?text=Airdrop"
+},
+{
+ id:4,
+ name:"شحن شدات ببجي",
+ price:5000,
+ category:"pubg",
+ type:"شدات",
+ description:"شحن شدات PUBG Mobile.",
+ image:"https://placehold.co/400x250?text=PUBG"
+},
+{
+ id:5,
+ name:"حساب ببجي مميز",
+ price:20000,
+ category:"pubg",
+ type:"حسابات ببجي",
+ description:"حساب ببجي للبيع.",
+ image:"https://placehold.co/400x250?text=PUBG+Account"
+},
+{
+ id:6,
+ name:"حساب جوجل أمريكي",
+ price:10000,
+ category:"google",
+ type:"حسابات جوجل",
+ description:"حساب جوجل أمريكي.",
+ image:"https://placehold.co/400x250?text=Google"
+}
+];
+
+let products = JSON.parse(localStorage.getItem("products"));
+
+if(!Array.isArray(products)){
+    products = defaultProducts;
+    saveProducts();
 }
 
-function filterApps(){
+let cart = JSON.parse(localStorage.getItem("cart") || "[]");
 
-let search = document.getElementById("search").value.toLowerCase();
-let cards = document.querySelectorAll(".card");
-let count = 0;
+let currentCategory = "";
+let currentType = "all";
+let editingId = null;
 
-cards.forEach(card=>{
+// ==================================
+// حفظ البيانات
+// ==================================
 
-let name = card.dataset.name.toLowerCase();
+function saveProducts(){
+    localStorage.setItem("products",JSON.stringify(products));
+}
 
-let match = name.includes(search);
+function saveCart(){
+    localStorage.setItem("cart",JSON.stringify(cart));
+    updateCartCount();
+}
 
-card.style.display = match ? "block" : "none";
+function saveSettings(){
+    settings.name = document.getElementById("storeTitle").value.trim() || DEFAULT_SETTINGS.name;
 
-if(match) count++;
+    settings.whatsapp = document.getElementById("whatsappNumber").value.trim();
 
-});
+    settings.bankak = document.getElementById("bankakNumber").value.trim();
 
-document.getElementById("empty").style.display =
-count === 0 ? "block" : "none";
+    settings.bankakName = document.getElementById("bankakName").value.trim();
+
+    settings.mycashi = document.getElementById("mycashiNumber").value.trim();
+
+    settings.group = document.getElementById("groupLink").value.trim();
+
+    localStorage.setItem("storeSettings",JSON.stringify(settings));
+
+    updateSettings();
+
+    alert("تم حفظ الإعدادات بنجاح");
+}
+
+// ==================================
+// إعدادات الواجهة
+// ==================================
+
+function updateSettings(){
+
+    document.getElementById("storeName").textContent = settings.name;
+
+    document.getElementById("footerName").textContent = settings.name;
+
+    document.getElementById("bankakDisplay").textContent = settings.bankak;
+
+    document.getElementById("bankakNameDisplay").textContent = settings.bankakName;
+
+    document.getElementById("mycashiDisplay").textContent = settings.mycashi;
+
+    document.getElementById("groupLinkDisplay").href = settings.group;
+
+    document.getElementById("contactLink").href =
+    "https://wa.me/" + settings.whatsapp;
+
+    document.getElementById("storeTitle").value = settings.name;
+
+    document.getElementById("whatsappNumber").value = settings.whatsapp;
+
+    document.getElementById("bankakNumber").value = settings.bankak;
+
+    document.getElementById("bankakName").value = settings.bankakName;
+
+    document.getElementById("mycashiNumber").value = settings.mycashi;
+
+    document.getElementById("groupLink").value = settings.group;
+}
+
+// ==================================
+// التنقل بين الصفحات
+// ==================================
+
+const sections = [
+"home",
+"categoryPage",
+"cartPage",
+"adminPage"
+];
+
+function showSection(id){
+
+    sections.forEach(s=>{
+        document.getElementById(s).classList.add("hidden");
+    });
+
+    document.getElementById(id).classList.remove("hidden");
+
+    window.scrollTo(0,0);
+}
+
+function showHome(){
+
+    showSection("home");
+
+    renderFeatured();
+}
+
+function openAdmin(){
+
+    showSection("adminPage");
 
 }
 
-function filterCategory(category,button){
+function showCategory(category){
 
-document.querySelectorAll(".category").forEach(btn=>{
-btn.classList.remove("active");
-});
+    currentCategory = category;
 
-button.classList.add("active");
+    currentType = "all";
 
-let cards = document.querySelectorAll(".card");
-let count = 0;
+    const names = {
+        freefire:"🔥 قسم فري فاير",
+        pubg:"🎮 قسم ببجي",
+        google:"📧 حسابات جوجل الأمريكية"
+    };
 
-cards.forEach(card=>{
+    document.getElementById("categoryTitle").textContent = names[category];
 
-let match =
-category === "all" ||
-card.dataset.category === category;
+    showSection("categoryPage");
 
-card.style.display = match ? "block" : "none";
+    renderSubcategories();
 
-if(match) count++;
+    renderCategoryProducts();
+}
 
-});
+// ==================================
+// الأقسام الفرعية
+// ==================================
 
-document.getElementById("empty").style.display =
-count === 0 ? "block" : "none";
+function renderSubcategories(){
 
-document.getElementById("search").value = "";
+    const types = [...new Set(
+        products
+        .filter(p=>p.category===currentCategory)
+        .map(p=>p.type)
+    )];
+
+    const box = document.getElementById("subcategories");
+
+    box.innerHTML = `
+        <button class="${currentType==="all"?"active":""}"
+        onclick="filterType('all')">كل المنتجات</button>
+    `;
+
+    types.forEach(type=>{
+
+        box.innerHTML += `
+        <button class="${currentType===type?"active":""}"
+        onclick="filterType('${escapeAttr(type)}')">
+        ${escapeHTML(type)}
+        </button>
+        `;
+
+    });
+}
+
+function filterType(type){
+
+    currentType = type;
+
+    renderSubcategories();
+
+    renderCategoryProducts();
+}
+
+// ==================================
+// عرض المنتجات
+// ==================================
+
+function escapeHTML(value){
+    return String(value ?? "").replace(/[&<>"']/g,c=>({
+        "&":"&amp;",
+        "<":"&lt;",
+        ">":"&gt;",
+        '"':"&quot;",
+        "'":"&#39;"
+    })[c]);
+}
+
+function escapeAttr(value){
+    return escapeHTML(value);
+}
+
+function renderProduct(p){
+
+    const image = escapeHTML(p.image || "");
+
+    return `
+    <div class="product">
+
+        <img src="${image}" alt="${escapeHTML(p.name)}"
+        onerror="this.src='https://placehold.co/400x250?text=Product'">
+
+        <div class="product-info">
+
+            <h3>${escapeHTML(p.name)}</h3>
+
+            <p class="badge">${escapeHTML(p.type)}</p>
+
+            <p style="color:#777;margin:10px 0">
+                ${escapeHTML(p.description)}
+            </p>
+
+            <p class="price">
+                ${Number(p.price).toLocaleString("en-US")} جنيه
+            </p>
+
+            <button class="addbtn" onclick="addToCart(${Number(p.id)})">
+                أضف إلى السلة
+            </button>
+
+        </div>
+
+    </div>
+    `;
+}
+
+function renderFeatured(){
+
+    const box = document.getElementById("featuredProducts");
+
+    box.innerHTML = products.slice(0,4).map(renderProduct).join("");
 
 }
+
+function renderCategoryProducts(){
+
+    const filtered = products.filter(p=>
+        p.category===currentCategory &&
+        (currentType==="all" || p.type===currentType)
+    );
+
+    const box = document.getElementById("categoryProducts");
+
+    box.innerHTML = filtered.length
+    ? filtered.map(renderProduct).join("")
+    : "<p>لا توجد منتجات في هذا القسم حالياً.</p>";
+
+}
+
+// ==================================
+// السلة
+// ==================================
+
+function addToCart(id){
+
+    const product = products.find(p=>p.id===id);
+
+    if(!product) return;
+
+    const item = cart.find(p=>p.id===id);
+
+    if(item){
+        item.quantity++;
+    }else{
+        cart.push({...product,quantity:1});
+    }
+
+    saveCart();
+
+    alert("تمت إضافة المنتج إلى السلة");
+
+}
+
+function updateCartCount(){
+
+    const count = cart.reduce((sum,p)=>sum+p.quantity,0);
+
+    document.getElementById("cartCount").textContent = count;
+
+}
+
+function showCart(){
+
+    showSection("cartPage");
+
+    renderCart();
+
+}
+
+function renderCart(){
+
+    const box = document.getElementById("cartItems");
+
+    if(cart.length===0){
+
+        box.innerHTML="<p>السلة فارغة حالياً.</p>";
+
+        document.getElementById("totalPrice").textContent="0";
+
+        return;
+    }
+
+    let total = 0;
+
+    box.innerHTML = cart.map(p=>{
+
+        total += Number(p.price)*p.quantity;
+
+        return `
+        <div class="cart-item">
+
+            <div>
+                <strong>${escapeHTML(p.name)}</strong>
+                <p>${Number(p.price).toLocaleString("en-US")} جنيه × ${p.quantity}</p>
+            </div>
+
+            <button onclick="removeFromCart(${Number(p.id)})">
+                حذف
+            </button>
+
+        </div>
+        `;
+
+    }).join("");
+
+    document.getElementById("totalPrice").textContent =
+    total.toLocaleString("en-US");
+
+}
+
+function removeFromCart(id){
+
+    cart = cart.filter(p=>p.id!==id);
+
+    saveCart();
+
+    renderCart();
+
+}
+
+// ==================================
+// إتمام الطلب عبر واتساب
+// ==================================
+
+function checkout(){
+
+    if(cart.length===0){
+        alert("السلة فارغة");
+        return;
+    }
+
+    const name = document.getElementById("customerName").value.trim();
+
+    const phone = document.getElementById("customerPhone").value.trim();
+
+    const note = document.getElementById("customerNote").value.trim();
+
+    if(!name || !phone){
+        alert("يرجى كتابة اسمك ورقم هاتفك");
+        return;
+    }
+
+    let total = 0;
+
+    let message = `طلب جديد من ${settings.name}\n\n`;
+
+    message += `اسم العميل: ${name}\n`;
+
+    message += `رقم العميل: ${phone}\n\n`;
+
+    message += "تفاصيل الطلب:\n";
+
+    cart.forEach(p=>{
+
+        total += Number(p.price)*p.quantity;
+
+        message += `- ${p.name}\n`;
+
+        message += `الكمية: ${p.quantity}\n`;
+
+        message += `السعر: ${p.price} جنيه\n\n`;
+
+    });
+
+    message += `الإجمالي: ${total} جنيه\n`;
+
+    message += `ملاحظات: ${note || "لا توجد"}\n`;
+
+    message += `\nبيانات التحويل:\n`;
+
+    message += `بنكك: ${settings.bankak}\n`;
+
+    message += `اسم الحساب: ${settings.bankakName}\n`;
+
+    message += `ماي كاشي: ${settings.mycashi}\n`;
+
+    if(!/^\d{8,15}$/.test(settings.whatsapp)){
+        alert("يرجى ضبط رقم واتساب المتجر من لوحة الإدارة أولاً.");
+        return;
+    }
+
+    const url = "https://wa.me/" +
+    settings.whatsapp +
+    "?text=" + encodeURIComponent(message);
+
+    window.open(url,"_blank");
+
+}
+
+// ==================================
+// لوحة الإدارة
+// ==================================
+
+function loginAdmin(){
+
+    const pass = document.getElementById("adminPassword").value;
+
+    if(pass===ADMIN_PASSWORD){
+
+        document.getElementById("loginPanel").classList.add("hidden");
+
+        document.getElementById("adminContent").classList.remove("hidden");
+
+        renderAdminProducts();
+
+        alert("مرحباً بك في لوحة الإدارة");
+
+    }else{
+
+        alert("كلمة المرور غير صحيحة");
+
+    }
+
+}
+
+function logoutAdmin(){
+
+    document.getElementById("loginPanel").classList.remove("hidden");
+
+    document.getElementById("adminContent").classList.add("hidden");
+
+    document.getElementById("adminPassword").value="";
+
+}
+
+function addProduct(){
+
+    const name = document.getElementById("productName").value.trim();
+
+    const price = Number(document.getElementById("productPrice").value);
+
+    const image = document.getElementById("productImage").value.trim();
+
+    const category = document.getElementById("productCategory").value;
+
+    const type = document.getElementById("productType").value;
+
+    const description = document.getElementById("productDescription").value.trim();
+
+    if(!name || !Number.isFinite(price) || price<=0){
+        alert("يرجى إدخال اسم المنتج وسعر صحيح");
+        return;
+    }
+
+    if(image && !/^https?:\/\//i.test(image)){
+        alert("يرجى إدخال رابط صورة صحيح يبدأ بـ http أو https");
+        return;
+    }
+
+    if(editingId!==null){
+
+        const index = products.findIndex(p=>p.id===editingId);
+
+        if(index!==-1){
+
+            products[index]={
+                ...products[index],
+                name,price,image,category,type,description
+            };
+
+        }
+
+        editingId=null;
+
+    }else{
+
+        products.push({
+            id:Date.now(),
+            name,price,image,category,type,description
+        });
+
+    }
+
+    saveProducts();
+
+    renderAdminProducts();
+
+    renderFeatured();
+
+    if(currentCategory){
+        renderSubcategories();
+        renderCategoryProducts();
+    }
+
+    document.getElementById("productName").value="";
+
+    document.getElementById("productPrice").value="";
+
+    document.getElementById("productImage").value="";
+
+    document.getElementById("productDescription").value="";
+
+    alert("تم حفظ المنتج بنجاح");
+
+}
+
+function renderAdminProducts(){
+
+    const box = document.getElementById("adminProducts");
+
+    if(products.length===0){
+        box.innerHTML="<p>لا توجد منتجات.</p>";
+        return;
+    }
+
+    box.innerHTML = products.map(p=>`
+
+    <div class="cart-item">
+
+        <div>
+            <strong>${escapeHTML(p.name)}</strong>
+            <p>${Number(p.price).toLocaleString("en-US")} جنيه</p>
+        </div>
+
+        <div>
+            <button class="primary"
+            onclick="editProduct(${Number(p.id)})">تعديل</button>
+
+            <button class="danger"
+            onclick="deleteProduct(${Number(p.id)})">حذف</button>
+        </div>
+
+    </div>
+
+    `).join("");
+
+}
+
+function editProduct(id){
+
+    const p = products.find(p=>p.id===id);
+
+    if(!p) return;
+
+    editingId=id;
+
+    document.getElementById("productName").value=p.name;
+
+    document.getElementById("productPrice").value=p.price;
+
+    document.getElementById("productImage").value=p.image;
+
+    document.getElementById("productCategory").value=p.category;
+
+    document.getElementById("productType").value=p.type;
+
+    document.getElementById("productDescription").value=p.description;
+
+    window.scrollTo(0,document.body.scrollHeight);
+
+}
+
+function deleteProduct(id){
+
+    if(!confirm("هل أنت متأكد من حذف المنتج؟")) return;
+
+    products = products.filter(p=>p.id!==id);
+
+    cart = cart.filter(p=>p.id!==id);
+
+    saveProducts();
+
+    saveCart();
+
+    renderAdminProducts();
+
+    renderFeatured();
+
+    if(currentCategory){
+        renderSubcategories();
+        renderCategoryProducts();
+    }
+
+    alert("تم حذف المنتج");
+
+}
+
+// ==================================
+// تشغيل الموقع
+// ==================================
+
+updateSettings();
+
+renderFeatured();
+
+updateCartCount();
 
 </script>
 
 </body>
-  </html>
+      </html>
