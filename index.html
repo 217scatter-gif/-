@@ -1,386 +1,127 @@
-<!DOCTYPE html>
+from pathlib import Path
+
+html = r'''<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>عصام للتجاره | المتجر الرسمي</title>
-
+<title>تكنولوجيا المستقبل | متجر إلكتروني</title>
 <style>
-*{box-sizing:border-box}
-body{
-margin:0;
-font-family:Arial,Tahoma,sans-serif;
-background:#f3f6fa;
-color:#172b40;
-line-height:1.8;
-}
-header{
-background:#102b46;
-color:white;
-padding:22px;
-text-align:center;
-}
-header h1{
-color:#e6b54a;
-margin:0;
-font-size:30px;
-}
-nav{
-background:#183e5c;
-padding:13px;
-text-align:center;
-}
-nav a{
-color:white;
-text-decoration:none;
-margin:10px;
-font-weight:bold;
-}
-.hero{
-background:linear-gradient(135deg,#102b46,#245b80);
-color:white;
-text-align:center;
-padding:65px 20px;
-}
-.hero h2{
-font-size:32px;
-color:#f2c15b;
-}
-.btn{
-display:inline-block;
-background:#e6b54a;
-color:#102b46;
-padding:12px 25px;
-border-radius:8px;
-text-decoration:none;
-font-weight:bold;
-margin:10px;
-}
-section{
-padding:35px 18px;
-text-align:center;
-}
-.title{
-color:#173d5c;
-font-size:27px;
-}
-.cards{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-gap:18px;
-max-width:1000px;
-margin:auto;
-}
-.card{
-background:white;
-padding:25px;
-border-radius:13px;
-box-shadow:0 4px 15px #00000012;
-}
-.card h3{
-color:#17486d;
-}
-.manager{
-background:#e5edf5;
-padding:25px;
-text-align:center;
-}
-.contact{
-background:#102b46;
-color:white;
-padding:40px 15px;
-text-align:center;
-}
-.contact h2{color:#f2c15b}
-.contact .btn{
-background:#25d366;
-color:white;
-}
-footer{
-background:#081c2e;
-color:white;
-text-align:center;
-padding:18px;
-}
+:root{--navy:#131921;--navy2:#232f3e;--yellow:#febd69;--orange:#f3a847;--bg:#eaeded;--text:#17202a;--muted:#667085;--white:#fff}
+*{box-sizing:border-box}body{margin:0;font-family:Tahoma,Arial,sans-serif;background:var(--bg);color:var(--text)}
+button,input{font:inherit}button{cursor:pointer;border:0}
+.top{background:var(--navy);color:#fff;padding:12px 4%;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.brand{font-size:22px;font-weight:bold;white-space:nowrap;color:#fff}.brand span{color:var(--yellow)}
+.location{font-size:12px;color:#ddd;white-space:nowrap}.location b{display:block;color:#fff;font-size:14px}
+.search{display:flex;flex:1;min-width:210px;height:42px;border-radius:6px;overflow:hidden}
+.search input{flex:1;min-width:0;border:0;padding:0 13px;outline:0}.search button{background:var(--yellow);padding:0 20px;font-weight:bold}
+.top-action{color:#fff;background:none;font-size:13px;white-space:nowrap}.top-action b{display:block;font-size:15px}
+.cart-btn{background:var(--yellow);color:#17202a;border-radius:6px;padding:10px 14px;font-weight:bold;white-space:nowrap}
+.nav{background:var(--navy2);display:flex;gap:8px;padding:10px 4%;overflow-x:auto}.nav button{background:transparent;color:#fff;padding:7px 12px;border-radius:4px;white-space:nowrap}.nav button.active,.nav button:hover{outline:1px solid var(--yellow);color:var(--yellow)}
+main{max-width:1250px;margin:auto;padding:18px 14px}
+.hero{background:linear-gradient(110deg,#243b55,#141e30);color:#fff;border-radius:10px;padding:35px 30px;display:flex;align-items:center;justify-content:space-between;gap:20px;min-height:190px}
+.hero h1{font-size:clamp(24px,4vw,38px);margin:0 0 12px}.hero p{color:#e2e8f0;line-height:1.8;margin:0 0 18px}.hero .cta{background:var(--yellow);color:#17202a;padding:11px 20px;border-radius:5px;font-weight:bold}.hero-mark{font-size:72px;opacity:.9}
+.section-head{display:flex;justify-content:space-between;align-items:center;margin:24px 2px 13px}.section-head h2{font-size:21px;margin:0}.section-head small{color:var(--muted)}
+.categories{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.cat{background:#fff;border-radius:8px;padding:18px 12px;text-align:center;box-shadow:0 1px 4px #00000012;transition:.2s}.cat:hover{transform:translateY(-3px);box-shadow:0 5px 15px #0002}.cat .icon{font-size:36px}.cat h3{font-size:16px;margin:8px 0 4px}.cat p{font-size:12px;color:var(--muted);margin:0}
+.products{display:grid;grid-template-columns:repeat(4,1fr);gap:13px}
+.card{background:#fff;border-radius:8px;padding:12px;display:flex;flex-direction:column;min-width:0;box-shadow:0 1px 4px #00000010}
+.product-img{height:155px;border-radius:6px;background:#f6f7f8;display:flex;align-items:center;justify-content:center;font-size:62px;margin-bottom:10px}
+.card h3{font-size:15px;margin:3px 0 7px;line-height:1.5}.desc{font-size:12px;color:var(--muted);line-height:1.6;min-height:38px}
+.price{font-weight:bold;color:#b12704;margin:9px 0}.price small{font-size:11px;color:var(--muted);font-weight:normal}
+.card-actions{display:flex;gap:7px;margin-top:auto}.add{background:var(--yellow);border-radius:20px;padding:9px 8px;flex:1;font-size:12px;font-weight:bold}.order{background:#edf2f7;border-radius:20px;padding:9px 8px;font-size:12px}
+.empty{background:#fff;padding:30px;text-align:center;border-radius:8px;color:var(--muted);grid-column:1/-1}
+footer{background:var(--navy2);color:#fff;text-align:center;padding:24px 12px;margin-top:30px;font-size:13px;line-height:1.8}
+.overlay{display:none;position:fixed;inset:0;background:#0008;z-index:5}.overlay.show{display:block}.drawer{position:fixed;top:0;left:0;height:100%;width:min(420px,94vw);background:#fff;z-index:6;transform:translateX(-105%);transition:.25s;padding:18px;overflow:auto}.drawer.show{transform:translateX(0)}
+.drawer-head{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #eee;padding-bottom:12px}.close{background:#eee;border-radius:50%;width:34px;height:34px;font-size:20px}
+.cart-line{display:flex;gap:10px;align-items:center;border-bottom:1px solid #eee;padding:13px 0}.cart-emoji{font-size:30px}.cart-info{flex:1}.cart-info b{display:block;font-size:13px}.cart-info small{color:var(--muted)}.qty{display:flex;align-items:center;gap:7px}.qty button{background:#eee;border-radius:4px;width:25px;height:25px}.remove{background:none;color:#b42318;font-size:12px;margin-top:5px}
+.total{display:flex;justify-content:space-between;font-weight:bold;padding:18px 0}.checkout{width:100%;background:#16a34a;color:white;padding:13px;border-radius:6px;font-weight:bold}.hint{font-size:11px;color:var(--muted);line-height:1.7}
+@media(max-width:850px){.products{grid-template-columns:repeat(3,1fr)}.hero-mark{font-size:55px}}
+@media(max-width:600px){.top{gap:10px;padding:12px}.brand{font-size:19px}.location{display:none}.search{order:3;flex-basis:100%}.top-action{margin-right:auto}.nav{padding:8px}.hero{padding:24px 18px;min-height:160px}.hero-mark{display:none}.categories{grid-template-columns:repeat(2,1fr)}.products{grid-template-columns:repeat(2,1fr);gap:9px}.product-img{height:120px;font-size:50px}.card{padding:9px}.card h3{font-size:13px}.desc{font-size:11px}.section-head h2{font-size:18px}}
 </style>
 </head>
-
 <body>
-
-<header>
-<h1>تكنولوجيا المستقبل</h1>
-<p>متجرك الموثوق للبيع والشراء والوساطة</p>
+<header class="top">
+  <div class="brand">تكنولوجيا <span>المستقبل</span></div>
+  <div class="location">التوصيل إلى <b>جميع ولايات السودان</b></div>
+  <form class="search" id="searchForm"><input id="searchInput" type="search" placeholder="ابحث عن هاتف، لابتوب، إكسسوار..."><button>بحث</button></form>
+  <div class="top-action">مرحباً بك<b>في متجرنا</b></div>
+  <button class="cart-btn" onclick="openCart()">🛒 السلة (<span id="cartCount">0</span>)</button>
 </header>
-
-<nav>
-<a href="#about">من نحن</a>
-<a href="#services">خدماتنا</a>
-<a href="#location">موقعنا</a>
-<a href="#contact">اتصل بنا</a>
+<nav class="nav" id="nav">
+  <button class="active" data-cat="all">كل المنتجات</button>
+  <button data-cat="phones">الهواتف</button>
+  <button data-cat="electronics">الأجهزة الإلكترونية</button>
+  <button data-cat="accessories">الإكسسوارات</button>
+  <button data-cat="laptops">اللابتوبات</button>
 </nav>
-
-<div class="hero">
-<h2>مرحباً بكم في تكنولوجيا المستقبل</h2>
-<p>نحو مستقبل أفضل في عالم التجارة والتسوق</p>
-<p>خدمات البيع والشراء والوساطة والتوصيل</p>
-<a class="btn" href="https://wa.me/249114823421">
-تواصل معنا الآن
-</a>
-</div>
-
-<section id="about">
-<h2 class="title">من نحن</h2>
-<div class="card">
-<p>
-تكنولوجيا المستقبل متجر تجاري يقدم خدمات البيع
-والشراء والوساطة، ويسعى إلى تقديم تجربة تعامل
-مميزة وخدمة موثوقة للعملاء في السودان.
-</p>
-</div>
-</section>
-
-<section id="products">
-<h2 class="title">منتجاتنا</h2>
-
-<div class="cards">
-
-<div class="card">
-<h3>📱 هواتف</h3>
-<p>هواتف ذكية بأفضل الأسعار.</p>
-<strong>السعر: حسب المنتج</strong>
-<br><br>
-<a class="btn" href="https://wa.me/249114823421">اطلب عبر واتساب</a>
-</div>
-
-<div class="card">
-<h3>💻 أجهزة إلكترونية</h3>
-<p>أجهزة إلكترونية متنوعة.</p>
-<strong>السعر: حسب المنتج</strong>
-<br><br>
-<a class="btn" href="https://wa.me/249114823421">اطلب عبر واتساب</a>
-</div>
-
-<div class="card">
-<h3>💻 لابتوبات</h3>
-
-<img src="https://raw.githubusercontent.com/217scatter-gif/-/refs/heads/main/IMG-20261108-WA0031.jpg"
-style="width:100%;height:180px;object-fit:cover;border-radius:10px;">
-
-
-<p>أحدث أجهزة اللابتوب بمواصفات وأسعار متنوعة.</p>
-<strong>السعر: حسب المنتج</strong>
-<br><br>
-
-<a class="btn" href="https://wa.me/249114823421">
-اطلب عبر واتساب
-</a>
-</div>
-<div class="card">
-<h3>🎧 سماعة ألعاب احترافية</h3>
-
-<img src="https://raw.githubusercontent.com/217scatter-gif/-/29a983b2b5939361a5bf50c9dc33d400fb5c190e/file_000000009a7881f48ae3a3307b302247.png"
-style="width:100%;height:180px;object-fit:cover;border-radius:10px;">
-
-<p>سماعة ألعاب بصوت نقي وميكروفون احترافي وإضاءة RGB مذهلة، خفيفة ومريحة.</p>
-
-<strong>السعر: 220,000 جنيه سوداني</strong>
-
-<br><br>
-
-<a class="btn" href="https://wa.me/249114823421">
-اطلب عبر واتساب
-</a>
-  </div>
-</div>
+<main>
+  <section class="hero">
+    <div><h1>كل احتياجاتك التقنية في مكان واحد</h1><p>اكتشف أحدث الهواتف والأجهزة الإلكترونية واللابتوبات والإكسسوارات.<br>اختر منتجاتك وأرسل طلبك مباشرة عبر واتساب.</p><button class="cta" onclick="document.getElementById('productsTitle').scrollIntoView({behavior:'smooth'})">تسوق الآن</button></div>
+    <div class="hero-mark">📦</div>
   </section>
-  <section id="services">
-<h2 class="title">خدماتنا</h2>
+  <div class="section-head"><h2>تسوق حسب القسم</h2><small>اختر القسم لعرض منتجاته</small></div>
+  <section class="categories">
+    <button class="cat" onclick="showCategory('phones')"><div class="icon">📱</div><h3>الهواتف</h3><p>تصفح الهواتف المتاحة</p></button>
+    <button class="cat" onclick="showCategory('electronics')"><div class="icon">🎮</div><h3>الأجهزة الإلكترونية</h3><p>أجهزة وتقنيات متنوعة</p></button>
+    <button class="cat" onclick="showCategory('accessories')"><div class="icon">🎧</div><h3>الإكسسوارات</h3><p>كل ملحقات الأجهزة</p></button>
+    <button class="cat" onclick="showCategory('laptops')"><div class="icon">💻</div><h3>اللابتوبات</h3><p>تصفح أجهزة الكمبيوتر</p></button>
+  </section>
+  <div class="section-head" id="productsTitle"><h2 id="listTitle">منتجات المتجر</h2><small id="resultCount"></small></div>
+  <section class="products" id="products"></section>
+</main>
+<footer>© 2026 تكنولوجيا المستقبل — جميع الحقوق محفوظة<br>للطلب والاستفسار: واتساب 249114823421</footer>
 
-<div class="cards">
-
-<div class="card">
-<h3>🛒 البيع والشراء</h3>
-<p>خدمات البيع والشراء والاستفسار عن المنتجات.</p>
-</div>
-
-<div class="card">
-<h3>🤝 الوساطة</h3>
-<p>تسهيل عمليات البيع والشراء بين العملاء.</p>
-</div>
-
-<div class="card">
-<h3>🚚 التوصيل</h3>
-<p>التوصيل إلى جميع ولايات السودان.</p>
-</div>
-
-</div>
-</section>
-
-<section id="location">
-<h2 class="title">موقعنا</h2>
-<div class="card">
-<p>📍 الفرع: كسلا - السودان</p>
-<p>التوصيل متاح لجميع ولايات السودان.</p>
-</div>
-</section>
-
-<div class="manager">
-<h2>إدارة المتجر</h2>
-<h3>المدير المسؤول: عصام</h3>
-<p>نرحب بجميع عملائنا ونسعد بخدمتكم.</p>
-</div>
-
-<div class="contact" id="contact">
-<h2>تواصل معنا</h2>
-<p>للطلبات والاستفسارات راسلنا مباشرة.</p>
-<p>+249114823421</p>
-
-<a class="btn" href="https://wa.me/249114823421">
-واتساب المتجر
-</a>
-  <a class="btn" href="https://chat.whatsapp.com/Jx2g52NjeB40Tx8mqBtgt1?s=cl&p=a&iam=2" target="_blank">
-انضم إلى مجموعة واتساب المتجر
-  </a>
-</div>
-
-<footer>
-© 2026 تكنولوجيا المستقبل
-<br>
-إدارة عصام - جميع الحقوق محفوظة
-</footer>
-
-<style>
-.cart-box{
-position:fixed;
-bottom:15px;
-left:15px;
-right:15px;
-background:white;
-padding:18px;
-border-radius:15px;
-box-shadow:0 0 15px #777;
-z-index:9999;
-display:none;
-}
-.cart-btn{
-background:#198754;
-color:white;
-border:0;
-padding:12px;
-border-radius:10px;
-width:100%;
-margin-top:10px;
-font-size:17px;
-}
-.cart-float{
-position:fixed;
-bottom:20px;
-right:20px;
-background:#102b46;
-color:white;
-padding:15px 20px;
-border-radius:30px;
-z-index:9998;
-border:0;
-font-size:16px;
-}
-</style>
-
-<button class="cart-float" onclick="showCart()">
-🛒 سلة المشتريات (<span id="cartCount">0</span>)
-</button>
-
-<div class="cart-box" id="cartBox">
-<h3>🛒 سلة مشترياتك</h3>
-<div id="cartItems"></div>
-<h4>راجع المنتجات قبل إرسال الطلب</h4>
-<button class="cart-btn" onclick="sendOrder()">
-إرسال الطلب عبر واتساب
-</button>
-<button class="cart-btn" style="background:#dc3545"
-onclick="closeCart()">إغلاق السلة</button>
-</div>
-
+<div class="overlay" id="overlay" onclick="closeCart()"></div>
+<aside class="drawer" id="drawer">
+  <div class="drawer-head"><h2>🛒 سلة المشتريات</h2><button class="close" onclick="closeCart()">×</button></div>
+  <div id="cartItems"></div>
+  <div class="total"><span>الإجمالي</span><span id="total">0 ج.س</span></div>
+  <button class="checkout" onclick="checkout()">إرسال الطلب عبر واتساب</button>
+  <p class="hint">لا يوجد دفع إلكتروني داخل الموقع. سيتم إرسال تفاصيل طلبك إلى واتساب لتأكيد السعر والتوصيل.</p>
+</aside>
 <script>
-let cart=[];
-
-document.querySelectorAll('#products .card').forEach(card=>{
-let name=card.querySelector('h3').innerText;
-
-let old=card.querySelector('a.btn');
-if(old) old.style.display='none';
-
-let btn=document.createElement('button');
-btn.className='cart-btn';
-btn.innerText='🛒 أضف إلى السلة';
-
-btn.onclick=function(){
-let item=cart.find(x=>x.name===name);
-
-if(item){
-item.qty++;
-}else{
-cart.push({name:name,qty:1});
+const WHATSAPP = "249114823421";
+// عدّل أسماء المنتجات والأسعار والرموز هنا، ويمكنك إضافة منتجات جديدة بنفس الطريقة.
+const productsData = [
+ {id:1,cat:"phones",name:"هاتف ذكي — مثال",desc:"أضف هنا وصف الهاتف والمواصفات والسعة.",price:0,priceText:"حسب المنتج",icon:"📱"},
+ {id:2,cat:"phones",name:"هاتف ذكي — مثال 2",desc:"أضف هنا تفاصيل المنتج وحالة التوفر.",price:0,priceText:"حسب المنتج",icon:"📲"},
+ {id:3,cat:"electronics",name:"ساعة ذكية",desc:"ساعة ذكية بمزايا عملية للاستخدام اليومي.",price:0,priceText:"حسب المنتج",icon:"⌚"},
+ {id:4,cat:"electronics",name:"جهاز إلكتروني",desc:"أضف مواصفات الجهاز وتفاصيله هنا.",price:0,priceText:"حسب المنتج",icon:"🎮"},
+ {id:5,cat:"accessories",name:"سماعة لاسلكية",desc:"سماعة للاستخدام اليومي والاستماع للموسيقى.",price:0,priceText:"حسب المنتج",icon:"🎧"},
+ {id:6,cat:"accessories",name:"شاحن سريع",desc:"أضف نوع الشاحن وقدرته والأجهزة المتوافقة.",price:0,priceText:"حسب المنتج",icon:"🔌"},
+ {id:7,cat:"laptops",name:"لابتوب — مثال",desc:"أضف المعالج والرام والتخزين وحجم الشاشة.",price:0,priceText:"حسب المنتج",icon:"💻"},
+ {id:8,cat:"laptops",name:"لابتوب — مثال 2",desc:"أضف مواصفات اللابتوب وحالته هنا.",price:0,priceText:"حسب المنتج",icon:"🖥️"}
+];
+let currentCategory="all", searchTerm="", cart=[];
+const categoryNames={all:"منتجات المتجر",phones:"الهواتف",electronics:"الأجهزة الإلكترونية",accessories:"الإكسسوارات",laptops:"اللابتوبات"};
+function renderProducts(){
+ const filtered=productsData.filter(p=>(currentCategory==="all"||p.cat===currentCategory)&&(`${p.name} ${p.desc}`).toLowerCase().includes(searchTerm.toLowerCase()));
+ document.getElementById("listTitle").textContent=categoryNames[currentCategory];
+ document.getElementById("resultCount").textContent=`${filtered.length} منتج`;
+ document.getElementById("products").innerHTML=filtered.length?filtered.map(p=>`
+ <article class="card"><div class="product-img">${p.icon}</div><h3>${p.name}</h3><div class="desc">${p.desc}</div>
+ <div class="price">${p.price>0?p.price.toLocaleString("en-US")+" ج.س":p.priceText}</div>
+ <div class="card-actions"><button class="add" onclick="addToCart(${p.id})">أضف إلى السلة</button><button class="order" onclick="orderOne(${p.id})">اطلب الآن</button></div></article>`).join(""):`<div class="empty">لا توجد منتجات مطابقة حالياً.</div>`;
+ document.querySelectorAll("#nav button").forEach(b=>b.classList.toggle("active",b.dataset.cat===currentCategory));
 }
+function showCategory(cat){currentCategory=cat;searchTerm="";document.getElementById("searchInput").value="";renderProducts();document.getElementById("productsTitle").scrollIntoView({behavior:"smooth"});}
+document.querySelectorAll("#nav button").forEach(b=>b.addEventListener("click",()=>showCategory(b.dataset.cat)));
+document.getElementById("searchForm").addEventListener("submit",e=>{e.preventDefault();searchTerm=document.getElementById("searchInput").value.trim();currentCategory="all";renderProducts();});
+function addToCart(id){const p=productsData.find(x=>x.id===id);const item=cart.find(x=>x.id===id);if(item)item.qty++;else cart.push({...p,qty:1});updateCart();openCart();}
+function orderOne(id){const p=productsData.find(x=>x.id===id);const msg=`السلام عليكم، أرغب في طلب المنتج التالي:\n${p.name}\nالسعر: ${p.price>0?p.price+" ج.س":p.priceText}`;window.open(`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`,"_blank");}
+function updateCart(){document.getElementById("cartCount").textContent=cart.reduce((s,x)=>s+x.qty,0);document.getElementById("cartItems").innerHTML=cart.length?cart.map(x=>`<div class="cart-line"><div class="cart-emoji">${x.icon}</div><div class="cart-info"><b>${x.name}</b><small>${x.price>0?x.price.toLocaleString("en-US")+" ج.س":x.priceText}</small><br><button class="remove" onclick="removeItem(${x.id})">حذف</button></div><div class="qty"><button onclick="changeQty(${x.id},-1)">−</button><span>${x.qty}</span><button onclick="changeQty(${x.id},1)">+</button></div></div>`).join(""):`<div class="empty">السلة فارغة حالياً.</div>`;
+const total=cart.reduce((s,x)=>s+(x.price||0)*x.qty,0);document.getElementById("total").textContent=total.toLocaleString("en-US")+" ج.س";}
+function changeQty(id,n){const x=cart.find(i=>i.id===id);if(!x)return;x.qty+=n;if(x.qty<=0)cart=cart.filter(i=>i.id!==id);updateCart();}
+function removeItem(id){cart=cart.filter(i=>i.id!==id);updateCart();}
+function openCart(){document.getElementById("overlay").classList.add("show");document.getElementById("drawer").classList.add("show");}
+function closeCart(){document.getElementById("overlay").classList.remove("show");document.getElementById("drawer").classList.remove("show");}
+function checkout(){if(!cart.length){alert("السلة فارغة، أضف منتجاً أولاً.");return;}let msg="السلام عليكم، أريد تأكيد الطلب التالي:\n\n";cart.forEach(x=>msg+=`- ${x.name} | الكمية: ${x.qty} | السعر: ${x.price>0?x.price+" ج.س":x.priceText}\n`);const total=cart.reduce((s,x)=>s+(x.price||0)*x.qty,0);msg+=`\nالإجمالي المعروف: ${total.toLocaleString("en-US")} ج.س\nالرجاء تأكيد الأسعار والتوصيل.`;window.open(`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`,"_blank");}
+renderProducts();updateCart();
+</script>
+</body>
+</html>'''
 
-updateCart();
-alert('تمت إضافة المنتج إلى السلة');
-};
-
-card.appendChild(btn);
-});
-
-function updateCart(){
-let count=cart.reduce((s,x)=>s+x.qty,0);
-document.getElementById('cartCount').innerText=count;
-
-let html='';
-
-cart.forEach((item,i)=>{
-html+=`
-<p>
-${item.name} 
-× ${item.qty}
-<button onclick="removeItem(${i})">❌</button>
-</p>`;
-});
-
-document.getElementById('cartItems').innerHTML=
-html || 'السلة فارغة';
-}
-
-function removeItem(i){
-cart.splice(i,1);
-updateCart();
-}
-
-function showCart(){
-document.getElementById('cartBox').style.display='block';
-}
-
-function closeCart(){
-document.getElementById('cartBox').style.display='none';
-}
-
-function sendOrder(){
-if(cart.length===0){
-alert('السلة فارغة');
-return;
-}
-
-let message='السلام عليكم، أريد طلب المنتجات التالية:\n\n';
-
-cart.forEach(item=>{
-message+=item.name+' - العدد: '+item.qty+'\n';
-});
-
-message+='\nالرجاء تأكيد الطلب والتوصيل.';
-
-window.open(
-'https://wa.me/249114823421?text='+
-encodeURIComponent(message),
-'_blank'
-);
-}
-  </script> </body>
-</html>
+path = Path("/mnt/data/index.html")
+path.write_text(html, encoding="utf-8")
+print(f"تم إنشاء الملف: {path}")
