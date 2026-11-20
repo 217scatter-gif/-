@@ -1,127 +1,554 @@
-from pathlib import Path
-
-html = r'''<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>تكنولوجيا المستقبل | متجر إلكتروني</title>
+<title>شيأن السودان | SHEIN SUDAN</title>
+
 <style>
-:root{--navy:#131921;--navy2:#232f3e;--yellow:#febd69;--orange:#f3a847;--bg:#eaeded;--text:#17202a;--muted:#667085;--white:#fff}
-*{box-sizing:border-box}body{margin:0;font-family:Tahoma,Arial,sans-serif;background:var(--bg);color:var(--text)}
-button,input{font:inherit}button{cursor:pointer;border:0}
-.top{background:var(--navy);color:#fff;padding:12px 4%;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
-.brand{font-size:22px;font-weight:bold;white-space:nowrap;color:#fff}.brand span{color:var(--yellow)}
-.location{font-size:12px;color:#ddd;white-space:nowrap}.location b{display:block;color:#fff;font-size:14px}
-.search{display:flex;flex:1;min-width:210px;height:42px;border-radius:6px;overflow:hidden}
-.search input{flex:1;min-width:0;border:0;padding:0 13px;outline:0}.search button{background:var(--yellow);padding:0 20px;font-weight:bold}
-.top-action{color:#fff;background:none;font-size:13px;white-space:nowrap}.top-action b{display:block;font-size:15px}
-.cart-btn{background:var(--yellow);color:#17202a;border-radius:6px;padding:10px 14px;font-weight:bold;white-space:nowrap}
-.nav{background:var(--navy2);display:flex;gap:8px;padding:10px 4%;overflow-x:auto}.nav button{background:transparent;color:#fff;padding:7px 12px;border-radius:4px;white-space:nowrap}.nav button.active,.nav button:hover{outline:1px solid var(--yellow);color:var(--yellow)}
-main{max-width:1250px;margin:auto;padding:18px 14px}
-.hero{background:linear-gradient(110deg,#243b55,#141e30);color:#fff;border-radius:10px;padding:35px 30px;display:flex;align-items:center;justify-content:space-between;gap:20px;min-height:190px}
-.hero h1{font-size:clamp(24px,4vw,38px);margin:0 0 12px}.hero p{color:#e2e8f0;line-height:1.8;margin:0 0 18px}.hero .cta{background:var(--yellow);color:#17202a;padding:11px 20px;border-radius:5px;font-weight:bold}.hero-mark{font-size:72px;opacity:.9}
-.section-head{display:flex;justify-content:space-between;align-items:center;margin:24px 2px 13px}.section-head h2{font-size:21px;margin:0}.section-head small{color:var(--muted)}
-.categories{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
-.cat{background:#fff;border-radius:8px;padding:18px 12px;text-align:center;box-shadow:0 1px 4px #00000012;transition:.2s}.cat:hover{transform:translateY(-3px);box-shadow:0 5px 15px #0002}.cat .icon{font-size:36px}.cat h3{font-size:16px;margin:8px 0 4px}.cat p{font-size:12px;color:var(--muted);margin:0}
-.products{display:grid;grid-template-columns:repeat(4,1fr);gap:13px}
-.card{background:#fff;border-radius:8px;padding:12px;display:flex;flex-direction:column;min-width:0;box-shadow:0 1px 4px #00000010}
-.product-img{height:155px;border-radius:6px;background:#f6f7f8;display:flex;align-items:center;justify-content:center;font-size:62px;margin-bottom:10px}
-.card h3{font-size:15px;margin:3px 0 7px;line-height:1.5}.desc{font-size:12px;color:var(--muted);line-height:1.6;min-height:38px}
-.price{font-weight:bold;color:#b12704;margin:9px 0}.price small{font-size:11px;color:var(--muted);font-weight:normal}
-.card-actions{display:flex;gap:7px;margin-top:auto}.add{background:var(--yellow);border-radius:20px;padding:9px 8px;flex:1;font-size:12px;font-weight:bold}.order{background:#edf2f7;border-radius:20px;padding:9px 8px;font-size:12px}
-.empty{background:#fff;padding:30px;text-align:center;border-radius:8px;color:var(--muted);grid-column:1/-1}
-footer{background:var(--navy2);color:#fff;text-align:center;padding:24px 12px;margin-top:30px;font-size:13px;line-height:1.8}
-.overlay{display:none;position:fixed;inset:0;background:#0008;z-index:5}.overlay.show{display:block}.drawer{position:fixed;top:0;left:0;height:100%;width:min(420px,94vw);background:#fff;z-index:6;transform:translateX(-105%);transition:.25s;padding:18px;overflow:auto}.drawer.show{transform:translateX(0)}
-.drawer-head{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #eee;padding-bottom:12px}.close{background:#eee;border-radius:50%;width:34px;height:34px;font-size:20px}
-.cart-line{display:flex;gap:10px;align-items:center;border-bottom:1px solid #eee;padding:13px 0}.cart-emoji{font-size:30px}.cart-info{flex:1}.cart-info b{display:block;font-size:13px}.cart-info small{color:var(--muted)}.qty{display:flex;align-items:center;gap:7px}.qty button{background:#eee;border-radius:4px;width:25px;height:25px}.remove{background:none;color:#b42318;font-size:12px;margin-top:5px}
-.total{display:flex;justify-content:space-between;font-weight:bold;padding:18px 0}.checkout{width:100%;background:#16a34a;color:white;padding:13px;border-radius:6px;font-weight:bold}.hint{font-size:11px;color:var(--muted);line-height:1.7}
-@media(max-width:850px){.products{grid-template-columns:repeat(3,1fr)}.hero-mark{font-size:55px}}
-@media(max-width:600px){.top{gap:10px;padding:12px}.brand{font-size:19px}.location{display:none}.search{order:3;flex-basis:100%}.top-action{margin-right:auto}.nav{padding:8px}.hero{padding:24px 18px;min-height:160px}.hero-mark{display:none}.categories{grid-template-columns:repeat(2,1fr)}.products{grid-template-columns:repeat(2,1fr);gap:9px}.product-img{height:120px;font-size:50px}.card{padding:9px}.card h3{font-size:13px}.desc{font-size:11px}.section-head h2{font-size:18px}}
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#fff;
+    color:#222;
+}
+
+header{
+    background:#fff;
+    padding:15px;
+    position:sticky;
+    top:0;
+    z-index:100;
+    box-shadow:0 2px 8px #ddd;
+}
+
+.top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+}
+
+.logo{
+    font-size:25px;
+    font-weight:bold;
+    letter-spacing:1px;
+}
+
+.logo span{
+    color:#e60046;
+}
+
+.icons{
+    display:flex;
+    gap:18px;
+    font-size:22px;
+    cursor:pointer;
+}
+
+.search{
+    margin-top:15px;
+}
+
+.search input{
+    width:100%;
+    padding:13px;
+    border:1px solid #ddd;
+    background:#f7f7f7;
+    border-radius:5px;
+    font-size:15px;
+}
+
+nav{
+    display:flex;
+    overflow-x:auto;
+    gap:25px;
+    padding:15px 5px;
+    white-space:nowrap;
+}
+
+nav a{
+    text-decoration:none;
+    color:#222;
+    font-size:14px;
+    cursor:pointer;
+}
+
+nav a:hover{
+    color:#e60046;
+}
+
+.banner{
+    background:linear-gradient(120deg,#171717,#555);
+    color:white;
+    min-height:230px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:30px;
+}
+
+.banner h1{
+    font-size:35px;
+    margin-bottom:15px;
+}
+
+.banner p{
+    font-size:17px;
+    margin-bottom:20px;
+}
+
+.banner button{
+    background:white;
+    border:0;
+    padding:13px 35px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.section-title{
+    padding:25px 15px 15px;
+    font-size:21px;
+    font-weight:bold;
+}
+
+.categories{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:10px;
+    padding:10px;
+}
+
+.category{
+    text-align:center;
+    cursor:pointer;
+}
+
+.category img{
+    width:100%;
+    height:110px;
+    object-fit:cover;
+}
+
+.category p{
+    padding:8px 0;
+    font-size:13px;
+}
+
+.products{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+    padding:12px;
+}
+
+.product{
+    position:relative;
+    background:#fff;
+    border:1px solid #eee;
+    padding-bottom:12px;
+    cursor:pointer;
+}
+
+.product img{
+    width:100%;
+    height:230px;
+    object-fit:cover;
+}
+
+.product h3{
+    font-size:14px;
+    padding:8px;
+}
+
+.price{
+    padding:0 8px;
+    font-weight:bold;
+    color:#e60046;
+}
+
+.old-price{
+    color:#999;
+    text-decoration:line-through;
+    font-size:12px;
+    margin-right:5px;
+}
+
+.heart{
+    position:absolute;
+    top:10px;
+    left:10px;
+    background:white;
+    border:0;
+    border-radius:50%;
+    padding:8px;
+    font-size:18px;
+    cursor:pointer;
+}
+
+.add{
+    background:#222;
+    color:white;
+    border:0;
+    width:90%;
+    padding:10px;
+    margin:10px 5%;
+    cursor:pointer;
+}
+
+.add:hover{
+    background:#e60046;
+}
+
+.discount{
+    position:absolute;
+    top:10px;
+    right:10px;
+    background:#e60046;
+    color:white;
+    padding:5px;
+    font-size:12px;
+}
+
+footer{
+    background:#222;
+    color:white;
+    padding:35px 20px;
+    text-align:center;
+    margin-top:30px;
+}
+
+footer p{
+    margin:10px;
+    font-size:13px;
+    color:#ccc;
+}
+
+.overlay{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:#0008;
+    z-index:200;
+}
+
+.drawer{
+    position:fixed;
+    top:0;
+    left:0;
+    height:100%;
+    width:85%;
+    max-width:400px;
+    background:white;
+    z-index:300;
+    padding:20px;
+    overflow-y:auto;
+    transform:translateX(-110%);
+    transition:.3s;
+}
+
+.drawer.active{
+    transform:translateX(0);
+}
+
+.drawer-header{
+    display:flex;
+    justify-content:space-between;
+    padding-bottom:20px;
+    border-bottom:1px solid #ddd;
+}
+
+.close{
+    font-size:25px;
+    cursor:pointer;
+}
+
+.cart-item{
+    display:flex;
+    gap:10px;
+    padding:15px 0;
+    border-bottom:1px solid #eee;
+}
+
+.cart-item img{
+    width:75px;
+    height:85px;
+    object-fit:cover;
+}
+
+.cart-item button{
+    margin:5px;
+    padding:4px 10px;
+}
+
+.total{
+    padding:20px 0;
+    font-weight:bold;
+    font-size:20px;
+}
+
+.checkout{
+    background:#e60046;
+    color:white;
+    border:0;
+    padding:15px;
+    width:100%;
+    cursor:pointer;
+}
+
+#details{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:white;
+    z-index:400;
+    overflow-y:auto;
+    padding:20px;
+}
+
+#details img{
+    width:100%;
+    max-height:400px;
+    object-fit:contain;
+}
+
+#details button{
+    padding:13px;
+    margin:10px 0;
+    cursor:pointer;
+}
+
+@media(min-width:768px){
+    .products{
+        grid-template-columns:repeat(4,1fr);
+        padding:25px;
+    }
+
+    .product img{
+        height:300px;
+    }
+
+    .categories{
+        grid-template-columns:repeat(6,1fr);
+    }
+
+    .banner{
+        min-height:350px;
+    }
+}
+
+@media(max-width:400px){
+    .categories{
+        grid-template-columns:repeat(2,1fr);
+    }
+}
 </style>
 </head>
+
 <body>
-<header class="top">
-  <div class="brand">تكنولوجيا <span>المستقبل</span></div>
-  <div class="location">التوصيل إلى <b>جميع ولايات السودان</b></div>
-  <form class="search" id="searchForm"><input id="searchInput" type="search" placeholder="ابحث عن هاتف، لابتوب، إكسسوار..."><button>بحث</button></form>
-  <div class="top-action">مرحباً بك<b>في متجرنا</b></div>
-  <button class="cart-btn" onclick="openCart()">🛒 السلة (<span id="cartCount">0</span>)</button>
-</header>
-<nav class="nav" id="nav">
-  <button class="active" data-cat="all">كل المنتجات</button>
-  <button data-cat="phones">الهواتف</button>
-  <button data-cat="electronics">الأجهزة الإلكترونية</button>
-  <button data-cat="accessories">الإكسسوارات</button>
-  <button data-cat="laptops">اللابتوبات</button>
+
+<header>
+
+<div class="top">
+
+<div class="logo">SHEIN <span>SUDAN</span></div>
+
+<div class="icons">
+<span onclick="openCart()">🛒<small id="cartCount">0</small></span>
+<span onclick="showFavorites()">♡</span>
+</div>
+
+</div>
+
+<div class="search">
+<input id="search" type="search"
+placeholder="ابحث عن المنتجات التي تريدها..."
+oninput="renderProducts()">
+</div>
+
+<nav>
+<a onclick="filter('الكل')">الرئيسية</a>
+<a onclick="filter('نساء')">نساء</a>
+<a onclick="filter('رجال')">رجال</a>
+<a onclick="filter('أطفال')">أطفال</a>
+<a onclick="filter('أحذية')">أحذية</a>
+<a onclick="filter('حقائب')">حقائب</a>
+<a onclick="filter('إكسسوارات')">إكسسوارات</a>
 </nav>
-<main>
-  <section class="hero">
-    <div><h1>كل احتياجاتك التقنية في مكان واحد</h1><p>اكتشف أحدث الهواتف والأجهزة الإلكترونية واللابتوبات والإكسسوارات.<br>اختر منتجاتك وأرسل طلبك مباشرة عبر واتساب.</p><button class="cta" onclick="document.getElementById('productsTitle').scrollIntoView({behavior:'smooth'})">تسوق الآن</button></div>
-    <div class="hero-mark">📦</div>
-  </section>
-  <div class="section-head"><h2>تسوق حسب القسم</h2><small>اختر القسم لعرض منتجاته</small></div>
-  <section class="categories">
-    <button class="cat" onclick="showCategory('phones')"><div class="icon">📱</div><h3>الهواتف</h3><p>تصفح الهواتف المتاحة</p></button>
-    <button class="cat" onclick="showCategory('electronics')"><div class="icon">🎮</div><h3>الأجهزة الإلكترونية</h3><p>أجهزة وتقنيات متنوعة</p></button>
-    <button class="cat" onclick="showCategory('accessories')"><div class="icon">🎧</div><h3>الإكسسوارات</h3><p>كل ملحقات الأجهزة</p></button>
-    <button class="cat" onclick="showCategory('laptops')"><div class="icon">💻</div><h3>اللابتوبات</h3><p>تصفح أجهزة الكمبيوتر</p></button>
-  </section>
-  <div class="section-head" id="productsTitle"><h2 id="listTitle">منتجات المتجر</h2><small id="resultCount"></small></div>
-  <section class="products" id="products"></section>
-</main>
-<footer>© 2026 تكنولوجيا المستقبل — جميع الحقوق محفوظة<br>للطلب والاستفسار: واتساب 249114823421</footer>
+
+</header>
+
+<section class="banner">
+
+<div>
+<h1>اكتشف عالم الأناقة</h1>
+<p>أحدث صيحات الموضة بين يديك مع شيأن السودان</p>
+<button onclick="document.getElementById('shop').scrollIntoView()">
+تسوق الآن
+</button>
+</div>
+
+</section>
+
+<h2 class="section-title">تسوق حسب القسم</h2>
+
+<div class="categories">
+
+<div class="category" onclick="filter('نساء')">
+<img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=400">
+<p>ملابس نسائية</p>
+</div>
+
+<div class="category" onclick="filter('رجال')">
+<img src="https://images.unsplash.com/photo-1516257984-b1b4d707412e?w=400">
+<p>ملابس رجالية</p>
+</div>
+
+<div class="category" onclick="filter('أطفال')">
+<img src="https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?w=400">
+<p>ملابس أطفال</p>
+</div>
+
+<div class="category" onclick="filter('أحذية')">
+<img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400">
+<p>أحذية</p>
+</div>
+
+<div class="category" onclick="filter('حقائب')">
+<img src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=400">
+<p>حقائب</p>
+</div>
+
+<div class="category" onclick="filter('إكسسوارات')">
+<img src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=400">
+<p>إكسسوارات</p>
+</div>
+
+</div>
+
+<section id="shop">
+
+<h2 class="section-title" id="sectionName">
+أحدث المنتجات
+</h2>
+
+<div class="products" id="products"></div>
+
+</section>
+
+<footer>
+<h2>SHEIN SUDAN</h2>
+<p>وجهتك الأولى للأناقة والموضة في السودان</p>
+<p>جميع الحقوق محفوظة © 2026</p>
+<p>خدمة العملاء - شيأن السودان</p>
+</footer>
 
 <div class="overlay" id="overlay" onclick="closeCart()"></div>
-<aside class="drawer" id="drawer">
-  <div class="drawer-head"><h2>🛒 سلة المشتريات</h2><button class="close" onclick="closeCart()">×</button></div>
-  <div id="cartItems"></div>
-  <div class="total"><span>الإجمالي</span><span id="total">0 ج.س</span></div>
-  <button class="checkout" onclick="checkout()">إرسال الطلب عبر واتساب</button>
-  <p class="hint">لا يوجد دفع إلكتروني داخل الموقع. سيتم إرسال تفاصيل طلبك إلى واتساب لتأكيد السعر والتوصيل.</p>
-</aside>
-<script>
-const WHATSAPP = "249114823421";
-// عدّل أسماء المنتجات والأسعار والرموز هنا، ويمكنك إضافة منتجات جديدة بنفس الطريقة.
-const productsData = [
- {id:1,cat:"phones",name:"هاتف ذكي — مثال",desc:"أضف هنا وصف الهاتف والمواصفات والسعة.",price:0,priceText:"حسب المنتج",icon:"📱"},
- {id:2,cat:"phones",name:"هاتف ذكي — مثال 2",desc:"أضف هنا تفاصيل المنتج وحالة التوفر.",price:0,priceText:"حسب المنتج",icon:"📲"},
- {id:3,cat:"electronics",name:"ساعة ذكية",desc:"ساعة ذكية بمزايا عملية للاستخدام اليومي.",price:0,priceText:"حسب المنتج",icon:"⌚"},
- {id:4,cat:"electronics",name:"جهاز إلكتروني",desc:"أضف مواصفات الجهاز وتفاصيله هنا.",price:0,priceText:"حسب المنتج",icon:"🎮"},
- {id:5,cat:"accessories",name:"سماعة لاسلكية",desc:"سماعة للاستخدام اليومي والاستماع للموسيقى.",price:0,priceText:"حسب المنتج",icon:"🎧"},
- {id:6,cat:"accessories",name:"شاحن سريع",desc:"أضف نوع الشاحن وقدرته والأجهزة المتوافقة.",price:0,priceText:"حسب المنتج",icon:"🔌"},
- {id:7,cat:"laptops",name:"لابتوب — مثال",desc:"أضف المعالج والرام والتخزين وحجم الشاشة.",price:0,priceText:"حسب المنتج",icon:"💻"},
- {id:8,cat:"laptops",name:"لابتوب — مثال 2",desc:"أضف مواصفات اللابتوب وحالته هنا.",price:0,priceText:"حسب المنتج",icon:"🖥️"}
-];
-let currentCategory="all", searchTerm="", cart=[];
-const categoryNames={all:"منتجات المتجر",phones:"الهواتف",electronics:"الأجهزة الإلكترونية",accessories:"الإكسسوارات",laptops:"اللابتوبات"};
-function renderProducts(){
- const filtered=productsData.filter(p=>(currentCategory==="all"||p.cat===currentCategory)&&(`${p.name} ${p.desc}`).toLowerCase().includes(searchTerm.toLowerCase()));
- document.getElementById("listTitle").textContent=categoryNames[currentCategory];
- document.getElementById("resultCount").textContent=`${filtered.length} منتج`;
- document.getElementById("products").innerHTML=filtered.length?filtered.map(p=>`
- <article class="card"><div class="product-img">${p.icon}</div><h3>${p.name}</h3><div class="desc">${p.desc}</div>
- <div class="price">${p.price>0?p.price.toLocaleString("en-US")+" ج.س":p.priceText}</div>
- <div class="card-actions"><button class="add" onclick="addToCart(${p.id})">أضف إلى السلة</button><button class="order" onclick="orderOne(${p.id})">اطلب الآن</button></div></article>`).join(""):`<div class="empty">لا توجد منتجات مطابقة حالياً.</div>`;
- document.querySelectorAll("#nav button").forEach(b=>b.classList.toggle("active",b.dataset.cat===currentCategory));
-}
-function showCategory(cat){currentCategory=cat;searchTerm="";document.getElementById("searchInput").value="";renderProducts();document.getElementById("productsTitle").scrollIntoView({behavior:"smooth"});}
-document.querySelectorAll("#nav button").forEach(b=>b.addEventListener("click",()=>showCategory(b.dataset.cat)));
-document.getElementById("searchForm").addEventListener("submit",e=>{e.preventDefault();searchTerm=document.getElementById("searchInput").value.trim();currentCategory="all";renderProducts();});
-function addToCart(id){const p=productsData.find(x=>x.id===id);const item=cart.find(x=>x.id===id);if(item)item.qty++;else cart.push({...p,qty:1});updateCart();openCart();}
-function orderOne(id){const p=productsData.find(x=>x.id===id);const msg=`السلام عليكم، أرغب في طلب المنتج التالي:\n${p.name}\nالسعر: ${p.price>0?p.price+" ج.س":p.priceText}`;window.open(`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`,"_blank");}
-function updateCart(){document.getElementById("cartCount").textContent=cart.reduce((s,x)=>s+x.qty,0);document.getElementById("cartItems").innerHTML=cart.length?cart.map(x=>`<div class="cart-line"><div class="cart-emoji">${x.icon}</div><div class="cart-info"><b>${x.name}</b><small>${x.price>0?x.price.toLocaleString("en-US")+" ج.س":x.priceText}</small><br><button class="remove" onclick="removeItem(${x.id})">حذف</button></div><div class="qty"><button onclick="changeQty(${x.id},-1)">−</button><span>${x.qty}</span><button onclick="changeQty(${x.id},1)">+</button></div></div>`).join(""):`<div class="empty">السلة فارغة حالياً.</div>`;
-const total=cart.reduce((s,x)=>s+(x.price||0)*x.qty,0);document.getElementById("total").textContent=total.toLocaleString("en-US")+" ج.س";}
-function changeQty(id,n){const x=cart.find(i=>i.id===id);if(!x)return;x.qty+=n;if(x.qty<=0)cart=cart.filter(i=>i.id!==id);updateCart();}
-function removeItem(id){cart=cart.filter(i=>i.id!==id);updateCart();}
-function openCart(){document.getElementById("overlay").classList.add("show");document.getElementById("drawer").classList.add("show");}
-function closeCart(){document.getElementById("overlay").classList.remove("show");document.getElementById("drawer").classList.remove("show");}
-function checkout(){if(!cart.length){alert("السلة فارغة، أضف منتجاً أولاً.");return;}let msg="السلام عليكم، أريد تأكيد الطلب التالي:\n\n";cart.forEach(x=>msg+=`- ${x.name} | الكمية: ${x.qty} | السعر: ${x.price>0?x.price+" ج.س":x.priceText}\n`);const total=cart.reduce((s,x)=>s+(x.price||0)*x.qty,0);msg+=`\nالإجمالي المعروف: ${total.toLocaleString("en-US")} ج.س\nالرجاء تأكيد الأسعار والتوصيل.`;window.open(`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`,"_blank");}
-renderProducts();updateCart();
-</script>
-</body>
-</html>'''
 
-path = Path("/mnt/data/index.html")
-path.write_text(html, encoding="utf-8")
-print(f"تم إنشاء الملف: {path}")
+<div class="drawer" id="drawer">
+
+<div class="drawer-header">
+<h2>سلة التسوق 🛒</h2>
+<span class="close" onclick="closeCart()">×</span>
+</div>
+
+<div id="cartItems"></div>
+
+<div class="total">
+الإجمالي: <span id="total">0</span> جنيه سوداني
+</div>
+
+<button class="checkout" onclick="checkout()">
+إتمام الطلب عبر واتساب
+</button>
+
+</div>
+
+<div id="details">
+
+<span class="close" onclick="closeDetails()">×</span>
+
+<div id="detailContent"></div>
+
+</div>
+
+<script>
+
+const productsData = [
+
+{
+id:1,
+name:"فستان نسائي أنيق",
+category:"نساء",
+price:35000,
+old:45000,
+image:"https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=600"
+},
+
+{
+id:2,
+name:"قميص رجالي عصري",
+category:"رجال",
+price:28000,
+old:35000,
+image:"https://images.unsplash.com/photo-1598033129183-c4f50c736f10?w=600"
+},
+
+{
+id:3,
+name:"حذاء رياضي",
+category:"أحذية",
+price:42000,
+old:55000,
+image:"https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600"
+},
+
+{
+id:4,
+name:"حقيبة نسائية",
+category:"حقائب",
+price:30000,
+old:40000,
+image:"https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600"
+},
+
+{
+id:5,
+name:"ملابس أطفال",
+category:"أطفال",
+price:18000,
+old:25000,
+image:"https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?w=600"
+},
+
+{
+id:6,
+name:"ساعة أنيقة",
+category:"إكسسوارات",
+price:25000,
+old:32000,
+image:"https://images.unsplash.com/photo-1524592094714-0f0654e20314?w=600"
+},
+
+{
+id:7,
+name:"جاكيت نسائي",
+category:"نساء",
+price:50000,
+old:65000,
+image:"https://images.unsplash.com/photo-1548126032-079a0fb0099d?w=600"
+},
+
+{
+id:8,
+name:"حذاء نسائي",
+category:"أحذية",
+price:38000,
+old:45000,
+image:"https://images.unsplash.com/photo-1543163521-1bf539c55dd2
