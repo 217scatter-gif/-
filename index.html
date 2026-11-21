@@ -1369,4 +1369,388 @@ html+=`
 ${formatPrice(product.price)} جنيه × ${quantity}
 </small>
 
-</div
+</div>
+
+<button onclick="removeCartItem(${product.id})">
+حذف
+</button>
+
+</div>
+
+`;
+
+});
+
+box.innerHTML=html;
+
+document.getElementById("totalPrice").textContent=formatPrice(total);
+
+}
+
+function removeCartItem(id){
+
+cart=cart.filter(p=>p.id!==id);
+
+saveAll();
+
+updateCartCount();
+
+renderCart();
+
+}
+
+// =====================================
+// الطلب عبر واتساب
+// =====================================
+
+function checkout(){
+
+if(cart.length===0){
+alert("السلة فارغة.");
+return;
+}
+
+const name=document.getElementById("customerName").value.trim();
+
+const phone=document.getElementById("customerPhone").value.trim();
+
+const note=document.getElementById("customerNote").value.trim();
+
+if(!name || !phone){
+alert("يرجى كتابة اسمك ورقم هاتفك أو رقم اللاعب.");
+return;
+}
+
+if(!/^\d{8,15}$/.test(settings.whatsapp)){
+alert("رقم واتساب المتجر غير صحيح.");
+return;
+}
+
+let total=0;
+
+let message=`طلب جديد من ESSAM STORE\n\n`;
+
+message+=`اسم العميل: ${name}\n`;
+
+message+=`رقم العميل / ID: ${phone}\n\n`;
+
+message+="تفاصيل الطلب:\n";
+
+cart.forEach(item=>{
+
+const product=getProduct(item.id);
+
+if(!product) return;
+
+const quantity=Math.max(1,Number(item.quantity)||1);
+
+total+=product.price*quantity;
+
+message+=`------------------\n`;
+
+message+=`المنتج: ${product.name}\n`;
+
+message+=`الكمية: ${quantity}\n`;
+
+message+=`السعر: ${formatPrice(product.price)} جنيه\n`;
+
+});
+
+message+=`\nالإجمالي: ${formatPrice(total)} جنيه سوداني\n`;
+
+message+=`\nبيانات التحويل:\n`;
+
+message+=`ماي كاشي: ${settings.mycashi}\n`;
+
+message+=`اسم الحساب: ${settings.owner}\n`;
+
+message+=`\nملاحظات: ${note || "لا توجد"}\n`;
+
+message+=`\nيرجى تأكيد الطلب.`;
+
+const url=
+"https://wa.me/"+settings.whatsapp+
+"?text="+encodeURIComponent(message);
+
+window.open(url,"_blank");
+
+}
+
+// =====================================
+// الخدمات غير المتوفرة
+// =====================================
+
+function unavailable(){
+
+alert("عذراً، هذه الخدمة غير متوفرة حالياً. ترقبوا افتتاح الخدمة قريباً ❤️");
+
+}
+
+// =====================================
+// لوحة الإدارة
+// =====================================
+
+function openAdmin(){
+
+showPage("admin");
+
+}
+
+function loginAdmin(){
+
+const password=document.getElementById("adminPassword").value;
+
+if(password!==ADMIN_PASSWORD){
+
+alert("كلمة المرور غير صحيحة.");
+
+return;
+
+}
+
+document.getElementById("adminLogin").classList.add("hidden");
+
+document.getElementById("adminContent").classList.remove("hidden");
+
+loadAdminSettings();
+
+renderAdminProducts();
+
+}
+
+function logoutAdmin(){
+
+document.getElementById("adminLogin").classList.remove("hidden");
+
+document.getElementById("adminContent").classList.add("hidden");
+
+document.getElementById("adminPassword").value="";
+
+}
+
+// =====================================
+// إضافة المنتجات
+// =====================================
+
+function addProduct(){
+
+const name=document.getElementById("newName").value.trim();
+
+const price=Number(document.getElementById("newPrice").value);
+
+const image=document.getElementById("newImage").value.trim();
+
+const category=document.getElementById("newCategory").value;
+
+const description=document.getElementById("newDescription").value.trim();
+
+if(!name || !Number.isFinite(price) || price<=0){
+
+alert("يرجى إدخال اسم المنتج وسعر صحيح.");
+
+return;
+
+}
+
+if(image && !/^https?:\/\//i.test(image)){
+
+alert("رابط الصورة غير صحيح.");
+
+return;
+
+}
+
+const product={
+id:Date.now(),
+name,
+price,
+image:image || "https://placehold.co/500x350/151a2d/ffffff?text=Product",
+description,
+category
+};
+
+if(category==="ff"){
+
+accounts.push(product);
+
+localStorage.setItem("essamAccounts",JSON.stringify(accounts));
+
+}else{
+
+extraProducts.push(product);
+
+localStorage.setItem("essamExtraProducts",JSON.stringify(extraProducts));
+
+}
+
+clearProductForm();
+
+renderAdminProducts();
+
+alert("تمت إضافة المنتج بنجاح.");
+
+}
+
+function clearProductForm(){
+
+document.getElementById("newName").value="";
+
+document.getElementById("newPrice").value="";
+
+document.getElementById("newImage").value="";
+
+document.getElementById("newDescription").value="";
+
+}
+
+// =====================================
+// إدارة المنتجات
+// =====================================
+
+function renderAdminProducts(){
+
+const box=document.getElementById("adminProducts");
+
+const all=[...accounts,...extraProducts];
+
+if(all.length===0){
+
+box.innerHTML="<p>لا توجد منتجات إضافية.</p>";
+
+return;
+
+}
+
+box.innerHTML=all.map(p=>`
+
+<div class="cart-item">
+
+<div>
+<strong>${escapeHTML(p.name)}</strong>
+<br>
+<small>${formatPrice(p.price)} جنيه</small>
+</div>
+
+<button class="delete-btn" onclick="deleteProduct(${p.id})">
+حذف
+</button>
+
+</div>
+
+`).join("");
+
+}
+
+function deleteProduct(id){
+
+if(!confirm("هل تريد حذف هذا المنتج؟")) return;
+
+accounts=accounts.filter(p=>p.id!==id);
+
+extraProducts=extraProducts.filter(p=>p.id!==id);
+
+cart=cart.filter(p=>p.id!==id);
+
+saveAll();
+
+renderAdminProducts();
+
+updateCartCount();
+
+alert("تم حذف المنتج.");
+
+}
+
+// =====================================
+// إعدادات المتجر
+// =====================================
+
+function loadAdminSettings(){
+
+document.getElementById("settingWhatsapp").value=settings.whatsapp;
+
+document.getElementById("settingMycashi").value=settings.mycashi;
+
+document.getElementById("settingOwner").value=settings.owner;
+
+document.getElementById("settingGroup").value=settings.group;
+
+}
+
+function saveSettings(){
+
+const whatsapp=document.getElementById("settingWhatsapp").value.trim();
+
+const mycashi=document.getElementById("settingMycashi").value.trim();
+
+const owner=document.getElementById("settingOwner").value.trim();
+
+const group=document.getElementById("settingGroup").value.trim();
+
+if(!/^\d{8,15}$/.test(whatsapp)){
+
+alert("يرجى كتابة رقم واتساب صحيح مع مفتاح الدولة دون + أو مسافات.");
+
+return;
+
+}
+
+if(group && !/^https?:\/\//i.test(group)){
+
+alert("يرجى إدخال رابط مجموعة صحيح.");
+
+return;
+
+}
+
+settings={
+whatsapp,
+mycashi,
+owner,
+group
+};
+
+saveSettingsData();
+
+updateFooter();
+
+alert("تم حفظ الإعدادات بنجاح.");
+
+}
+
+function updateFooter(){
+
+const link=document.getElementById("groupLink");
+
+if(settings.group){
+
+link.href=settings.group;
+
+link.style.display="inline";
+
+}else{
+
+link.removeAttribute("href");
+
+link.style.opacity=".5";
+
+}
+
+}
+
+// =====================================
+// تشغيل المتجر
+// =====================================
+
+renderAccounts();
+
+renderGems();
+
+updateCartCount();
+
+updateFooter();
+
+</script>
+
+</body>
+  </html>
