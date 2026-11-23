@@ -5,460 +5,388 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#101020">
 <title>SUDAN STORE</title>
-
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{--gold:#ffc928;--bg:#0b0b18;--card:#19192d;--border:#393950}
 body{background:var(--bg);color:white;font-family:Tahoma,Arial}
-button,input,select{font-family:inherit}
-button{cursor:pointer;border:0}
+button,input,select{font-family:inherit}button{cursor:pointer;border:0}
 .hidden{display:none!important}
 header{background:#101020;padding:15px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:10;border-bottom:1px solid var(--border)}
 .logo{color:var(--gold);font-weight:bold;font-size:19px}
 .btn{padding:11px 15px;border-radius:9px;font-weight:bold}
-.gold{background:var(--gold);color:#111}
-.dark{background:#33334b;color:white}
+.gold{background:var(--gold);color:#111}.dark{background:#33334b;color:white}
 .hero{padding:55px 15px;text-align:center;background:linear-gradient(#0009,#000b),url("https://raw.githubusercontent.com/217scatter-gif/-/refs/heads/main/file_000000000bcc82109cf041ebd94dd3bb.png") center/cover}
-.hero h1{color:var(--gold);font-size:30px;margin-bottom:15px}
-.hero p{line-height:2}
+.hero h1{color:var(--gold);font-size:30px;margin-bottom:15px}.hero p{line-height:2}
 .container{width:94%;max-width:1100px;margin:25px auto}
 .title{text-align:center;color:var(--gold);margin:25px 0;font-size:23px}
 .grid,.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:15px}
 .card,.product{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden}
-.card{cursor:pointer}
-.card img{width:100%;height:170px;object-fit:cover}
-.card h3{text-align:center;color:var(--gold);padding:16px}
-.card p{text-align:center;color:#aaa;padding-bottom:15px}
-.panel{display:none}
-.panel.active{display:block}
+.card{cursor:pointer}.card img{width:100%;height:170px;object-fit:cover}
+.card h3{text-align:center;color:var(--gold);padding:16px}.card p{text-align:center;color:#aaa;padding-bottom:15px}
+.panel{display:none}.panel.active{display:block}
 .back{padding:10px 18px;border-radius:8px;background:#33334b;color:white;margin-bottom:15px}
 .product img{width:100%;height:180px;object-fit:cover;background:#222}
-.info{padding:13px}
-.info h3{font-size:15px;margin-bottom:12px}
-.price{color:var(--gold);font-weight:bold;margin:12px 0}
-.info button{width:100%}
+.info{padding:13px}.info h3{font-size:15px;margin-bottom:12px}
+.price{color:var(--gold);font-weight:bold;margin:12px 0}.info button{width:100%}
 .empty{text-align:center;padding:35px;color:#ccc;line-height:2}
 .field{width:100%;padding:13px;background:#101020;color:white;border:1px solid #555;border-radius:9px;margin:8px 0 15px}
 label{display:block;margin-top:10px}
 .modal{display:none;position:fixed;inset:0;background:#000d;z-index:50;overflow:auto;padding:15px}
-.modal.show{display:block}
-.box{background:#19192d;border:1px solid #555;border-radius:15px;padding:20px;max-width:600px;margin:25px auto}
-.box h2{color:var(--gold);margin:15px 0}
-.close{float:left;background:#444;color:white;padding:9px;border-radius:8px}
+.modal.show{display:block}.box{background:#19192d;border:1px solid #555;border-radius:15px;padding:20px;max-width:600px;margin:25px auto}
+.box h2{color:var(--gold);margin:15px 0}.close{float:left;background:#444;color:white;padding:9px;border-radius:8px}
 .cartitem{padding:13px 0;border-bottom:1px solid #444;display:flex;justify-content:space-between;gap:10px}
 footer{margin-top:40px;background:#101020;text-align:center;padding:30px 15px;border-top:1px solid #444;line-height:2}
-footer h3{color:var(--gold);margin:15px}
-.links{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;margin:15px}
+footer h3{color:var(--gold);margin:15px}.links{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;margin:15px}
 .links a{background:#25253e;color:white;text-decoration:none;padding:10px;border-radius:8px}
 .adminitem{background:#25253e;padding:12px;margin:10px 0;border-radius:10px}
 .notice{padding:15px;background:#292941;border-radius:10px;margin:15px 0;line-height:2}
-@media(max-width:500px){
-.logo{font-size:13px}
-header .btn{padding:9px;font-size:11px}
-.products{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
-.product img{height:140px}
-.info{padding:9px}
-.info h3{font-size:13px}
-.info button{font-size:11px;padding:9px 3px}
-}
+@media(max-width:500px){.logo{font-size:13px}header .btn{padding:9px;font-size:11px}
+.products{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.product img{height:140px}
+.info{padding:9px}.info h3{font-size:13px}.info button{font-size:11px;padding:9px 3px}}
 </style>
 </head>
-
 <body>
-
 <header>
-<div class="logo">🎮 SUDAN STORE ✨</div>
-<div>
-<button class="btn dark" onclick="openAdmin()">⚙️ الإدارة</button>
-<button class="btn gold" onclick="openCart()">🛒 السلة <span id="count">0</span></button>
-</div>
+  <div class="logo">🎮 SUDAN STORE ✨</div>
+  <div>
+    <button class="btn dark" onclick="openAdmin()">⚙️ الإدارة</button>
+    <button class="btn gold" onclick="openCart()">🛒 السلة <span id="count">0</span></button>
+  </div>
 </header>
 
 <section class="hero">
-<h1>مرحباً بك في SUDAN STORE</h1>
-<p>متجرك الموثوق للحسابات والشحن والخدمات الرقمية</p>
-<p>🔥 جودة • سرعة • ثقة</p>
+  <h1>مرحباً بك في SUDAN STORE</h1>
+  <p>متجرك الموثوق للحسابات والشحن والخدمات الرقمية</p>
+  <p>🔥 جودة • سرعة • ثقة</p>
 </section>
 
 <main class="container">
+  <div id="home">
+    <h2 class="title">🔥 أقسام المتجر</h2>
+    <div class="grid">
+      <div class="card" onclick="openPanel('freefire')">
+        <img src="https://raw.githubusercontent.com/217scatter-gif/-/refs/heads/main/file_000000009f3c8210b69751732d4a6fb7.png" alt="فري فاير">
+        <h3>🔥 فري فاير</h3><p>الحسابات والجواهر والإنزالات</p>
+      </div>
+      <div class="card" onclick="openPanel('google')">
+        <img src="https://raw.githubusercontent.com/217scatter-gif/-/refs/heads/main/file_00000000574882108b33efacf3cd473e.png" alt="حسابات جوجل">
+        <h3>📧 حسابات جوجل الأمريكية</h3><p>قريباً المزيد من المنتجات</p>
+      </div>
+    </div>
+  </div>
 
-<div id="home">
-<h2 class="title">🔥 أقسام المتجر</h2>
-<div class="grid">
+  <section class="panel" id="freefire">
+    <button class="back" onclick="home()">← رجوع</button>
+    <h2 class="title">🔥 قسم فري فاير</h2>
+    <div class="grid">
+      <div class="card" onclick="showProducts('accounts')">
+        <img src="https://raw.githubusercontent.com/217scatter-gif/-/refs/heads/main/file_000000009f3c8210b69751732d4a6fb7.png" alt="">
+        <h3>حسابات فري فاير</h3>
+      </div>
+      <div class="card" onclick="showProducts('gems')">
+        <img src="https://raw.githubusercontent.com/217scatter-gif/-/refs/heads/main/file_00000000eb9882109bd435647bcfec26.png" alt="">
+        <h3>شحن جواهر فري فاير</h3>
+      </div>
+      <div class="card" onclick="showProducts('airdrops')">
+        <img src="https://raw.githubusercontent.com/217scatter-gif/-/refs/heads/main/file_0000000018208210be258166e47d1e45.png" alt="">
+        <h3>الإنزالات الجوية والاشتراكات</h3>
+      </div>
+    </div>
+  </section>
 
-<div class="card" onclick="openPanel('freefire')">
-<img src="https://raw.githubusercontent.com/217scatter-gif/-/refs/heads/main/file_000000009f3c8210b69751732d4a6fb7.png">
-<h3>🔥 فري فاير</h3>
-<p>الحسابات والجواهر والإنزالات</p>
-</div>
+  <section class="panel" id="google">
+    <button class="back" onclick="home()">← رجوع</button>
+    <h2 class="title">حسابات جوجل الأمريكية</h2>
+    <div class="notice" style="text-align:center">المنتجات غير متوفرة حالياً ❤️<br>ترقبوا الإضافات الجديدة</div>
+  </section>
 
-<div class="card" onclick="openPanel('google')">
-<img src="https://raw.githubusercontent.com/217scatter-gif/-/refs/heads/main/file_00000000574882108b33efacf3cd473e.png">
-<h3>📧 حسابات جوجل الأمريكية</h3>
-<p>قريباً المزيد من المنتجات</p>
-</div>
-
-</div>
-</div>
-
-<section class="panel" id="freefire">
-<button class="back" onclick="home()">← رجوع</button>
-<h2 class="title">🔥 قسم فري فاير</h2>
-
-<div class="grid">
-<div class="card" onclick="showProducts('accounts')">
-<img src="https://raw.githubusercontent.com/217scatter-gif/-/refs/heads/main/file_000000009f3c8210b69751732d4a6fb7.png">
-<h3>حسابات فري فاير</h3>
-</div>
-
-<div class="card" onclick="showProducts('gems')">
-<img src="https://raw.githubusercontent.com/217scatter-gif/-/refs/heads/main/file_00000000eb9882109bd435647bcfec26.png">
-<h3>شحن جواهر فري فاير</h3>
-</div>
-
-<div class="card" onclick="showProducts('airdrops')">
-<img src="https://raw.githubusercontent.com/217scatter-gif/-/refs/heads/main/file_0000000018208210be258166e47d1e45.png">
-<h3>الإنزالات الجوية والاشتراكات</h3>
-</div>
-</div>
-</section>
-
-<section class="panel" id="google">
-<button class="back" onclick="home()">← رجوع</button>
-<h2 class="title">حسابات جوجل الأمريكية</h2>
-<div class="notice" style="text-align:center">
-المنتجات غير متوفرة حالياً ❤️
-<br>ترقبوا الإضافات الجديدة
-</div>
-</section>
-
-<section class="panel" id="productsPanel">
-<button class="back" onclick="backFree()">← رجوع</button>
-<h2 class="title" id="productsTitle"></h2>
-<div class="products" id="productsList"></div>
-</section>
-
+  <section class="panel" id="productsPanel">
+    <button class="back" onclick="backFree()">← رجوع</button>
+    <h2 class="title" id="productsTitle"></h2>
+    <div class="products" id="productsList"></div>
+  </section>
 </main>
 
 <div class="modal" id="cartModal">
-<div class="box">
-<button class="close" onclick="closeModal('cartModal')">إغلاق ✕</button>
-<h2>🛒 سلة المشتريات</h2>
-<div id="cartList"></div>
-<h3 class="price" id="total"></h3>
-
-<label>اسم العميل</label>
-<input class="field" id="customerName" placeholder="اسمك">
-
-<label>رقم اللاعب ID</label>
-<input class="field" id="playerID" placeholder="رقم اللاعب إن وجد">
-
-<label>خدمة العملاء</label>
-<select class="field" id="service">
-<option value="249968235010">معاذ استور</option>
-<option value="249967449456">فارس استور</option>
-</select>
-
-<button class="btn gold" style="width:100%" onclick="sendOrder()">إرسال الطلب واتساب</button>
-</div>
+  <div class="box">
+    <button class="close" onclick="closeModal('cartModal')">إغلاق ✕</button>
+    <h2>🛒 سلة المشتريات</h2>
+    <div id="cartList"></div>
+    <h3 class="price" id="total"></h3>
+    <label>اسم العميل</label><input class="field" id="customerName" placeholder="اسمك">
+    <label>رقم اللاعب ID</label><input class="field" id="playerID" placeholder="رقم اللاعب إن وجد">
+    <label>خدمة العملاء</label>
+    <select class="field" id="service">
+      <option value="249968235010">معاذ استور</option>
+      <option value="249967449456">فارس استور</option>
+    </select>
+    <button class="btn gold" style="width:100%" onclick="sendOrder()">إرسال الطلب واتساب</button>
+  </div>
 </div>
 
 <div class="modal" id="adminModal">
-<div class="box">
-<button class="close" onclick="closeModal('adminModal')">إغلاق ✕</button>
-
-<div id="loginArea">
-<h2>🔐 دخول الإدارة</h2>
-<label>البريد الإلكتروني</label>
-<input class="field" id="adminEmail" type="email" placeholder="البريد الإلكتروني">
-<label>كلمة المرور</label>
-<input class="field" id="adminPass" type="password" placeholder="كلمة المرور">
-<button class="btn gold" style="width:100%" onclick="login()">دخول الإدارة</button>
-<p class="notice">استخدم حساب الإدارة الذي أنشأته في Supabase Authentication.</p>
-</div>
-
-<div id="dashboard" class="hidden">
-<h2>🎮 لوحة الإدارة</h2>
-
-<h3>➕ إضافة منتج</h3>
-<label>اسم المنتج</label>
-<input class="field" id="pName" placeholder="اسم المنتج">
-
-<label>السعر بالجنيه السوداني</label>
-<input class="field" id="pPrice" type="number" placeholder="السعر">
-
-<label>القسم</label>
-<select class="field" id="pCategory">
-<option value="accounts">حسابات فري فاير</option>
-<option value="gems">شحن جواهر فري فاير</option>
-<option value="airdrops">الإنزالات الجوية والاشتراكات</option>
-</select>
-
-<label>صورة المنتج</label>
-<input class="field" id="pImage" type="file" accept="image/*">
-
-<button class="btn gold" style="width:100%" onclick="addProduct()">حفظ المنتج للجميع</button>
-
-<hr style="margin:20px 0">
-
-<h3>🗑️ المنتجات</h3>
-<div id="adminProducts"></div>
-
-<button class="btn dark" onclick="logout()">تسجيل الخروج</button>
-</div>
-</div>
+  <div class="box">
+    <button class="close" onclick="closeModal('adminModal')">إغلاق ✕</button>
+    <div id="loginArea">
+      <h2>🔐 دخول الإدارة</h2>
+      <label>البريد الإلكتروني</label><input class="field" id="adminEmail" type="email" placeholder="البريد الإلكتروني">
+      <label>كلمة المرور</label><input class="field" id="adminPass" type="password" placeholder="كلمة المرور">
+      <button class="btn gold" style="width:100%" onclick="login()">دخول الإدارة</button>
+      <p class="notice">استخدم حساب الإدارة الذي أنشأته في Supabase Authentication.</p>
+    </div>
+    <div id="dashboard" class="hidden">
+      <h2>🎮 لوحة الإدارة</h2>
+      <h3>➕ إضافة منتج</h3>
+      <label>اسم المنتج</label><input class="field" id="pName" placeholder="اسم المنتج">
+      <label>السعر بالجنيه السوداني</label><input class="field" id="pPrice" type="number" min="1" placeholder="السعر">
+      <label>القسم</label>
+      <select class="field" id="pCategory">
+        <option value="accounts">حسابات فري فاير</option>
+        <option value="gems">شحن جواهر فري فاير</option>
+        <option value="airdrops">الإنزالات الجوية والاشتراكات</option>
+      </select>
+      <label>صورة المنتج</label><input class="field" id="pImage" type="file" accept="image/*">
+      <button class="btn gold" style="width:100%" onclick="addProduct()">حفظ المنتج للجميع</button>
+      <hr style="margin:20px 0">
+      <h3>🗑️ المنتجات</h3><div id="adminProducts"></div>
+      <button class="btn dark" onclick="logout()">تسجيل الخروج</button>
+    </div>
+  </div>
 </div>
 
 <footer>
-<h3>🎮 SUDAN STORE ✨</h3>
-<p>متجرك الموثوق للحسابات والشحن والخدمات الرقمية</p>
-
-<div class="notice">
-<h3>💳 بيانات الدفع</h3>
-<p>ماي كاشي</p>
-<p>رقم الحساب: 402532187</p>
-<p>الاسم: فارس محمد أحمد العوض</p>
-</div>
-
-<h3>📞 خدمة العملاء</h3>
-<div class="links">
-<a href="https://wa.me/249968235010">واتساب معاذ</a>
-<a href="https://wa.me/249967449456">واتساب فارس</a>
-</div>
-
-<h3>🌐 مجموعات وقنوات المتجر</h3>
-<div class="links">
-<a href="https://whatsapp.com/channel/0029VajK5xw3GJOtEn9JRo2a">قناة FARĒS STORE</a>
-<a href="https://chat.whatsapp.com/CHJVs8xWdjW3HF2A5iyKeN">مجموعة المتجر</a>
-<a href="https://chat.whatsapp.com/Lo811kwpvh0HFIEs5KbdJ7">المسابقات</a>
-<a href="https://whatsapp.com/channel/0029VbCLQ70LtOjGRzNBK42P">المصدقيات</a>
-</div>
-
-<p>إدارة وتصميم عصام «الباشاوي»</p>
-<p>جميع الحقوق محفوظة © 2026</p>
+  <h3>🎮 SUDAN STORE ✨</h3>
+  <p>متجرك الموثوق للحسابات والشحن والخدمات الرقمية</p>
+  <div class="notice">
+    <h3>💳 بيانات الدفع</h3><p>ماي كاشي</p><p>رقم الحساب: 402532187</p><p>الاسم: فارس محمد أحمد العوض</p>
+  </div>
+  <h3>📞 خدمة العملاء</h3>
+  <div class="links">
+    <a href="https://wa.me/249968235010">واتساب معاذ</a>
+    <a href="https://wa.me/249967449456">واتساب فارس</a>
+  </div>
+  <h3>🌐 مجموعات وقنوات المتجر</h3>
+  <div class="links">
+    <a href="https://whatsapp.com/channel/0029VajK5xw3GJOtEn9JRo2a">قناة FARĒS STORE</a>
+    <a href="https://chat.whatsapp.com/CHJVs8xWdjW3HF2A5iyKeN">مجموعة المتجر</a>
+    <a href="https://chat.whatsapp.com/Lo811kwpvh0HFIEs5KbdJ7">المسابقات</a>
+    <a href="https://whatsapp.com/channel/0029VbCLQ70LtOjGRzNBK42P">المصدقيات</a>
+  </div>
+  <p>إدارة وتصميم عصام «الباشاوي»</p><p>جميع الحقوق محفوظة © 2026</p>
 </footer>
 
 <script>
-/* إعداد الاتصال */
-const SUPABASE_URL="https://zmaqvamuduzzzgjspsvu.supabase.co";
-const SUPABASE_KEY="sb_publishable_rjWaOEsK3dCyyKsSCZJ9Sw_t_nGBsze";
+/* إعداد الاتصال بـ Supabase */
+const SUPABASE_URL = "https://zmaqvamuduzzzgjspsvu.supabase.co";
+const SUPABASE_KEY = "sb_publishable_rjWaOEsK3dCyyKsSCZJ9Sw_t_nGBsze";
+const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
-
-const defaults=[
-{id:1,name:"حساب فري فاير رقم 1",price:400000,image:"https://raw.githubusercontent.com/217scatter-gif/-/refs/heads/main/IMG-20261121-WA0058.jpg",category:"accounts"},
-{id:2,name:"حساب فري فاير رقم 2",price:490000,image:"https://raw.githubusercontent.com/217scatter-gif/-/refs/heads/main/IMG-20261121-WA0059.jpg",category:"accounts"},
-{id:3,name:"حساب فري فاير رقم 3",price:260000,image:"https://raw.githubusercontent.com/217scatter-gif/-/refs/heads/main/IMG-20261121-WA0062.jpg",category:"accounts"},
-{id:4,name:"100 جوهرة",price:12000,image:"https://raw.githubusercontent.com/217scatter-gif/-/refs/heads/main/file_00000000c41c8210ac94533e92056ab8.png",category:"gems"},
-{id:5,name:"200 جوهرة",price:25000,image:"https://raw.githubusercontent.com/217scatter-gif/-/refs/heads/main/file_00000000f64c821091db62fc0ac32fbc.png",category:"gems"},
-{id:11,name:"500 جوهرة",price:65000,image:"https://raw.githubusercontent.com/217scatter-gif/-/refs/heads/main/file_000000007afc8210a52ab217086e5825.png",category:"gems"},
-{id:12,name:"1000 جوهرة",price:130000,image:"https://raw.githubusercontent.com/217scatter-gif/-/refs/heads/main/file_00000000fb508210ac36b7b6d1a37c98.png",category:"gems"},
-{id:6,name:"إنزال جوي 1$",price:15000,image:"https://raw.githubusercontent.com/217scatter-gif/-/refs/heads/main/file_0000000009ac8210a5644935d524090e.png",category:"airdrops"},
-{id:7,name:"إنزال جوي 2$",price:30000,image:"https://raw.githubusercontent.com/217scatter-gif/-/refs/heads/main/file_00000000d5588210a60f828fdf0b624a.png",category:"airdrops"},
-{id:8,name:"بويا باس عبر تيم كود",price:16000,image:"https://raw.githubusercontent.com/217scatter-gif/-/refs/heads/main/file_00000000451482109733930b470b0187.png",category:"airdrops"},
-{id:9,name:"العضوية الأسبوعية",price:28000,image:"https://raw.githubusercontent.com/217scatter-gif/-/refs/heads/main/file_00000000a6608210864e788e3c55ff17.png",category:"airdrops"},
-{id:10,name:"العضوية الشهرية",price:130000,image:"https://raw.githubusercontent.com/217scatter-gif/-/refs/heads/main/file_000000004ba48210afa367e7b158987d.png",category:"airdrops"}
+/* المنتجات الأساسية القديمة: تبقى ظاهرة حتى بعد إضافة منتجات جديدة */
+const defaults = [
+  {id:-1,name:"حساب فري فاير رقم 1",price:400000,image:"https://raw.githubusercontent.com/217scatter-gif/-/refs/heads/main/IMG-20261121-WA0058.jpg",category:"accounts"},
+  {id:-2,name:"حساب فري فاير رقم 2",price:490000,image:"https://raw.githubusercontent.com/217scatter-gif/-/refs/heads/main/IMG-20261121-WA0059.jpg",category:"accounts"},
+  {id:-3,name:"حساب فري فاير رقم 3",price:260000,image:"https://raw.githubusercontent.com/217scatter-gif/-/refs/heads/main/IMG-20261121-WA0062.jpg",category:"accounts"},
+  {id:-4,name:"100 جوهرة",price:12000,image:"https://raw.githubusercontent.com/217scatter-gif/-/refs/heads/main/file_00000000c41c8210ac94533e92056ab8.png",category:"gems"},
+  {id:-5,name:"200 جوهرة",price:25000,image:"https://raw.githubusercontent.com/217scatter-gif/-/refs/heads/main/file_00000000f64c821091db62fc0ac32fbc.png",category:"gems"},
+  {id:-11,name:"500 جوهرة",price:65000,image:"https://raw.githubusercontent.com/217scatter-gif/-/refs/heads/main/file_000000007afc8210a52ab217086e5825.png",category:"gems"},
+  {id:-12,name:"1000 جوهرة",price:130000,image:"https://raw.githubusercontent.com/217scatter-gif/-/refs/heads/main/file_00000000fb508210ac36b7b6d1a37c98.png",category:"gems"},
+  {id:-6,name:"إنزال جوي 1$",price:15000,image:"https://raw.githubusercontent.com/217scatter-gif/-/refs/heads/main/file_0000000009ac8210a5644935d524090e.png",category:"airdrops"},
+  {id:-7,name:"إنزال جوي 2$",price:30000,image:"https://raw.githubusercontent.com/217scatter-gif/-/refs/heads/main/file_00000000d5588210a60f828fdf0b624a.png",category:"airdrops"},
+  {id:-8,name:"بويا باس عبر تيم كود",price:16000,image:"https://raw.githubusercontent.com/217scatter-gif/-/refs/heads/main/file_00000000451482109733930b470b0187.png",category:"airdrops"},
+  {id:-9,name:"العضوية الأسبوعية",price:28000,image:"https://raw.githubusercontent.com/217scatter-gif/-/refs/heads/main/file_00000000a6608210864e788e3c55ff17.png",category:"airdrops"},
+  {id:-10,name:"العضوية الشهرية",price:130000,image:"https://raw.githubusercontent.com/217scatter-gif/-/refs/heads/main/file_000000004ba48210afa367e7b158987d.png",category:"airdrops"}
 ];
 
-let products=[];
-let cart=[];
-let currentCategory="accounts";
-let user=null;
+let products = [...defaults];
+let cart = [];
+let currentCategory = "accounts";
+let user = null;
 
-const money=n=>Number(n).toLocaleString("en-US")+" جنيه سوداني";
-const safe=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const money = n => Number(n).toLocaleString("en-US") + " جنيه سوداني";
+const safe = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 
-
-
-async function loadProducts(){
-  const {data,error}=await db.from("products").select("*").order("id");
-
-  if(error){
-    console.error(error);
-    products=defaults;
-    alert("تعذر الاتصال بالمنتجات. تحقق من إعدادات Supabase والإنترنت.");
-  }else{
-    products=data.length?data:defaults;
+/* تحميل منتجات قاعدة البيانات مع إبقاء المنتجات القديمة */
+async function loadProducts() {
+  const {data, error} = await db.from("products").select("*").order("id");
+  if (error) {
+    console.error("Supabase products error:", error);
+    products = [...defaults];
+  } else {
+    const saved = data || [];
+    const defaultKeys = new Set(defaults.map(p => p.category + "|" + p.name));
+    const extraSaved = saved.filter(p => !defaultKeys.has(p.category + "|" + p.name));
+    products = [...defaults, ...extraSaved];
   }
-
   renderProducts();
- {                                                   }
- function hidePanels(){
-document.querySelectorAll(".panel").forEach(p=>p.classList.remove("active"));
-document.getElementById("home").classList.add("hidden");
-}
-function home(){
-hidePanels();
-document.getElementById("home").classList.remove("hidden");
-}
-function openPanel(id){
-hidePanels();
-document.getElementById(id).classList.add("active");
-}
-function backFree(){openPanel("freefire");}
-
-function showProducts(cat){
-currentCategory=cat;
-hidePanels();
-document.getElementById("productsPanel").classList.add("active");
-document.getElementById("productsTitle").textContent={
-accounts:"حسابات فري فاير",
-gems:"شحن جواهر فري فاير",
-airdrops:"الإنزالات الجوية والاشتراكات"
-}[cat];
-renderProducts();
 }
 
-function renderProducts(){
-const list=products.filter(p=>p.category===currentCategory);
-const box=document.getElementById("productsList");
-if(!list.length){
-box.innerHTML='<div class="empty">غير متوفر حالياً ❤️</div>';
-return;
+function hidePanels() {
+  document.querySelectorAll(".panel").forEach(p => p.classList.remove("active"));
+  document.getElementById("home").classList.add("hidden");
 }
-box.innerHTML=list.map(p=>`
-<div class="product">
-<img src="${safe(p.image)}" onerror="this.src='https://placehold.co/400x250/19192d/ffc928?text=SUDAN+STORE'">
-<div class="info">
-<h3>${safe(p.name)}</h3>
-<div class="price">${money(p.price)}</div>
-<button class="btn gold" onclick="addCart(${Number(p.id)})">إضافة للسلة 🛒</button>
-</div>
-</div>`).join("");
+function home() {
+  hidePanels();
+  document.getElementById("home").classList.remove("hidden");
 }
+function openPanel(id) {
+  hidePanels();
+  document.getElementById(id).classList.add("active");
+}
+function backFree() { openPanel("freefire"); }
 
-function addCart(id){
-const p=products.find(x=>Number(x.id)===Number(id));
-if(!p)return;
-cart.push({...p});
-document.getElementById("count").textContent=cart.length;
-alert("تمت إضافة المنتج للسلة ❤️");
-}
-
-function openCart(){
-renderCart();
-document.getElementById("cartModal").classList.add("show");
-}
-function renderCart(){
-const box=document.getElementById("cartList");
-box.innerHTML=cart.length?cart.map((p,i)=>`
-<div class="cartitem">
-<div>${safe(p.name)}<div class="price">${money(p.price)}</div></div>
-<button class="btn dark" onclick="removeCart(${i})">حذف</button>
-</div>`).join(""):'<div class="empty">السلة فارغة</div>';
-document.getElementById("total").textContent="الإجمالي: "+money(cart.reduce((s,p)=>s+Number(p.price),0));
-}
-function removeCart(i){
-cart.splice(i,1);
-document.getElementById("count").textContent=cart.length;
-renderCart();
+function showProducts(cat) {
+  currentCategory = cat;
+  hidePanels();
+  document.getElementById("productsPanel").classList.add("active");
+  document.getElementById("productsTitle").textContent = {
+    accounts:"حسابات فري فاير",
+    gems:"شحن جواهر فري فاير",
+    airdrops:"الإنزالات الجوية والاشتراكات"
+  }[cat] || "المنتجات";
+  renderProducts();
 }
 
-function sendOrder(){
-if(!cart.length)return alert("السلة فارغة");
-const name=document.getElementById("customerName").value.trim();
-if(!name)return alert("اكتب اسم العميل");
-const phone=document.getElementById("service").value;
-const total=cart.reduce((s,p)=>s+Number(p.price),0);
-let msg="السلام عليكم، أريد الطلب من SUDAN STORE\nاسم العميل: "+name+"\nID اللاعب: "+(document.getElementById("playerID").value||"غير محدد")+"\n\nالمنتجات:\n";
-cart.forEach((p,i)=>msg+=(i+1)+"- "+p.name+" : "+money(p.price)+"\n");
-msg+="\nالإجمالي: "+money(total)+"\nالدفع عبر ماي كاشي\nرقم الحساب: 402532187\nالاسم: فارس محمد أحمد العوض";
-window.open("https://wa.me/"+phone+"?text="+encodeURIComponent(msg),"_blank");
+function renderProducts() {
+  const list = products.filter(p => p.category === currentCategory);
+  const box = document.getElementById("productsList");
+  if (!list.length) {
+    box.innerHTML = '<div class="empty">غير متوفر حالياً ❤️</div>';
+    return;
+  }
+  box.innerHTML = list.map(p => `
+    <div class="product">
+      <img src="${safe(p.image)}" alt="${safe(p.name)}" onerror="this.src='https://placehold.co/400x250/19192d/ffc928?text=SUDAN+STORE'">
+      <div class="info">
+        <h3>${safe(p.name)}</h3>
+        <div class="price">${money(p.price)}</div>
+        <button class="btn gold" onclick="addCart(${Number(p.id)})">إضافة للسلة 🛒</button>
+      </div>
+    </div>`).join("");
 }
 
-function closeModal(id){
-document.getElementById(id).classList.remove("show");
+function addCart(id) {
+  const p = products.find(x => Number(x.id) === Number(id));
+  if (!p) return;
+  cart.push({...p});
+  document.getElementById("count").textContent = cart.length;
+  alert("تمت إضافة المنتج للسلة ❤️");
+}
+function openCart() {
+  renderCart();
+  document.getElementById("cartModal").classList.add("show");
+}
+function renderCart() {
+  const box = document.getElementById("cartList");
+  box.innerHTML = cart.length ? cart.map((p,i) => `
+    <div class="cartitem">
+      <div>${safe(p.name)}<div class="price">${money(p.price)}</div></div>
+      <button class="btn dark" onclick="removeCart(${i})">حذف</button>
+    </div>`).join("") : '<div class="empty">السلة فارغة</div>';
+  document.getElementById("total").textContent = "الإجمالي: " + money(cart.reduce((s,p) => s + Number(p.price), 0));
+}
+function removeCart(i) {
+  cart.splice(i,1);
+  document.getElementById("count").textContent = cart.length;
+  renderCart();
+}
+function sendOrder() {
+  if (!cart.length) return alert("السلة فارغة");
+  const name = document.getElementById("customerName").value.trim();
+  if (!name) return alert("اكتب اسم العميل");
+  const phone = document.getElementById("service").value;
+  const total = cart.reduce((s,p) => s + Number(p.price), 0);
+  let msg = "السلام عليكم، أريد الطلب من SUDAN STORE\nاسم العميل: " + name +
+    "\nID اللاعب: " + (document.getElementById("playerID").value || "غير محدد") + "\n\nالمنتجات:\n";
+  cart.forEach((p,i) => msg += (i+1) + "- " + p.name + " : " + money(p.price) + "\n");
+  msg += "\nالإجمالي: " + money(total) + "\nالدفع عبر ماي كاشي\nرقم الحساب: 402532187\nالاسم: فارس محمد أحمد العوض";
+  window.open("https://wa.me/" + phone + "?text=" + encodeURIComponent(msg), "_blank");
+}
+function closeModal(id) {
+  document.getElementById(id).classList.remove("show");
 }
 
-function openAdmin(){
-document.getElementById("adminModal").classList.add("show");
-document.getElementById("loginArea").classList.toggle("hidden",!!user);
-document.getElementById("dashboard").classList.toggle("hidden",!user);
-if(user)renderAdmin();
+function openAdmin() {
+  document.getElementById("adminModal").classList.add("show");
+  document.getElementById("loginArea").classList.toggle("hidden", !!user);
+  document.getElementById("dashboard").classList.toggle("hidden", !user);
+  if (user) renderAdmin();
+}
+async function login() {
+  const email = document.getElementById("adminEmail").value.trim();
+  const password = document.getElementById("adminPass").value;
+  if (!email || !password) return alert("أدخل البريد وكلمة المرور");
+  const {data,error} = await db.auth.signInWithPassword({email,password});
+  if (error) return alert("فشل الدخول: " + error.message);
+  user = data.user;
+  document.getElementById("loginArea").classList.add("hidden");
+  document.getElementById("dashboard").classList.remove("hidden");
+  renderAdmin();
+}
+async function logout() {
+  await db.auth.signOut();
+  user = null;
+  document.getElementById("dashboard").classList.add("hidden");
+  document.getElementById("loginArea").classList.remove("hidden");
 }
 
-async function login(){
-const email=document.getElementById("adminEmail").value.trim();
-const password=document.getElementById("adminPass").value;
-if(!email||!password)return alert("أدخل البريد وكلمة المرور");
-const {data,error}=await db.auth.signInWithPassword({email,password});
-if(error)return alert("فشل الدخول: "+error.message);
-user=data.user;
-document.getElementById("loginArea").classList.add("hidden");
-document.getElementById("dashboard").classList.remove("hidden");
-renderAdmin();
+async function addProduct() {
+  if (!user) return alert("سجل دخول الإدارة أولاً");
+  const name = document.getElementById("pName").value.trim();
+  const price = Number(document.getElementById("pPrice").value);
+  const category = document.getElementById("pCategory").value;
+  const file = document.getElementById("pImage").files[0];
+  if (!name || price <= 0 || !file) return alert("أكمل بيانات المنتج واختر صورة");
+  if (!file.type.startsWith("image/")) return alert("اختر صورة صحيحة");
+
+  const ext = (file.name.split(".").pop() || "jpg").replace(/[^a-zA-Z0-9]/g,"") || "jpg";
+  const path = Date.now() + "-" + Math.random().toString(36).slice(2) + "." + ext;
+  const {error:uploadError} = await db.storage.from("store-images").upload(path,file,{upsert:false});
+  if (uploadError) return alert("خطأ رفع الصورة: " + uploadError.message);
+
+  const {data:imageData} = db.storage.from("store-images").getPublicUrl(path);
+  const {error} = await db.from("products").insert({
+    name, price, category, image:imageData.publicUrl
+  });
+  if (error) {
+    await db.storage.from("store-images").remove([path]);
+    return alert("خطأ حفظ المنتج: " + error.message);
+  }
+  alert("تم حفظ المنتج وظهر لجميع الزوار ❤️");
+  document.getElementById("pName").value = "";
+  document.getElementById("pPrice").value = "";
+  document.getElementById("pImage").value = "";
+  await loadProducts();
+  await renderAdmin();
 }
 
-async function logout(){
-await db.auth.signOut();
-user=null;
-document.getElementById("dashboard").classList.add("hidden");
-document.getElementById("loginArea").classList.remove("hidden");
+async function renderAdmin() {
+  const {data,error} = await db.from("products").select("*").order("id");
+  const box = document.getElementById("adminProducts");
+  if (error) { box.textContent = error.message; return; }
+  box.innerHTML = data && data.length ? data.map(p => `
+    <div class="adminitem">
+      <strong>${safe(p.name)}</strong>
+      <div class="price">${money(p.price)}</div>
+      <button class="btn dark" onclick="deleteProduct(${Number(p.id)})">حذف المنتج</button>
+    </div>`).join("") : "لا توجد منتجات مضافة بعد";
 }
 
-async function addProduct(){
-if(!user)return alert("سجل دخول الإدارة أولاً");
-const name=document.getElementById("pName").value.trim();
-const price=Number(document.getElementById("pPrice").value);
-const category=document.getElementById("pCategory").value;
-const file=document.getElementById("pImage").files[0];
-if(!name||price<=0||!file)return alert("أكمل بيانات المنتج واختر صورة");
-if(!file.type.startsWith("image/"))return alert("اختر صورة صحيحة");
+async function deleteProduct(id) {
+  if (!confirm("هل تريد حذف المنتج؟")) return;
+  const {error} = await db.from("products").delete().eq("id",id);
+  if (error) return alert("تعذر الحذف: " + error.message);
+  await loadProducts();
+  await renderAdmin();
+  alert("تم حذف المنتج");
+}
 
-const ext=file.name.split(".").pop().replace(/[^a-zA-Z0-9]/g,"");
-const path=Date.now()+"-"+Math.random().toString(36).slice(2)+"."+ext;
-
-const {error:uploadError}=await db.storage.from("store-images").upload(path,file,{upsert:false});
-if(uploadError)return alert("خطأ رفع الصورة: "+uploadError.message);
-
-const {data:imageData}=db.storage.from("store-images").getPublicUrl(path);
-
-const {error}=await db.from("products").insert({
-name,price,category,image:imageData.publicUrl
+/* استعادة جلسة الإدارة عند فتح الموقع */
+db.auth.getSession().then(({data,error}) => {
+  if (error) console.error(error);
+  user = data.session ? data.session.user : null;
 });
-
-if(error){
-await db.storage.from("store-images").remove([path]);
-return alert("خطأ حفظ المنتج: "+error.message);
-}
-
-alert("تم حفظ المنتج وظهر لجميع الزوار ❤️");
-document.getElementById("pName").value="";
-document.getElementById("pPrice").value="";
-document.getElementById("pImage").value="";
-await loadProducts();
-renderAdmin();
-}
-
-async function renderAdmin(){
-const {data,error}=await db.from("products").select("*").order("id");
-const box=document.getElementById("adminProducts");
-if(error){box.textContent=error.message;return;}
-box.innerHTML=data.length?data.map(p=>`
-<div class="adminitem">
-<strong>${safe(p.name)}</strong>
-<div class="price">${money(p.price)}</div>
-<button class="btn dark" onclick="deleteProduct(${Number(p.id)},'${safe(p.image)}')">حذف المنتج</button>
-</div>`).join(""):'لا توجد منتجات مضافة بعد';
-}
-
-async function deleteProduct(id,image){
-if(!confirm("هل تريد حذف المنتج؟"))return;
-const {error}=await db.from("products").delete().eq("id",id);
-if(error)return alert("تعذر الحذف: "+error.message);
-await loadProducts();
-renderAdmin();
-alert("تم حذف المنتج");
-}
-
-db.auth.getSession().then(({data})=>{
-user=data.session?.user||null;
-});
-
 loadProducts();
 </script>
-
 </body>
- </html>
+      </html>
