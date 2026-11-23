@@ -2,371 +2,66 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#101020">
-<title>ŜǗĎÃŇ ŜŤỖŘẸ</title>
+<title>SUDAN STORE</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-
-:root{
---gold:#ffc928;
---dark:#0b0b18;
---card:#19192d;
---border:#393950;
---text:#fff;
-}
-
-body{
-font-family:Tahoma,Arial,sans-serif;
-background:var(--dark);
-color:var(--text);
-}
-
+:root{--gold:#ffc928;--bg:#0b0b18;--card:#19192d;--border:#393950}
+body{background:var(--bg);color:white;font-family:Tahoma,Arial}
 button,input,select{font-family:inherit}
-button{cursor:pointer}
+button{cursor:pointer;border:0}
 .hidden{display:none!important}
-
-header{
-background:#101020;
-padding:15px 4%;
-display:flex;
-justify-content:space-between;
-align-items:center;
-position:sticky;
-top:0;
-z-index:100;
-border-bottom:1px solid var(--border);
-gap:10px;
-}
-
-.logo{
-color:var(--gold);
-font-size:19px;
-font-weight:bold;
-}
-
-.btn{
-border:0;
-border-radius:9px;
-padding:11px 15px;
-font-weight:bold;
-}
-
+header{background:#101020;padding:15px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:10;border-bottom:1px solid var(--border)}
+.logo{color:var(--gold);font-weight:bold;font-size:19px}
+.btn{padding:11px 15px;border-radius:9px;font-weight:bold}
 .gold{background:var(--gold);color:#111}
-.darkbtn{background:#33334b;color:white}
-
-.hero{
-min-height:270px;
-background:
-linear-gradient(#0008,#0009),
-url("https://raw.githubusercontent.com/217scatter-gif/-/refs/heads/main/file_000000000bcc82109cf041ebd94dd3bb.png")
-center/cover;
-display:flex;
-align-items:center;
-justify-content:center;
-text-align:center;
-padding:30px 15px;
-}
-
-.hero h1{
-color:var(--gold);
-font-size:clamp(25px,5vw,40px);
-margin-bottom:15px;
-}
-
+.dark{background:#33334b;color:white}
+.hero{padding:55px 15px;text-align:center;background:linear-gradient(#0009,#000b),url("https://raw.githubusercontent.com/217scatter-gif/-/refs/heads/main/file_000000000bcc82109cf041ebd94dd3bb.png") center/cover}
+.hero h1{color:var(--gold);font-size:30px;margin-bottom:15px}
 .hero p{line-height:2}
-
-.container{
-width:94%;
-max-width:1150px;
-margin:25px auto;
-}
-
-.title{
-text-align:center;
-color:var(--gold);
-font-size:23px;
-margin:25px 0;
-}
-
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-gap:17px;
-}
-
-.card{
-background:var(--card);
-border:1px solid var(--border);
-border-radius:15px;
-overflow:hidden;
-cursor:pointer;
-transition:.2s;
-}
-
-.card:hover{
-transform:translateY(-4px);
-border-color:var(--gold);
-}
-
-.card img{
-width:100%;
-height:160px;
-object-fit:cover;
-display:block;
-}
-
-.card h3{
-color:var(--gold);
-text-align:center;
-padding:16px 8px;
-}
-
-.card p{
-text-align:center;
-color:#bbb;
-padding:0 8px 15px;
-font-size:13px;
-}
-
-.panel{
-display:none;
-background:#111125;
-border:1px solid var(--border);
-border-radius:15px;
-padding:17px;
-margin-top:20px;
-}
-
+.container{width:94%;max-width:1100px;margin:25px auto}
+.title{text-align:center;color:var(--gold);margin:25px 0;font-size:23px}
+.grid,.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:15px}
+.card,.product{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden}
+.card{cursor:pointer}
+.card img{width:100%;height:170px;object-fit:cover}
+.card h3{text-align:center;color:var(--gold);padding:16px}
+.card p{text-align:center;color:#aaa;padding-bottom:15px}
+.panel{display:none}
 .panel.active{display:block}
-
-.back{
-background:#33334b;
-color:white;
-border:0;
-padding:10px 17px;
-border-radius:8px;
-margin-bottom:15px;
-}
-
-.products{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
-gap:15px;
-}
-
-.product{
-background:var(--card);
-border:1px solid var(--border);
-border-radius:13px;
-overflow:hidden;
-}
-
-.product img{
-width:100%;
-height:190px;
-object-fit:cover;
-background:#222;
-}
-
-.product-info{padding:13px}
-.product h3{font-size:16px;margin-bottom:12px}
-
-.price{
-color:var(--gold);
-font-weight:bold;
-margin:12px 0;
-}
-
-.product button{width:100%}
-
-.empty{
-text-align:center;
-padding:35px 10px;
-color:#ccc;
-line-height:2;
-}
-
-.unavailable{
-background:#202039;
-border-radius:12px;
-padding:35px;
-text-align:center;
-color:var(--gold);
-line-height:2;
-}
-
-.cart-float{
-position:fixed;
-bottom:15px;
-left:15px;
-z-index:150;
-}
-
-.cart-float button{
-background:var(--gold);
-border:0;
-padding:14px 18px;
-border-radius:35px;
-font-weight:bold;
-}
-
-.modal{
-display:none;
-position:fixed;
-inset:0;
-background:#000c;
-z-index:300;
-overflow-y:auto;
-padding:15px;
-}
-
+.back{padding:10px 18px;border-radius:8px;background:#33334b;color:white;margin-bottom:15px}
+.product img{width:100%;height:180px;object-fit:cover;background:#222}
+.info{padding:13px}
+.info h3{font-size:15px;margin-bottom:12px}
+.price{color:var(--gold);font-weight:bold;margin:12px 0}
+.info button{width:100%}
+.empty{text-align:center;padding:35px;color:#ccc;line-height:2}
+.field{width:100%;padding:13px;background:#101020;color:white;border:1px solid #555;border-radius:9px;margin:8px 0 15px}
+label{display:block;margin-top:10px}
+.modal{display:none;position:fixed;inset:0;background:#000d;z-index:50;overflow:auto;padding:15px}
 .modal.show{display:block}
-
-.modal-box{
-background:#19192d;
-border:1px solid #555;
-border-radius:16px;
-max-width:650px;
-margin:30px auto;
-padding:20px;
-}
-
-.modal-box h2{
-color:var(--gold);
-margin-bottom:20px;
-}
-
-.close{
-float:left;
-background:#444;
-color:white;
-border:0;
-padding:8px 12px;
-border-radius:8px;
-}
-
-.field{
-width:100%;
-background:#101020;
-border:1px solid #555;
-color:white;
-padding:13px;
-border-radius:9px;
-margin:8px 0 15px;
-}
-
-label{
-display:block;
-margin-top:8px;
-font-size:14px;
-}
-
-.cart-item{
-display:flex;
-justify-content:space-between;
-align-items:center;
-gap:10px;
-padding:13px 0;
-border-bottom:1px solid #444;
-}
-
-.cart-item button{
-background:#b52b2b;
-color:white;
-border:0;
-padding:8px;
-border-radius:7px;
-}
-
-.admin-bg{
-background:
-linear-gradient(#101020dd,#101020ed),
-url("https://raw.githubusercontent.com/217scatter-gif/-/refs/heads/main/file_00000000e87882108cd93781f0eb6ed0.png")
-center/cover fixed;
-border-radius:14px;
-padding:18px;
-}
-
-.admin-option{
-background:#202039;
-border:1px solid #555;
-border-radius:12px;
-padding:20px;
-margin:12px 0;
-text-align:center;
-}
-
-.admin-option button{width:100%}
-
-.admin-product{
-background:#22223a;
-padding:13px;
-border-radius:10px;
-margin:10px 0;
-}
-
-.admin-product img{
-width:85px;
-height:75px;
-object-fit:cover;
-border-radius:8px;
-}
-
-footer{
-background:#101020;
-border-top:1px solid var(--border);
-padding:30px 5%;
-text-align:center;
-margin-top:45px;
-}
-
-footer h3{
-color:var(--gold);
-margin:15px 0;
-}
-
-.footer-links{
-display:flex;
-justify-content:center;
-flex-wrap:wrap;
-gap:10px;
-margin:15px 0;
-}
-
-.footer-links a{
-background:#25253e;
-padding:12px;
-border-radius:9px;
-font-size:13px;
-}
-
-.payment{
-background:#202039;
-padding:17px;
-border-radius:12px;
-line-height:2;
-margin:20px auto;
-max-width:500px;
-}
-
-.small{
-font-size:12px;
-color:#aaa;
-line-height:1.9;
-}
-
-@media(max-width:550px){
-header{padding:11px 3%}
-.logo{font-size:14px}
+.box{background:#19192d;border:1px solid #555;border-radius:15px;padding:20px;max-width:600px;margin:25px auto}
+.box h2{color:var(--gold);margin:15px 0}
+.close{float:left;background:#444;color:white;padding:9px;border-radius:8px}
+.cartitem{padding:13px 0;border-bottom:1px solid #444;display:flex;justify-content:space-between;gap:10px}
+footer{margin-top:40px;background:#101020;text-align:center;padding:30px 15px;border-top:1px solid #444;line-height:2}
+footer h3{color:var(--gold);margin:15px}
+.links{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;margin:15px}
+.links a{background:#25253e;color:white;text-decoration:none;padding:10px;border-radius:8px}
+.adminitem{background:#25253e;padding:12px;margin:10px 0;border-radius:10px}
+.notice{padding:15px;background:#292941;border-radius:10px;margin:15px 0;line-height:2}
+@media(max-width:500px){
+.logo{font-size:13px}
 header .btn{padding:9px;font-size:11px}
-.hero{min-height:220px}
-.products{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-.product img{height:145px}
-.product-info{padding:10px}
-.product h3{font-size:13px}
-.product button{font-size:12px;padding:10px 4px}
+.products{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.product img{height:140px}
+.info{padding:9px}
+.info h3{font-size:13px}
+.info button{font-size:11px;padding:9px 3px}
 }
 </style>
 </head>
@@ -374,26 +69,24 @@ header .btn{padding:9px;font-size:11px}
 <body>
 
 <header>
-<div class="logo" id="logo">🎮 ŜǗĎÃŇ ŜŤỖŘẸ ✨</div>
+<div class="logo">🎮 SUDAN STORE ✨</div>
 <div>
-<button class="btn darkbtn" onclick="openAdmin()">⚙️ الإدارة</button>
-<button class="btn gold" onclick="openCart()">🛒 السلة</button>
+<button class="btn dark" onclick="openAdmin()">⚙️ الإدارة</button>
+<button class="btn gold" onclick="openCart()">🛒 السلة <span id="count">0</span></button>
 </div>
 </header>
 
 <section class="hero">
-<div>
-<h1 id="heroTitle">مرحباً بك في متجر السودان</h1>
+<h1>مرحباً بك في SUDAN STORE</h1>
 <p>متجرك الموثوق للحسابات والشحن والخدمات الرقمية</p>
 <p>🔥 جودة • سرعة • ثقة</p>
-</div>
 </section>
 
 <main class="container">
 
+<div id="home">
 <h2 class="title">🔥 أقسام المتجر</h2>
-
-<div class="grid" id="mainGrid">
+<div class="grid">
 
 <div class="card" onclick="openPanel('freefire')">
 <img src="https://raw.githubusercontent.com/217scatter-gif/-/refs/heads/main/file_000000009f3c8210b69751732d4a6fb7.png">
@@ -408,15 +101,13 @@ header .btn{padding:9px;font-size:11px}
 </div>
 
 </div>
+</div>
 
 <section class="panel" id="freefire">
-
 <button class="back" onclick="home()">← رجوع</button>
-
 <h2 class="title">🔥 قسم فري فاير</h2>
 
 <div class="grid">
-
 <div class="card" onclick="showProducts('accounts')">
 <img src="https://raw.githubusercontent.com/217scatter-gif/-/refs/heads/main/file_000000009f3c8210b69751732d4a6fb7.png">
 <h3>حسابات فري فاير</h3>
@@ -431,992 +122,339 @@ header .btn{padding:9px;font-size:11px}
 <img src="https://raw.githubusercontent.com/217scatter-gif/-/refs/heads/main/file_0000000018208210be258166e47d1e45.png">
 <h3>الإنزالات الجوية والاشتراكات</h3>
 </div>
-
 </div>
 </section>
 
 <section class="panel" id="google">
-
 <button class="back" onclick="home()">← رجوع</button>
-
-<img
-src="https://raw.githubusercontent.com/217scatter-gif/-/refs/heads/main/file_00000000574882108b33efacf3cd473e.png"
-style="width:100%;max-height:260px;object-fit:cover;border-radius:12px">
-
 <h2 class="title">حسابات جوجل الأمريكية</h2>
-
-<div class="unavailable">
+<div class="notice" style="text-align:center">
 المنتجات غير متوفرة حالياً ❤️
-<br>
-ترقبوا الإضافات الجديدة
+<br>ترقبوا الإضافات الجديدة
 </div>
-
 </section>
 
 <section class="panel" id="productsPanel">
-
 <button class="back" onclick="backFree()">← رجوع</button>
-
 <h2 class="title" id="productsTitle"></h2>
-
 <div class="products" id="productsList"></div>
-
 </section>
 
 </main>
 
-<div class="cart-float">
-<button onclick="openCart()">🛒 السلة <span id="cartCount">0</span></button>
-</div>
-
-<!-- سلة المشتريات -->
-
 <div class="modal" id="cartModal">
-<div class="modal-box">
-
+<div class="box">
 <button class="close" onclick="closeModal('cartModal')">إغلاق ✕</button>
-
 <h2>🛒 سلة المشتريات</h2>
-
 <div id="cartList"></div>
-
-<h3 class="price" id="total">الإجمالي: 0 جنيه</h3>
+<h3 class="price" id="total"></h3>
 
 <label>اسم العميل</label>
 <input class="field" id="customerName" placeholder="اسمك">
 
-<label>رقم اللاعب ID (إن وجد)</label>
-<input class="field" id="playerID" placeholder="رقم اللاعب">
+<label>رقم اللاعب ID</label>
+<input class="field" id="playerID" placeholder="رقم اللاعب إن وجد">
 
 <label>خدمة العملاء</label>
-<select class="field" id="customerService">
+<select class="field" id="service">
 <option value="249968235010">معاذ استور</option>
 <option value="249967449456">فارس استور</option>
 </select>
 
-<button class="btn gold" style="width:100%" onclick="sendOrder()">
-إرسال الطلب عبر واتساب
-</button>
-
+<button class="btn gold" style="width:100%" onclick="sendOrder()">إرسال الطلب واتساب</button>
 </div>
 </div>
-
-<!-- لوحة التحكم -->
 
 <div class="modal" id="adminModal">
-<div class="modal-box">
-
+<div class="box">
 <button class="close" onclick="closeModal('adminModal')">إغلاق ✕</button>
 
 <div id="loginArea">
-
 <h2>🔐 دخول الإدارة</h2>
-
+<label>البريد الإلكتروني</label>
+<input class="field" id="adminEmail" type="email" placeholder="البريد الإلكتروني">
 <label>كلمة المرور</label>
-<input type="password" class="field" id="adminPass">
-
-<button class="btn gold" style="width:100%" onclick="login()">
-دخول لوحة التحكم
-</button>
-
+<input class="field" id="adminPass" type="password" placeholder="كلمة المرور">
+<button class="btn gold" style="width:100%" onclick="login()">دخول الإدارة</button>
+<p class="notice">استخدم حساب الإدارة الذي أنشأته في Supabase Authentication.</p>
 </div>
 
-<div id="dashboard" class="hidden admin-bg">
+<div id="dashboard" class="hidden">
+<h2>🎮 لوحة الإدارة</h2>
 
-<h2>🎮 لوحة تحكم المتجر</h2>
-
-<div class="admin-option">
 <h3>➕ إضافة منتج</h3>
-<p class="small">إضافة منتج جديد وإرسال بياناته للمطور</p>
-<button class="btn gold" onclick="showAdd()">إضافة منتج</button>
-</div>
-
-<div class="admin-option">
-<h3>🗑️ حذف منتج</h3>
-<p class="small">إدارة المنتجات الموجودة</p>
-<button class="btn gold" onclick="showDelete()">حذف منتج</button>
-</div>
-
-<div class="admin-option">
-<h3>✏️ إعدادات المتجر</h3>
-<button class="btn darkbtn" onclick="showSettings()">إعدادات المتجر</button>
-</div>
-
-<div class="admin-option">
-<button class="btn darkbtn" onclick="logout()">تسجيل الخروج</button>
-</div>
-
-</div>
-
-<!-- إضافة منتج -->
-
-<div id="addArea" class="hidden">
-
-<button class="back" onclick="backDashboard()">← رجوع</button>
-
-<h2>➕ إضافة منتج جديد</h2>
-
 <label>اسم المنتج</label>
-<input id="pName" class="field" placeholder="اسم المنتج">
+<input class="field" id="pName" placeholder="اسم المنتج">
 
-<label>صورة المنتج</label>
-<input id="pImage" type="file" accept="image/*" class="field">
-
-<img id="imagePreview" style="width:130px;display:none;border-radius:10px;margin-bottom:12px">
+<label>السعر بالجنيه السوداني</label>
+<input class="field" id="pPrice" type="number" placeholder="السعر">
 
 <label>القسم</label>
-<select id="pCategory" class="field">
+<select class="field" id="pCategory">
 <option value="accounts">حسابات فري فاير</option>
 <option value="gems">شحن جواهر فري فاير</option>
 <option value="airdrops">الإنزالات الجوية والاشتراكات</option>
 </select>
 
-<label>السعر بالجنيه السوداني</label>
-<input id="pPrice" type="number" class="field" placeholder="السعر">
+<label>صورة المنتج</label>
+<input class="field" id="pImage" type="file" accept="image/*">
 
-<button class="btn gold" style="width:100%" onclick="addProduct()">
-تأكيد وإرسال للمطور
-</button>
+<button class="btn gold" style="width:100%" onclick="addProduct()">حفظ المنتج للجميع</button>
 
-<p class="small">
-سيتم حفظ المنتج في هذا المتصفح وإرسال بياناته إلى المطور عبر واتساب.
-</p>
+<hr style="margin:20px 0">
 
+<h3>🗑️ المنتجات</h3>
+<div id="adminProducts"></div>
+
+<button class="btn dark" onclick="logout()">تسجيل الخروج</button>
 </div>
-
-<!-- حذف منتج -->
-
-<div id="deleteArea" class="hidden">
-
-<button class="back" onclick="backDashboard()">← رجوع</button>
-
-<h2>🗑️ حذف المنتجات</h2>
-
-<div id="deleteList"></div>
-
-</div>
-
-<!-- إعدادات -->
-
-<div id="settingsArea" class="hidden">
-
-<button class="back" onclick="backDashboard()">← رجوع</button>
-
-<h2>إعدادات المتجر</h2>
-
-<label>اسم المتجر</label>
-<input id="sName" class="field">
-
-<label>عنوان الصفحة</label>
-<input id="sTitle" class="field">
-
-<label>رقم معاذ</label>
-<input id="sMoaz" class="field">
-
-<label>رقم فارس</label>
-<input id="sFares" class="field">
-
-<label>رقم المطور</label>
-<input id="sDeveloper" class="field">
-
-<label>رقم حساب الدفع</label>
-<input id="sPayment" class="field">
-
-<label>اسم صاحب الحساب</label>
-<input id="sOwner" class="field">
-
-<button class="btn gold" style="width:100%" onclick="saveSettings()">
-حفظ التعديلات
-</button>
-
-<hr style="margin:20px 0;border-color:#555">
-
-<h3>تغيير كلمة المرور</h3>
-<input id="newPass" class="field" type="password" placeholder="كلمة المرور الجديدة">
-<button class="btn darkbtn" onclick="changePassword()">تغيير كلمة المرور</button>
-
-</div>
-
 </div>
 </div>
 
 <footer>
-
-<h3 id="footerName">🎮 ŜǗĎÃŇ ŜŤỖŘẸ ✨</h3>
-
+<h3>🎮 SUDAN STORE ✨</h3>
 <p>متجرك الموثوق للحسابات والشحن والخدمات الرقمية</p>
 
-<div class="payment">
+<div class="notice">
 <h3>💳 بيانات الدفع</h3>
 <p>ماي كاشي</p>
-<p>رقم الحساب: <strong id="paymentNumber">402532187</strong></p>
-<p>الاسم: <strong id="paymentOwner">فارس محمد أحمد العوض</strong></p>
+<p>رقم الحساب: 402532187</p>
+<p>الاسم: فارس محمد أحمد العوض</p>
 </div>
 
 <h3>📞 خدمة العملاء</h3>
-
-<div class="footer-links">
-<a id="moazLink" href="https://wa.me/249968235010">واتساب معاذ استور</a>
-<a id="faresLink" href="https://wa.me/249967449456">واتساب فارس استور</a>
+<div class="links">
+<a href="https://wa.me/249968235010">واتساب معاذ</a>
+<a href="https://wa.me/249967449456">واتساب فارس</a>
 </div>
 
 <h3>🌐 مجموعات وقنوات المتجر</h3>
-
-<div class="footer-links">
-<a href="https://whatsapp.com/channel/0029VajK5xw3GJOtEn9JRo2a" target="_blank">قناة FARĒS STORE</a>
-
-<a href="https://chat.whatsapp.com/CHJVs8xWdjW3HF2A5iyKeN?s=cl&p=a&iam=2" target="_blank">مجموعة المتجر</a>
-
-<a href="https://chat.whatsapp.com/Lo811kwpvh0HFIEs5KbdJ7?s=cl&p=a&iam=2" target="_blank">مجموعة المسابقات</a>
-
-<a href="https://whatsapp.com/channel/0029VbCLQ70LtOjGRzNBK42P" target="_blank">قناة المصدقيات</a>
+<div class="links">
+<a href="https://whatsapp.com/channel/0029VajK5xw3GJOtEn9JRo2a">قناة FARĒS STORE</a>
+<a href="https://chat.whatsapp.com/CHJVs8xWdjW3HF2A5iyKeN">مجموعة المتجر</a>
+<a href="https://chat.whatsapp.com/Lo811kwpvh0HFIEs5KbdJ7">المسابقات</a>
+<a href="https://whatsapp.com/channel/0029VbCLQ70LtOjGRzNBK42P">المصدقيات</a>
 </div>
 
-<p class="small" style="margin-top:20px">
-إدارة وتصميم عصام «الباشاوي»
-<br>
-جميع الحقوق محفوظة © 2026
-</p>
-
+<p>إدارة وتصميم عصام «الباشاوي»</p>
+<p>جميع الحقوق محفوظة © 2026</p>
 </footer>
 
 <script>
+/* إعداد الاتصال */
+const SUPABASE_URL="https://zmaqvamuduzzzgjspsvu.supabase.co";
+const SUPABASE_KEY="sb_publishable_rjWaOEsK3dCyyKsSCZJ9Sw_t_nGBsze";
 
-/* بيانات المتجر */
+const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 
-const DEFAULT_SETTINGS={
-name:"🎮 ŜǗĎÃŇ ŜŤỖŘẸ ✨",
-title:"مرحباً بك في متجر السودان",
-moaz:"249968235010",
-fares:"249967449456",
-developer:"249114823421",
-payment:"402532187",
-owner:"فارس محمد أحمد العوض"
-};
-
-let settings=JSON.parse(localStorage.getItem("sudanSettings"))||DEFAULT_SETTINGS;
-
-/* المنتجات الافتراضية */
-
-const defaultProducts=[
-
-{
-id:1,
-name:"حساب فري فاير رقم 1",
-price:400000,
-image:"https://raw.githubusercontent.com/217scatter-gif/-/refs/heads/main/IMG-20261121-WA0058.jpg",
-category:"accounts"
-},
-
-{
-id:2,
-name:"حساب فري فاير رقم 2",
-price:490000,
-image:"https://raw.githubusercontent.com/217scatter-gif/-/refs/heads/main/IMG-20261121-WA0059.jpg",
-category:"accounts"
-},
-
-{
-id:3,
-name:"حساب فري فاير رقم 3",
-price:260000,
-image:"https://raw.githubusercontent.com/217scatter-gif/-/refs/heads/main/IMG-20261121-WA0062.jpg",
-category:"accounts"
-},
-
-{
-id:4,
-name:"100 جوهرة",
-price:12000,
-image:"https://raw.githubusercontent.com/217scatter-gif/-/refs/heads/main/file_00000000c41c8210ac94533e92056ab8.png",
-category:"gems"
-},
-
-{
-id:5,
-name:"200 جوهرة",
-price:25000,
-image:"https://raw.githubusercontent.com/217scatter-gif/-/refs/heads/main/file_00000000f64c821091db62fc0ac32fbc.png",
-category:"gems"
-},
-
-{
-id:11,
-name:"500 جوهرة",
-price:65000,
-image:"https://raw.githubusercontent.com/217scatter-gif/-/refs/heads/main/file_000000007afc8210a52ab217086e5825.png",
-category:"gems"
-},
-
-{
-id:12,
-name:"1000 جوهرة",
-price:130000,
-image:"https://raw.githubusercontent.com/217scatter-gif/-/refs/heads/main/file_00000000fb508210ac36b7b6d1a37c98.png",
-category:"gems"
-},
-
-{
-id:6,
-name:"إنزال جوي 1$",
-price:15000,
-image:"https://raw.githubusercontent.com/217scatter-gif/-/refs/heads/main/file_0000000009ac8210a5644935d524090e.png",
-category:"airdrops"
-},
-
-{
-id:7,
-name:"إنزال جوي 2$",
-price:30000,
-image:"https://raw.githubusercontent.com/217scatter-gif/-/refs/heads/main/file_00000000d5588210a60f828fdf0b624a.png",
-category:"airdrops"
-},
-
-{
-id:8,
-name:"بويا باس عبر تيم كود",
-price:16000,
-image:"https://raw.githubusercontent.com/217scatter-gif/-/refs/heads/main/file_00000000451482109733930b470b0187.png",
-category:"airdrops"
-},
-
-{
-id:9,
-name:"العضوية الأسبوعية",
-price:28000,
-image:"https://raw.githubusercontent.com/217scatter-gif/-/refs/heads/main/file_00000000a6608210864e788e3c55ff17.png",
-category:"airdrops"
-},
-
-{
-id:10,
-name:"العضوية الشهرية",
-price:130000,
-image:"https://raw.githubusercontent.com/217scatter-gif/-/refs/heads/main/file_000000004ba48210afa367e7b158987d.png",
-category:"airdrops"
-}
-
+const defaults=[
+{id:1,name:"حساب فري فاير رقم 1",price:400000,image:"https://raw.githubusercontent.com/217scatter-gif/-/refs/heads/main/IMG-20261121-WA0058.jpg",category:"accounts"},
+{id:2,name:"حساب فري فاير رقم 2",price:490000,image:"https://raw.githubusercontent.com/217scatter-gif/-/refs/heads/main/IMG-20261121-WA0059.jpg",category:"accounts"},
+{id:3,name:"حساب فري فاير رقم 3",price:260000,image:"https://raw.githubusercontent.com/217scatter-gif/-/refs/heads/main/IMG-20261121-WA0062.jpg",category:"accounts"},
+{id:4,name:"100 جوهرة",price:12000,image:"https://raw.githubusercontent.com/217scatter-gif/-/refs/heads/main/file_00000000c41c8210ac94533e92056ab8.png",category:"gems"},
+{id:5,name:"200 جوهرة",price:25000,image:"https://raw.githubusercontent.com/217scatter-gif/-/refs/heads/main/file_00000000f64c821091db62fc0ac32fbc.png",category:"gems"},
+{id:11,name:"500 جوهرة",price:65000,image:"https://raw.githubusercontent.com/217scatter-gif/-/refs/heads/main/file_000000007afc8210a52ab217086e5825.png",category:"gems"},
+{id:12,name:"1000 جوهرة",price:130000,image:"https://raw.githubusercontent.com/217scatter-gif/-/refs/heads/main/file_00000000fb508210ac36b7b6d1a37c98.png",category:"gems"},
+{id:6,name:"إنزال جوي 1$",price:15000,image:"https://raw.githubusercontent.com/217scatter-gif/-/refs/heads/main/file_0000000009ac8210a5644935d524090e.png",category:"airdrops"},
+{id:7,name:"إنزال جوي 2$",price:30000,image:"https://raw.githubusercontent.com/217scatter-gif/-/refs/heads/main/file_00000000d5588210a60f828fdf0b624a.png",category:"airdrops"},
+{id:8,name:"بويا باس عبر تيم كود",price:16000,image:"https://raw.githubusercontent.com/217scatter-gif/-/refs/heads/main/file_00000000451482109733930b470b0187.png",category:"airdrops"},
+{id:9,name:"العضوية الأسبوعية",price:28000,image:"https://raw.githubusercontent.com/217scatter-gif/-/refs/heads/main/file_00000000a6608210864e788e3c55ff17.png",category:"airdrops"},
+{id:10,name:"العضوية الشهرية",price:130000,image:"https://raw.githubusercontent.com/217scatter-gif/-/refs/heads/main/file_000000004ba48210afa367e7b158987d.png",category:"airdrops"}
 ];
 
-/* تحديث المنتجات القديمة مع المحافظة على المنتجات المضافة */
-
-let saved=JSON.parse(localStorage.getItem("sudanProducts"));
-
-let products;
-
-if(Array.isArray(saved)){
-
-products=saved.map(p=>{
-
-let fresh=defaultProducts.find(d=>d.id===p.id);
-
-return fresh?{...p,...fresh}:p;
-
-});
-
-defaultProducts.forEach(d=>{
-
-if(!products.some(p=>p.id===d.id)){
-products.push(d);
-}
-
-});
-
-}else{
-
-products=defaultProducts;
-
-}
-
-function saveProducts(){
-localStorage.setItem("sudanProducts",JSON.stringify(products));
-}
-
-saveProducts();
-
-/* السلة */
-
-let cart=JSON.parse(localStorage.getItem("sudanCart"))||[];
-
+let products=[];
+let cart=[];
 let currentCategory="accounts";
-let loggedIn=false;
+let user=null;
 
-function saveCart(){
-localStorage.setItem("sudanCart",JSON.stringify(cart));
+const money=n=>Number(n).toLocaleString("en-US")+" جنيه سوداني";
+const safe=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+
+async function loadProducts(){
+const {data,error}=await db.from("products").select("*").order("id");
+if(error){
+console.error(error);
+products=defaults;
+alert("تعذر الاتصال بالمنتجات. تحقق من إعدادات Supabase والإنترنت.");
+}else{
+products=data.length?data:defaults;
 }
-
-function money(n){
-return Number(n).toLocaleString("en-US")+" جنيه سوداني";
+renderProducts();
 }
-
-function safe(s){
-return String(s??"").replace(/[&<>"']/g,c=>({
-"&":"&amp;",
-"<":"&lt;",
-">":"&gt;",
-'"':"&quot;",
-"'":"&#39;"
-}[c]));
-}
-
-/* تحديث بيانات المتجر */
-
-function applySettings(){
-
-document.getElementById("logo").textContent=settings.name;
-document.getElementById("footerName").textContent=settings.name;
-document.getElementById("heroTitle").textContent=settings.title;
-
-document.getElementById("paymentNumber").textContent=settings.payment;
-document.getElementById("paymentOwner").textContent=settings.owner;
-
-document.getElementById("moazLink").href="https://wa.me/"+settings.moaz;
-document.getElementById("faresLink").href="https://wa.me/"+settings.fares;
-
-}
-
-applySettings();
-
-/* التنقل */
 
 function hidePanels(){
-
 document.querySelectorAll(".panel").forEach(p=>p.classList.remove("active"));
-
-document.getElementById("mainGrid").style.display="none";
-
+document.getElementById("home").classList.add("hidden");
 }
-
 function home(){
-
 hidePanels();
-
-document.getElementById("mainGrid").style.display="grid";
-
+document.getElementById("home").classList.remove("hidden");
 }
-
 function openPanel(id){
-
 hidePanels();
-
 document.getElementById(id).classList.add("active");
-
 }
+function backFree(){openPanel("freefire");}
 
-function backFree(){
-
+function showProducts(cat){
+currentCategory=cat;
 hidePanels();
-
-document.getElementById("freefire").classList.add("active");
-
-}
-
-/* عرض المنتجات */
-
-function showProducts(category){
-
-currentCategory=category;
-
-hidePanels();
-
 document.getElementById("productsPanel").classList.add("active");
-
-const names={
+document.getElementById("productsTitle").textContent={
 accounts:"حسابات فري فاير",
 gems:"شحن جواهر فري فاير",
 airdrops:"الإنزالات الجوية والاشتراكات"
-};
-
-document.getElementById("productsTitle").textContent=names[category];
-
+}[cat];
 renderProducts();
-
 }
 
 function renderProducts(){
-
-let list=products.filter(p=>p.category===currentCategory);
-
-let box=document.getElementById("productsList");
-
+const list=products.filter(p=>p.category===currentCategory);
+const box=document.getElementById("productsList");
 if(!list.length){
-
-box.innerHTML='<div class="empty">لا توجد منتجات حالياً</div>';
-
+box.innerHTML='<div class="empty">غير متوفر حالياً ❤️</div>';
 return;
-
 }
-
 box.innerHTML=list.map(p=>`
-
 <div class="product">
-
-<img src="${safe(p.image)}"
-alt="${safe(p.name)}"
-onerror="this.style.display='none'">
-
-<div class="product-info">
-
+<img src="${safe(p.image)}" onerror="this.src='https://placehold.co/400x250/19192d/ffc928?text=SUDAN+STORE'">
+<div class="info">
 <h3>${safe(p.name)}</h3>
-
 <div class="price">${money(p.price)}</div>
-
-<button class="btn gold" onclick="addCart(${p.id})">
-إضافة إلى السلة 🛒
-</button>
-
+<button class="btn gold" onclick="addCart(${Number(p.id)})">إضافة للسلة 🛒</button>
 </div>
-
-</div>
-
-`).join("");
-
+</div>`).join("");
 }
-
-/* السلة */
 
 function addCart(id){
-
-let p=products.find(x=>x.id===id);
-
+const p=products.find(x=>Number(x.id)===Number(id));
 if(!p)return;
-
 cart.push({...p});
-
-saveCart();
-
-updateCount();
-
-alert("تمت إضافة المنتج إلى السلة ❤️");
-
-}
-
-function updateCount(){
-
-document.getElementById("cartCount").textContent=cart.length;
-
+document.getElementById("count").textContent=cart.length;
+alert("تمت إضافة المنتج للسلة ❤️");
 }
 
 function openCart(){
-
 renderCart();
-
 document.getElementById("cartModal").classList.add("show");
-
 }
-
 function renderCart(){
-
-let box=document.getElementById("cartList");
-
-if(!cart.length){
-
-box.innerHTML='<div class="empty">السلة فارغة</div>';
-
-}else{
-
-box.innerHTML=cart.map((p,i)=>`
-
-<div class="cart-item">
-
-<div>
-<strong>${safe(p.name)}</strong>
-<div class="price">${money(p.price)}</div>
-</div>
-
-<button onclick="removeCart(${i})">حذف</button>
-
-</div>
-
-`).join("");
-
+const box=document.getElementById("cartList");
+box.innerHTML=cart.length?cart.map((p,i)=>`
+<div class="cartitem">
+<div>${safe(p.name)}<div class="price">${money(p.price)}</div></div>
+<button class="btn dark" onclick="removeCart(${i})">حذف</button>
+</div>`).join(""):'<div class="empty">السلة فارغة</div>';
+document.getElementById("total").textContent="الإجمالي: "+money(cart.reduce((s,p)=>s+Number(p.price),0));
 }
-
-let total=cart.reduce((s,p)=>s+Number(p.price),0);
-
-document.getElementById("total").textContent="الإجمالي: "+money(total);
-
-}
-
 function removeCart(i){
-
 cart.splice(i,1);
-
-saveCart();
-
+document.getElementById("count").textContent=cart.length;
 renderCart();
-
-updateCount();
-
 }
-
-/* الطلبات */
 
 function sendOrder(){
-
-if(!cart.length){
-
-alert("السلة فارغة");
-
-return;
-
+if(!cart.length)return alert("السلة فارغة");
+const name=document.getElementById("customerName").value.trim();
+if(!name)return alert("اكتب اسم العميل");
+const phone=document.getElementById("service").value;
+const total=cart.reduce((s,p)=>s+Number(p.price),0);
+let msg="السلام عليكم، أريد الطلب من SUDAN STORE\nاسم العميل: "+name+"\nID اللاعب: "+(document.getElementById("playerID").value||"غير محدد")+"\n\nالمنتجات:\n";
+cart.forEach((p,i)=>msg+=(i+1)+"- "+p.name+" : "+money(p.price)+"\n");
+msg+="\nالإجمالي: "+money(total)+"\nالدفع عبر ماي كاشي\nرقم الحساب: 402532187\nالاسم: فارس محمد أحمد العوض";
+window.open("https://wa.me/"+phone+"?text="+encodeURIComponent(msg),"_blank");
 }
-
-let name=document.getElementById("customerName").value.trim();
-
-if(!name){
-
-alert("اكتب اسم العميل");
-
-return;
-
-}
-
-let id=document.getElementById("playerID").value.trim();
-
-let phone=document.getElementById("customerService").value;
-
-let total=cart.reduce((s,p)=>s+Number(p.price),0);
-
-let message=
-"السلام عليكم، أريد الطلب من "+settings.name+
-"\nاسم العميل: "+name+
-"\nID اللاعب: "+(id||"غير محدد")+
-"\n\nالمنتجات:\n";
-
-cart.forEach((p,i)=>{
-
-message+=(i+1)+"- "+p.name+" : "+money(p.price)+"\n";
-
-});
-
-message+="\nالإجمالي: "+money(total);
-
-message+="\n\nالدفع عبر ماي كاشي";
-message+="\nرقم الحساب: "+settings.payment;
-message+="\nالاسم: "+settings.owner;
-
-window.open(
-"https://wa.me/"+phone+"?text="+encodeURIComponent(message),
-"_blank"
-);
-
-}
-
-/* النوافذ */
 
 function closeModal(id){
-
 document.getElementById(id).classList.remove("show");
-
 }
-
-/* لوحة التحكم */
 
 function openAdmin(){
-
 document.getElementById("adminModal").classList.add("show");
-
-showAdminScreen("loginArea");
-
+document.getElementById("loginArea").classList.toggle("hidden",!!user);
+document.getElementById("dashboard").classList.toggle("hidden",!user);
+if(user)renderAdmin();
 }
 
-function showAdminScreen(id){
+async function login(){
+const email=document.getElementById("adminEmail").value.trim();
+const password=document.getElementById("adminPass").value;
+if(!email||!password)return alert("أدخل البريد وكلمة المرور");
+const {data,error}=await db.auth.signInWithPassword({email,password});
+if(error)return alert("فشل الدخول: "+error.message);
+user=data.user;
+document.getElementById("loginArea").classList.add("hidden");
+document.getElementById("dashboard").classList.remove("hidden");
+renderAdmin();
+}
 
-["loginArea","dashboard","addArea","deleteArea","settingsArea"].forEach(x=>{
+async function logout(){
+await db.auth.signOut();
+user=null;
+document.getElementById("dashboard").classList.add("hidden");
+document.getElementById("loginArea").classList.remove("hidden");
+}
 
-document.getElementById(x).classList.add("hidden");
+async function addProduct(){
+if(!user)return alert("سجل دخول الإدارة أولاً");
+const name=document.getElementById("pName").value.trim();
+const price=Number(document.getElementById("pPrice").value);
+const category=document.getElementById("pCategory").value;
+const file=document.getElementById("pImage").files[0];
+if(!name||price<=0||!file)return alert("أكمل بيانات المنتج واختر صورة");
+if(!file.type.startsWith("image/"))return alert("اختر صورة صحيحة");
 
+const ext=file.name.split(".").pop().replace(/[^a-zA-Z0-9]/g,"");
+const path=Date.now()+"-"+Math.random().toString(36).slice(2)+"."+ext;
+
+const {error:uploadError}=await db.storage.from("store-images").upload(path,file,{upsert:false});
+if(uploadError)return alert("خطأ رفع الصورة: "+uploadError.message);
+
+const {data:imageData}=db.storage.from("store-images").getPublicUrl(path);
+
+const {error}=await db.from("products").insert({
+name,price,category,image:imageData.publicUrl
 });
 
-document.getElementById(id).classList.remove("hidden");
-
+if(error){
+await db.storage.from("store-images").remove([path]);
+return alert("خطأ حفظ المنتج: "+error.message);
 }
 
-function login(){
-
-let entered=document.getElementById("adminPass").value;
-
-let password=localStorage.getItem("sudanAdminPassword")||"Sudan store 56";
-
-if(entered===password){
-
-loggedIn=true;
-
-showAdminScreen("dashboard");
-
-}else{
-
-alert("كلمة المرور غير صحيحة");
-
-}
-
-}
-
-function logout(){
-
-loggedIn=false;
-
-document.getElementById("adminPass").value="";
-
-showAdminScreen("loginArea");
-
-}
-
-function backDashboard(){
-
-if(!loggedIn)return;
-
-showAdminScreen("dashboard");
-
-}
-
-function showAdd(){
-
-if(loggedIn)showAdminScreen("addArea");
-
-}
-
-function showDelete(){
-
-if(!loggedIn)return;
-
-showAdminScreen("deleteArea");
-
-renderDelete();
-
-}
-
-function showSettings(){
-
-if(!loggedIn)return;
-
-showAdminScreen("settingsArea");
-
-document.getElementById("sName").value=settings.name;
-document.getElementById("sTitle").value=settings.title;
-document.getElementById("sMoaz").value=settings.moaz;
-document.getElementById("sFares").value=settings.fares;
-document.getElementById("sDeveloper").value=settings.developer;
-document.getElementById("sPayment").value=settings.payment;
-document.getElementById("sOwner").value=settings.owner;
-
-}
-
-/* معاينة صورة المنتج */
-
-let uploadedImage="";
-
-document.getElementById("pImage").addEventListener("change",function(){
-
-let file=this.files[0];
-
-if(!file)return;
-
-if(!file.type.startsWith("image/")){
-
-alert("اختر ملف صورة");
-
-this.value="";
-
-return;
-
-}
-
-if(file.size>900000){
-
-alert("حجم الصورة كبير. اختر صورة أقل من 900 كيلوبايت.");
-
-this.value="";
-
-return;
-
-}
-
-let reader=new FileReader();
-
-reader.onload=function(e){
-
-uploadedImage=e.target.result;
-
-let preview=document.getElementById("imagePreview");
-
-preview.src=uploadedImage;
-
-preview.style.display="block";
-
-};
-
-reader.readAsDataURL(file);
-
-});
-
-/* إضافة منتج */
-
-function addProduct(){
-
-if(!loggedIn)return;
-
-let name=document.getElementById("pName").value.trim();
-
-let price=Number(document.getElementById("pPrice").value);
-
-let category=document.getElementById("pCategory").value;
-
-if(!name||price<=0||!uploadedImage){
-
-alert("أدخل الاسم والسعر وارفع صورة المنتج");
-
-return;
-
-}
-
-let product={
-
-id:Date.now(),
-name:name,
-price:price,
-image:uploadedImage,
-category:category
-
-};
-
-products.push(product);
-
-saveProducts();
-
-/* إرسال بيانات المنتج للمطور */
-
-let categoryName={
-accounts:"حسابات فري فاير",
-gems:"شحن جواهر فري فاير",
-airdrops:"الإنزالات الجوية والاشتراكات"
-}[category];
-
-let message=
-"طلب إضافة منتج جديد لمتجر "+settings.name+
-"\nاسم المنتج: "+name+
-"\nالسعر: "+money(price)+
-"\nالقسم: "+categoryName+
-"\n\nتم رفع الصورة وحفظها محلياً. يرجى التواصل لاستلام الصورة وإضافتها للموقع.";
-
-let url="https://wa.me/"+settings.developer+
-"?text="+encodeURIComponent(message);
-
-window.open(url,"_blank");
-
+alert("تم حفظ المنتج وظهر لجميع الزوار ❤️");
 document.getElementById("pName").value="";
 document.getElementById("pPrice").value="";
 document.getElementById("pImage").value="";
-document.getElementById("imagePreview").style.display="none";
-
-uploadedImage="";
-
-alert("تم حفظ المنتج محلياً وفتح واتساب المطور لإرسال تفاصيله.");
-
-showAdminScreen("dashboard");
-
+await loadProducts();
+renderAdmin();
 }
 
-/* حذف المنتجات */
-
-function renderDelete(){
-
-let box=document.getElementById("deleteList");
-
-if(!products.length){
-
-box.innerHTML='<p class="empty">لا توجد منتجات</p>';
-
-return;
-
-}
-
-box.innerHTML=products.map(p=>`
-
-<div class="admin-product">
-
+async function renderAdmin(){
+const {data,error}=await db.from("products").select("*").order("id");
+const box=document.getElementById("adminProducts");
+if(error){box.textContent=error.message;return;}
+box.innerHTML=data.length?data.map(p=>`
+<div class="adminitem">
 <strong>${safe(p.name)}</strong>
-
-<p class="price">${money(p.price)}</p>
-
-<button class="btn" style="background:#b52b2b;color:white"
-onclick="deleteProduct(${p.id})">
-
-حذف المنتج
-
-</button>
-
-</div>
-
-`).join("");
-
+<div class="price">${money(p.price)}</div>
+<button class="btn dark" onclick="deleteProduct(${Number(p.id)},'${safe(p.image)}')">حذف المنتج</button>
+</div>`).join(""):'لا توجد منتجات مضافة بعد';
 }
 
-function deleteProduct(id){
-
-if(!loggedIn)return;
-
-if(!confirm("هل تريد حذف هذا المنتج؟"))return;
-
-products=products.filter(p=>p.id!==id);
-
-saveProducts();
-
-renderDelete();
-
+async function deleteProduct(id,image){
+if(!confirm("هل تريد حذف المنتج؟"))return;
+const {error}=await db.from("products").delete().eq("id",id);
+if(error)return alert("تعذر الحذف: "+error.message);
+await loadProducts();
+renderAdmin();
+alert("تم حذف المنتج");
 }
 
-/* الإعدادات */
+db.auth.getSession().then(({data})=>{
+user=data.session?.user||null;
+});
 
-function saveSettings(){
-
-if(!loggedIn)return;
-
-settings={
-
-name:document.getElementById("sName").value.trim(),
-title:document.getElementById("sTitle").value.trim(),
-moaz:document.getElementById("sMoaz").value.replace(/\D/g,""),
-fares:document.getElementById("sFares").value.replace(/\D/g,""),
-developer:document.getElementById("sDeveloper").value.replace(/\D/g,""),
-payment:document.getElementById("sPayment").value.trim(),
-owner:document.getElementById("sOwner").value.trim()
-
-};
-
-localStorage.setItem("sudanSettings",JSON.stringify(settings));
-
-applySettings();
-
-alert("تم حفظ الإعدادات");
-
-}
-
-function changePassword(){
-
-if(!loggedIn)return;
-
-let pass=document.getElementById("newPass").value;
-
-if(pass.length<6){
-
-alert("كلمة المرور يجب أن تكون 6 أحرف على الأقل");
-
-return;
-
-}
-
-localStorage.setItem("sudanAdminPassword",pass);
-
-document.getElementById("newPass").value="";
-
-alert("تم تغيير كلمة المرور");
-
-}
-
-updateCount();
-
+loadProducts();
 </script>
 
 </body>
