@@ -270,19 +270,22 @@ let user=null;
 const money=n=>Number(n).toLocaleString("en-US")+" جنيه سوداني";
 const safe=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 
-async function loadProducts(){
-const {data,error}=await db.from("products").select("*").order("id");
-if(error){
-console.error(error);
-products=defaults;
-alert("تعذر الاتصال بالمنتجات. تحقق من إعدادات Supabase والإنترنت.");
-}else{
-products=data.length?data:defaults;
-}
-renderProducts();
-}
 
-function hidePanels(){
+
+async function loadProducts(){
+  const {data,error}=await db.from("products").select("*").order("id");
+
+  if(error){
+    console.error(error);
+    products=defaults;
+    alert("تعذر الاتصال بالمنتجات. تحقق من إعدادات Supabase والإنترنت.");
+  }else{
+    products=data.length?data:defaults;
+  }
+
+  renderProducts();
+ {                                                   }
+ function hidePanels(){
 document.querySelectorAll(".panel").forEach(p=>p.classList.remove("active"));
 document.getElementById("home").classList.add("hidden");
 }
