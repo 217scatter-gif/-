@@ -48,12 +48,22 @@ footer h3{color:var(--gold);margin:15px}.links{display:flex;justify-content:cent
 .links a{background:#25253e;color:white;text-decoration:none;padding:10px;border-radius:8px}
 .adminitem{background:#25253e;padding:12px;margin:10px 0;border-radius:10px}
 .notice{padding:15px;background:#292941;border-radius:10px;margin:15px 0;line-height:2}
-@media(max-width:500px){.logo{font-size:13px}header .btn{padding:9px;font-size:11px}
-.products{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.product img{height:140px}
-.info{padding:9px}.info h3{font-size:13px}.info button{font-size:11px;padding:9px 3px}}
+.pay-buttons{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:12px}
+.pay-buttons button{width:100%}
+.pay-details{margin-top:15px;text-align:center;border:1px solid var(--border)}
+@media(max-width:500px){
+.logo{font-size:13px}
+header .btn{padding:9px;font-size:11px}
+.products{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.product img{height:140px}
+.info{padding:9px}
+.info h3{font-size:13px}
+.info button{font-size:11px;padding:9px 3px}
+}
 </style>
 </head>
 <body>
+
 <header>
   <div class="logo">🎮 SUDAN STORE ✨</div>
   <div>
@@ -74,11 +84,14 @@ footer h3{color:var(--gold);margin:15px}.links{display:flex;justify-content:cent
     <div class="grid">
       <div class="card" onclick="openPanel('freefire')">
         <img src="https://raw.githubusercontent.com/217scatter-gif/-/refs/heads/main/file_000000009f3c8210b69751732d4a6fb7.png" alt="فري فاير">
-        <h3>🔥 فري فاير</h3><p>الحسابات والجواهر والإنزالات</p>
+        <h3>🔥 فري فاير</h3>
+        <p>الحسابات والجواهر والإنزالات</p>
       </div>
+
       <div class="card" onclick="openPanel('google')">
         <img src="https://raw.githubusercontent.com/217scatter-gif/-/refs/heads/main/file_00000000574882108b33efacf3cd473e.png" alt="حسابات جوجل">
-        <h3>📧 حسابات جوجل الأمريكية</h3><p>قريباً المزيد من المنتجات</p>
+        <h3>📧 حسابات جوجل الأمريكية</h3>
+        <p>قريباً المزيد من المنتجات</p>
       </div>
     </div>
   </div>
@@ -86,15 +99,18 @@ footer h3{color:var(--gold);margin:15px}.links{display:flex;justify-content:cent
   <section class="panel" id="freefire">
     <button class="back" onclick="home()">← رجوع</button>
     <h2 class="title">🔥 قسم فري فاير</h2>
+
     <div class="grid">
       <div class="card" onclick="showProducts('accounts')">
         <img src="https://raw.githubusercontent.com/217scatter-gif/-/refs/heads/main/file_000000009f3c8210b69751732d4a6fb7.png" alt="">
         <h3>حسابات فري فاير</h3>
       </div>
+
       <div class="card" onclick="showProducts('gems')">
         <img src="https://raw.githubusercontent.com/217scatter-gif/-/refs/heads/main/file_00000000eb9882109bd435647bcfec26.png" alt="">
         <h3>شحن جواهر فري فاير</h3>
       </div>
+
       <div class="card" onclick="showProducts('airdrops')">
         <img src="https://raw.githubusercontent.com/217scatter-gif/-/refs/heads/main/file_0000000018208210be258166e47d1e45.png" alt="">
         <h3>الإنزالات الجوية والاشتراكات</h3>
@@ -105,7 +121,10 @@ footer h3{color:var(--gold);margin:15px}.links{display:flex;justify-content:cent
   <section class="panel" id="google">
     <button class="back" onclick="home()">← رجوع</button>
     <h2 class="title">حسابات جوجل الأمريكية</h2>
-    <div class="notice" style="text-align:center">المنتجات غير متوفرة حالياً ❤️<br>ترقبوا الإضافات الجديدة</div>
+    <div class="notice" style="text-align:center">
+      المنتجات غير متوفرة حالياً ❤️<br>
+      ترقبوا الإضافات الجديدة
+    </div>
   </section>
 
   <section class="panel" id="productsPanel">
@@ -119,44 +138,76 @@ footer h3{color:var(--gold);margin:15px}.links{display:flex;justify-content:cent
   <div class="box">
     <button class="close" onclick="closeModal('cartModal')">إغلاق ✕</button>
     <h2>🛒 سلة المشتريات</h2>
+
     <div id="cartList"></div>
     <h3 class="price" id="total"></h3>
-    <label>اسم العميل</label><input class="field" id="customerName" placeholder="اسمك">
-    <label>رقم اللاعب ID</label><input class="field" id="playerID" placeholder="رقم اللاعب إن وجد">
+
+    <label>اسم العميل</label>
+    <input class="field" id="customerName" placeholder="اسمك">
+
+    <label>رقم اللاعب ID</label>
+    <input class="field" id="playerID" placeholder="رقم اللاعب إن وجد">
+
     <label>خدمة العملاء</label>
     <select class="field" id="service">
       <option value="249968235010">معاذ استور</option>
       <option value="249967449456">فارس استور</option>
     </select>
-    <button class="btn gold" style="width:100%" onclick="sendOrder()">إرسال الطلب واتساب</button>
+
+    <button class="btn gold" style="width:100%" onclick="sendOrder()">
+      إرسال الطلب واتساب
+    </button>
   </div>
 </div>
 
 <div class="modal" id="adminModal">
   <div class="box">
     <button class="close" onclick="closeModal('adminModal')">إغلاق ✕</button>
+
     <div id="loginArea">
       <h2>🔐 دخول الإدارة</h2>
-      <label>البريد الإلكتروني</label><input class="field" id="adminEmail" type="email" placeholder="البريد الإلكتروني">
-      <label>كلمة المرور</label><input class="field" id="adminPass" type="password" placeholder="كلمة المرور">
+
+      <label>البريد الإلكتروني</label>
+      <input class="field" id="adminEmail" type="email" placeholder="البريد الإلكتروني">
+
+      <label>كلمة المرور</label>
+      <input class="field" id="adminPass" type="password" placeholder="كلمة المرور">
+
       <button class="btn gold" style="width:100%" onclick="login()">دخول الإدارة</button>
+
       <p class="notice">استخدم حساب الإدارة الذي أنشأته في Supabase Authentication.</p>
     </div>
+
     <div id="dashboard" class="hidden">
       <h2>🎮 لوحة الإدارة</h2>
+
       <h3>➕ إضافة منتج</h3>
-      <label>اسم المنتج</label><input class="field" id="pName" placeholder="اسم المنتج">
-      <label>السعر بالجنيه السوداني</label><input class="field" id="pPrice" type="number" min="1" placeholder="السعر">
+
+      <label>اسم المنتج</label>
+      <input class="field" id="pName" placeholder="اسم المنتج">
+
+      <label>السعر بالجنيه السوداني</label>
+      <input class="field" id="pPrice" type="number" min="1" placeholder="السعر">
+
       <label>القسم</label>
       <select class="field" id="pCategory">
         <option value="accounts">حسابات فري فاير</option>
         <option value="gems">شحن جواهر فري فاير</option>
         <option value="airdrops">الإنزالات الجوية والاشتراكات</option>
       </select>
-      <label>صورة المنتج</label><input class="field" id="pImage" type="file" accept="image/*">
-      <button class="btn gold" style="width:100%" onclick="addProduct()">حفظ المنتج للجميع</button>
+
+      <label>صورة المنتج</label>
+      <input class="field" id="pImage" type="file" accept="image/*">
+
+      <button class="btn gold" style="width:100%" onclick="addProduct()">
+        حفظ المنتج للجميع
+      </button>
+
       <hr style="margin:20px 0">
-      <h3>🗑️ المنتجات</h3><div id="adminProducts"></div>
+
+      <h3>🗑️ المنتجات</h3>
+      <div id="adminProducts"></div>
+
       <button class="btn dark" onclick="logout()">تسجيل الخروج</button>
     </div>
   </div>
@@ -165,14 +216,40 @@ footer h3{color:var(--gold);margin:15px}.links{display:flex;justify-content:cent
 <footer>
   <h3>🎮 SUDAN STORE ✨</h3>
   <p>متجرك الموثوق للحسابات والشحن والخدمات الرقمية</p>
+
   <div class="notice">
-    <h3>💳 بيانات الدفع</h3><p>ماي كاشي</p><p>رقم الحساب: 402532187</p><p>الاسم: فارس محمد أحمد العوض</p>
+    <h3>💳 اختر حساب الدفع - ماي كاشي</h3>
+
+    <div class="pay-buttons">
+      <button class="btn gold" onclick="showPay('fares')">
+        فارس استور
+      </button>
+
+      <button class="btn gold" onclick="showPay('moaz')">
+        معاذ استور
+      </button>
+    </div>
+
+    <div id="payDetails" class="notice pay-details hidden" aria-live="polite">
+      <h3 id="payStore"></h3>
+      <p>المحفظة: ماي كاشي</p>
+      <p>رقم الحساب: <strong id="payNumber"></strong></p>
+      <p>الاسم: <strong id="payOwner"></strong></p>
+
+      <button class="btn gold" type="button" onclick="copyPay()">
+        نسخ رقم الحساب 📋
+      </button>
+
+      <p id="copyStatus" style="font-size:13px;color:#ffc928"></p>
+    </div>
   </div>
+
   <h3>📞 خدمة العملاء</h3>
   <div class="links">
     <a href="https://wa.me/249968235010">واتساب معاذ</a>
     <a href="https://wa.me/249967449456">واتساب فارس</a>
   </div>
+
   <h3>🌐 مجموعات وقنوات المتجر</h3>
   <div class="links">
     <a href="https://whatsapp.com/channel/0029VajK5xw3GJOtEn9JRo2a">قناة FARĒS STORE</a>
@@ -180,36 +257,46 @@ footer h3{color:var(--gold);margin:15px}.links{display:flex;justify-content:cent
     <a href="https://chat.whatsapp.com/Lo811kwpvh0HFIEs5KbdJ7">المسابقات</a>
     <a href="https://whatsapp.com/channel/0029VbCLQ70LtOjGRzNBK42P">المصدقيات</a>
   </div>
-  <p>إدارة وتصميم عصام «الباشاوي»</p><p>جميع الحقوق محفوظة © 2026</p>
+
+  <p>إدارة وتصميم عصام «الباشاوي»</p>
+  <p>جميع الحقوق محفوظة © 2026</p>
 </footer>
 
 <script>
 "use strict";
 
-/* إعداد Supabase بشكل آمن: تعطل قاعدة البيانات لا يعطل أزرار الموقع */
+/* إعداد Supabase */
 const SUPABASE_URL = "https://zmaqvamuduzzzgjspsvu.supabase.co";
 const SUPABASE_KEY = "sb_publishable_rjWaOEsK3dCyyKsSCZJ9Sw_t_nGBsze";
+
 let db = null;
+
 function initSupabase() {
   try {
     if (window.supabase && typeof window.supabase.createClient === "function") {
       db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
       return true;
     }
-  } catch (e) { console.error("Supabase init:", e); }
+  } catch (e) {
+    console.error("Supabase init:", e);
+  }
+
   console.warn("Supabase library unavailable; store will run in display/cart mode.");
   return false;
 }
+
 initSupabase();
 
 const defaults = [
   {id:-1,name:"حساب فري فاير رقم 1",price:400000,image:"https://raw.githubusercontent.com/217scatter-gif/-/refs/heads/main/IMG-20261121-WA0058.jpg",category:"accounts"},
   {id:-2,name:"حساب فري فاير رقم 2",price:490000,image:"https://raw.githubusercontent.com/217scatter-gif/-/refs/heads/main/IMG-20261121-WA0059.jpg",category:"accounts"},
   {id:-3,name:"حساب فري فاير رقم 3",price:260000,image:"https://raw.githubusercontent.com/217scatter-gif/-/refs/heads/main/IMG-20261121-WA0062.jpg",category:"accounts"},
+
   {id:-4,name:"100 جوهرة",price:12000,image:"https://raw.githubusercontent.com/217scatter-gif/-/refs/heads/main/file_00000000c41c8210ac94533e92056ab8.png",category:"gems"},
   {id:-5,name:"200 جوهرة",price:25000,image:"https://raw.githubusercontent.com/217scatter-gif/-/refs/heads/main/file_00000000f64c821091db62fc0ac32fbc.png",category:"gems"},
   {id:-11,name:"500 جوهرة",price:65000,image:"https://raw.githubusercontent.com/217scatter-gif/-/refs/heads/main/file_000000007afc8210a52ab217086e5825.png",category:"gems"},
   {id:-12,name:"1000 جوهرة",price:130000,image:"https://raw.githubusercontent.com/217scatter-gif/-/refs/heads/main/file_00000000fb508210ac36b7b6d1a37c98.png",category:"gems"},
+
   {id:-6,name:"إنزال جوي 1$",price:15000,image:"https://raw.githubusercontent.com/217scatter-gif/-/refs/heads/main/file_0000000009ac8210a5644935d524090e.png",category:"airdrops"},
   {id:-7,name:"إنزال جوي 2$",price:30000,image:"https://raw.githubusercontent.com/217scatter-gif/-/refs/heads/main/file_00000000d5588210a60f828fdf0b624a.png",category:"airdrops"},
   {id:-8,name:"بويا باس عبر تيم كود",price:16000,image:"https://raw.githubusercontent.com/217scatter-gif/-/refs/heads/main/file_00000000451482109733930b470b0187.png",category:"airdrops"},
@@ -217,22 +304,44 @@ const defaults = [
   {id:-10,name:"العضوية الشهرية",price:130000,image:"https://raw.githubusercontent.com/217scatter-gif/-/refs/heads/main/file_000000004ba48210afa367e7b158987d.png",category:"airdrops"}
 ];
 
-let products = [...defaults], cart = [], currentCategory = "accounts", user = null;
+let products = [...defaults];
+let cart = [];
+let currentCategory = "accounts";
+let user = null;
+
 const money = n => Number(n).toLocaleString("en-US") + " جنيه سوداني";
-const safe = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+
+const safe = s => String(s ?? "").replace(/[&<>"']/g, c => ({
+  "&":"&amp;",
+  "<":"&lt;",
+  ">":"&gt;",
+  '"':"&quot;",
+  "'":"&#39;"
+}[c]));
 
 async function loadProducts() {
-  if (!db) { products = [...defaults]; renderProducts(); return; }
+  if (!db) {
+    products = [...defaults];
+    renderProducts();
+    return;
+  }
+
   try {
     const {data,error} = await db.from("products").select("*").order("id");
     if (error) throw error;
+
     const saved = data || [];
     const keys = new Set(defaults.map(p => p.category + "|" + p.name));
-    products = [...defaults, ...saved.filter(p => !keys.has(p.category + "|" + p.name))];
+
+    products = [
+      ...defaults,
+      ...saved.filter(p => !keys.has(p.category + "|" + p.name))
+    ];
   } catch (e) {
     console.error("Load products:", e);
     products = [...defaults];
   }
+
   renderProducts();
 }
 
@@ -240,162 +349,392 @@ function hidePanels() {
   document.querySelectorAll(".panel").forEach(p => p.classList.remove("active"));
   document.getElementById("home").classList.add("hidden");
 }
+
 function home() {
   hidePanels();
   document.getElementById("home").classList.remove("hidden");
 }
+
 function openPanel(id) {
   hidePanels();
   const panel = document.getElementById(id);
   if (panel) panel.classList.add("active");
 }
-function backFree() { openPanel("freefire"); }
+
+function backFree() {
+  openPanel("freefire");
+}
+
 function showProducts(cat) {
   currentCategory = cat;
   hidePanels();
+
   document.getElementById("productsPanel").classList.add("active");
+
   document.getElementById("productsTitle").textContent = {
-    accounts:"حسابات فري فاير", gems:"شحن جواهر فري فاير",
+    accounts:"حسابات فري فاير",
+    gems:"شحن جواهر فري فاير",
     airdrops:"الإنزالات الجوية والاشتراكات"
   }[cat] || "المنتجات";
+
   renderProducts();
 }
+
 function renderProducts() {
   const box = document.getElementById("productsList");
   if (!box) return;
+
   const list = products.filter(p => p.category === currentCategory);
-  if (!list.length) { box.innerHTML = '<div class="empty">غير متوفر حالياً ❤️</div>'; return; }
+
+  if (!list.length) {
+    box.innerHTML = '<div class="empty">غير متوفر حالياً ❤️</div>';
+    return;
+  }
+
   box.innerHTML = list.map(p => `
     <div class="product">
-      <img src="${safe(p.image)}" alt="${safe(p.name)}" onerror="this.src='https://placehold.co/400x250/19192d/ffc928?text=SUDAN+STORE'">
-      <div class="info"><h3>${safe(p.name)}</h3>
-      <div class="price">${money(p.price)}</div>
-      <button class="btn gold" onclick="addCart(${Number(p.id)})">إضافة للسلة 🛒</button></div>
-    </div>`).join("");
+      <img src="${safe(p.image)}" alt="${safe(p.name)}"
+      onerror="this.src='https://placehold.co/400x250/19192d/ffc928?text=SUDAN+STORE'">
+
+      <div class="info">
+        <h3>${safe(p.name)}</h3>
+        <div class="price">${money(p.price)}</div>
+        <button class="btn gold" onclick="addCart(${Number(p.id)})">
+          إضافة للسلة 🛒
+        </button>
+      </div>
+    </div>
+  `).join("");
 }
+
 function addCart(id) {
   const p = products.find(x => Number(x.id) === Number(id));
   if (!p) return;
+
   cart.push({...p});
   document.getElementById("count").textContent = cart.length;
+
   alert("تمت إضافة المنتج للسلة ❤️");
 }
+
 function openCart() {
   renderCart();
   document.getElementById("cartModal").classList.add("show");
 }
+
 function renderCart() {
   const box = document.getElementById("cartList");
+
   box.innerHTML = cart.length ? cart.map((p,i) => `
-    <div class="cartitem"><div>${safe(p.name)}<div class="price">${money(p.price)}</div></div>
-    <button class="btn dark" onclick="removeCart(${i})">حذف</button></div>`).join("") : '<div class="empty">السلة فارغة</div>';
-  document.getElementById("total").textContent = "الإجمالي: " + money(cart.reduce((s,p) => s + Number(p.price), 0));
+    <div class="cartitem">
+      <div>
+        ${safe(p.name)}
+        <div class="price">${money(p.price)}</div>
+      </div>
+      <button class="btn dark" onclick="removeCart(${i})">حذف</button>
+    </div>
+  `).join("") : '<div class="empty">السلة فارغة</div>';
+
+  document.getElementById("total").textContent =
+    "الإجمالي: " + money(cart.reduce((s,p) => s + Number(p.price), 0));
 }
+
 function removeCart(i) {
   cart.splice(i,1);
   document.getElementById("count").textContent = cart.length;
   renderCart();
 }
+
+/* بيانات حسابات ماي كاشي */
+const paymentAccounts = {
+  "249968235010": {
+    store: "معاذ استور",
+    number: "953592",
+    owner: "معاذ علاء الدين"
+  },
+
+  "249967449456": {
+    store: "فارس استور",
+    number: "402532187",
+    owner: "فارس محمد أحمد العوض"
+  }
+};
+
+/* عرض بيانات الدفع في أسفل الموقع */
+function showPay(which) {
+  const account = which === "moaz"
+    ? {
+        store:"معاذ استور",
+        number:"953592",
+        owner:"معاذ علاء الدين"
+      }
+    : {
+        store:"فارس استور",
+        number:"402532187",
+        owner:"فارس محمد أحمد العوض"
+      };
+
+  document.getElementById("payStore").textContent = account.store;
+  document.getElementById("payNumber").textContent = account.number;
+  document.getElementById("payOwner").textContent = account.owner;
+  document.getElementById("copyStatus").textContent = "";
+
+  document.getElementById("payDetails").classList.remove("hidden");
+}
+
+/* نسخ رقم حساب ماي كاشي */
+async function copyPay() {
+  const number = document.getElementById("payNumber").textContent.trim();
+  const status = document.getElementById("copyStatus");
+
+  if (!number) return;
+
+  try {
+    if (navigator.clipboard && window.isSecureContext) {
+      await navigator.clipboard.writeText(number);
+    } else {
+      const temp = document.createElement("textarea");
+      temp.value = number;
+      temp.style.position = "fixed";
+      temp.style.opacity = "0";
+
+      document.body.appendChild(temp);
+      temp.select();
+
+      const copied = document.execCommand("copy");
+      temp.remove();
+
+      if (!copied) throw new Error("copy failed");
+    }
+
+    status.textContent = "تم نسخ رقم الحساب ✅";
+
+  } catch (e) {
+    status.textContent = "تعذر النسخ تلقائياً، اضغط مطولاً على الرقم لنسخه.";
+  }
+}
+
+/* إرسال الطلب مع بيانات حساب الدفع الصحيح */
 function sendOrder() {
   if (!cart.length) return alert("السلة فارغة");
+
   const name = document.getElementById("customerName").value.trim();
   if (!name) return alert("اكتب اسم العميل");
+
   const phone = document.getElementById("service").value;
+  const account = paymentAccounts[phone];
+
+  if (!account) return alert("اختر خدمة العملاء أولاً");
+
   const total = cart.reduce((s,p) => s + Number(p.price), 0);
-  let msg = "السلام عليكم، أريد الطلب من SUDAN STORE\nاسم العميل: " + name +
-    "\nID اللاعب: " + (document.getElementById("playerID").value || "غير محدد") + "\n\nالمنتجات:\n";
-  cart.forEach((p,i) => msg += (i+1) + "- " + p.name + " : " + money(p.price) + "\n");
-  msg += "\nالإجمالي: " + money(total) + "\nالدفع عبر ماي كاشي\nرقم الحساب: 402532187\nالاسم: فارس محمد أحمد العوض";
-  window.open("https://wa.me/" + phone + "?text=" + encodeURIComponent(msg), "_blank");
+
+  let msg =
+    "السلام عليكم، أريد الطلب من SUDAN STORE\n" +
+    "اسم العميل: " + name +
+    "\nID اللاعب: " +
+    (document.getElementById("playerID").value || "غير محدد") +
+    "\n\nالمنتجات:\n";
+
+  cart.forEach((p,i) => {
+    msg += (i+1) + "- " + p.name + " : " + money(p.price) + "\n";
+  });
+
+  msg +=
+    "\nالإجمالي: " + money(total) +
+    "\nالدفع عبر ماي كاشي" +
+    "\nحساب الدفع: " + account.store +
+    "\nرقم الحساب: " + account.number +
+    "\nالاسم: " + account.owner;
+
+  window.open(
+    "https://wa.me/" + phone + "?text=" + encodeURIComponent(msg),
+    "_blank"
+  );
 }
-function closeModal(id) { document.getElementById(id).classList.remove("show"); }
+
+function closeModal(id) {
+  document.getElementById(id).classList.remove("show");
+}
 
 function openAdmin() {
   document.getElementById("adminModal").classList.add("show");
+
   document.getElementById("loginArea").classList.toggle("hidden", !!user);
   document.getElementById("dashboard").classList.toggle("hidden", !user);
+
   if (user) renderAdmin();
 }
+
 async function login() {
-  if (!db) return alert("تعذر الاتصال بخدمة الإدارة. تحقق من الإنترنت وتحميل مكتبة Supabase ثم أعد المحاولة.");
+  if (!db) {
+    return alert("تعذر الاتصال بخدمة الإدارة. تحقق من الإنترنت وتحميل مكتبة Supabase ثم أعد المحاولة.");
+  }
+
   const email = document.getElementById("adminEmail").value.trim();
   const password = document.getElementById("adminPass").value;
+
   if (!email || !password) return alert("أدخل البريد وكلمة المرور");
+
   try {
-    const {data,error} = await db.auth.signInWithPassword({email,password});
+    const {data,error} = await db.auth.signInWithPassword({
+      email,
+      password
+    });
+
     if (error) throw error;
+
     user = data.user;
+
     document.getElementById("loginArea").classList.add("hidden");
     document.getElementById("dashboard").classList.remove("hidden");
+
     renderAdmin();
-  } catch(e) { alert("فشل الدخول: " + e.message); }
+
+  } catch(e) {
+    alert("فشل الدخول: " + e.message);
+  }
 }
+
 async function logout() {
   if (db) await db.auth.signOut();
+
   user = null;
+
   document.getElementById("dashboard").classList.add("hidden");
   document.getElementById("loginArea").classList.remove("hidden");
 }
+
 async function addProduct() {
   if (!db) return alert("قاعدة البيانات غير متصلة حالياً.");
   if (!user) return alert("سجل دخول الإدارة أولاً");
+
   const name = document.getElementById("pName").value.trim();
   const price = Number(document.getElementById("pPrice").value);
   const category = document.getElementById("pCategory").value;
   const file = document.getElementById("pImage").files[0];
-  if (!name || price <= 0 || !file) return alert("أكمل بيانات المنتج واختر صورة");
-  if (!file.type.startsWith("image/")) return alert("اختر صورة صحيحة");
-  const ext = (file.name.split(".").pop() || "jpg").replace(/[^a-zA-Z0-9]/g,"") || "jpg";
-  const path = Date.now() + "-" + Math.random().toString(36).slice(2) + "." + ext;
+
+  if (!name || price <= 0 || !file) {
+    return alert("أكمل بيانات المنتج واختر صورة");
+  }
+
+  if (!file.type.startsWith("image/")) {
+    return alert("اختر صورة صحيحة");
+  }
+
+  const ext = (file.name.split(".").pop() || "jpg")
+    .replace(/[^a-zA-Z0-9]/g,"") || "jpg";
+
+  const path =
+    Date.now() + "-" +
+    Math.random().toString(36).slice(2) +
+    "." + ext;
+
   try {
-    const {error:uploadError} = await db.storage.from("store-images").upload(path,file,{upsert:false});
+    const {error:uploadError} = await db.storage
+      .from("store-images")
+      .upload(path,file,{upsert:false});
+
     if (uploadError) throw uploadError;
-    const {data:imageData} = db.storage.from("store-images").getPublicUrl(path);
-    const {error} = await db.from("products").insert({name,price,category,image:imageData.publicUrl});
+
+    const {data:imageData} = db.storage
+      .from("store-images")
+      .getPublicUrl(path);
+
+    const {error} = await db.from("products").insert({
+      name,
+      price,
+      category,
+      image:imageData.publicUrl
+    });
+
     if (error) {
       await db.storage.from("store-images").remove([path]);
       throw error;
     }
+
     alert("تم حفظ المنتج وظهر لجميع الزوار ❤️");
+
     document.getElementById("pName").value = "";
     document.getElementById("pPrice").value = "";
     document.getElementById("pImage").value = "";
+
     await loadProducts();
     await renderAdmin();
-  } catch(e) { alert("تعذر حفظ المنتج: " + e.message); }
+
+  } catch(e) {
+    alert("تعذر حفظ المنتج: " + e.message);
+  }
 }
+
 async function renderAdmin() {
   const box = document.getElementById("adminProducts");
-  if (!db) { box.textContent = "قاعدة البيانات غير متصلة."; return; }
+
+  if (!db) {
+    box.textContent = "قاعدة البيانات غير متصلة.";
+    return;
+  }
+
   const {data,error} = await db.from("products").select("*").order("id");
-  if (error) { box.textContent = error.message; return; }
+
+  if (error) {
+    box.textContent = error.message;
+    return;
+  }
+
   box.innerHTML = data && data.length ? data.map(p => `
-    <div class="adminitem"><strong>${safe(p.name)}</strong>
-    <div class="price">${money(p.price)}</div>
-    <button class="btn dark" onclick="deleteProduct(${Number(p.id)})">حذف المنتج</button></div>`).join("") : "لا توجد منتجات مضافة بعد";
+    <div class="adminitem">
+      <strong>${safe(p.name)}</strong>
+      <div class="price">${money(p.price)}</div>
+      <button class="btn dark" onclick="deleteProduct(${Number(p.id)})">
+        حذف المنتج
+      </button>
+    </div>
+  `).join("") : "لا توجد منتجات مضافة بعد";
 }
+
 async function deleteProduct(id) {
   if (!db) return alert("قاعدة البيانات غير متصلة.");
   if (!confirm("هل تريد حذف المنتج؟")) return;
+
   const {error} = await db.from("products").delete().eq("id",id);
+
   if (error) return alert("تعذر الحذف: " + error.message);
-  await loadProducts(); await renderAdmin(); alert("تم حذف المنتج");
+
+  await loadProducts();
+  await renderAdmin();
+
+  alert("تم حذف المنتج");
 }
 
-/* إتاحة الدوال لأزرار onclick في صفحة HTML */
+/* إتاحة الدوال لأزرار الموقع */
 Object.assign(window, {
-  home, openPanel, backFree, showProducts, addCart, openCart, removeCart,
-  sendOrder, closeModal, openAdmin, login, logout, addProduct, deleteProduct
+  home,
+  openPanel,
+  backFree,
+  showProducts,
+  addCart,
+  openCart,
+  removeCart,
+  sendOrder,
+  closeModal,
+  openAdmin,
+  login,
+  logout,
+  addProduct,
+  deleteProduct,
+  showPay,
+  copyPay
 });
 
-/* لا نسمح لخطأ تحميل الجلسة بتعطيل الموقع */
+/* تحميل جلسة الإدارة */
 if (db) {
   db.auth.getSession().then(({data,error}) => {
     if (error) console.error("Session:", error);
     user = data && data.session ? data.session.user : null;
   }).catch(e => console.error("Session error:", e));
 }
+
 loadProducts();
 </script>
 </body>
-  </html>
+      </html>
